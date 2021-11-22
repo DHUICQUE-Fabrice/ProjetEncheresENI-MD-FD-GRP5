@@ -18,7 +18,7 @@ public class ConnectionProvider {
 			ConnectionProvider.dataSource = (DataSource) context.lookup("jdbc/pool_cnx_encheres");
 		} catch (NamingException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Impossible d'accéder à la bdd !");
+			throw new RuntimeException("Impossible d'accÃ©der Ã  la bdd !");
 		}
 	}
 
