@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Se connecter</title>
 </head>
 <body>
 	<h1>ENI-Enchères</h1> <!-- A mettre dans un header.html pour faire un "include" -->
@@ -17,6 +17,5 @@
 	</form>
 		<a href="forgottenPassword">Mot de passe oublié</a><!-- Créer page + servlet forgottenPassword -->
 		<a href="createAccount"><button>Créer un compte</button></a><!-- Créer une page + servlet createAccount -->
-	
 </body>
 </html>
