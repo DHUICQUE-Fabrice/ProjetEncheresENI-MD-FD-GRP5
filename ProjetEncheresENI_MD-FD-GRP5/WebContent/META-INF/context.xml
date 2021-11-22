@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource
+        name="jdbc/pool_cnx_encheres"
+        driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        type="javax.sql.DataSource"
+        url="jdbc:sqlserver://77.149.66.147:49172;databasename=ENCHERES_GRP5_BDD"
+        username="groupe5"
+        password="Pa$$w0rd"
+        
+        maxTotal="100"
+        maxIdle="30"
+        maxWaitMillis="10000"
+    />
+</Context>
