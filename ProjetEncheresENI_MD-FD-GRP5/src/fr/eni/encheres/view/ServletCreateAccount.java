@@ -54,7 +54,7 @@ public class ServletCreateAccount extends HttpServlet {
 		String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
 
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-				motDePasse, 100, false);
+				motDePasse, 0, false);
 		System.out.println(utilisateur.toString());
 		utilisateurManager.ajouter(utilisateur);
 
