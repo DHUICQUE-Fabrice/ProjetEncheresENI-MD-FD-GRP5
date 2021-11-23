@@ -176,24 +176,6 @@ public class Article {
 				+ code_postal + ", ville=" + ville + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + code_postal;
-		result = prime * result + ((date_debut == null) ? 0 : date_debut.hashCode());
-		result = prime * result + ((date_fin == null) ? 0 : date_fin.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + id_article;
-		result = prime * result + ((nom_article == null) ? 0 : nom_article.hashCode());
-		result = prime * result + prix_initial;
-		result = prime * result + prix_vente;
-		result = prime * result + ((rue == null) ? 0 : rue.hashCode());
-		result = prime * result + ((url_image == null) ? 0 : url_image.hashCode());
-		result = prime * result + ((ville == null) ? 0 : ville.hashCode());
-		return result;
-	}
-	
 	// Override de la méthode Equals. 
 	
 	
