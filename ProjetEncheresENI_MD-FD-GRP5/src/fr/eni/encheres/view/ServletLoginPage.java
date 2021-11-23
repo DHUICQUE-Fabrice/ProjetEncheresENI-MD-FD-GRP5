@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.ChiffrementPwd;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -57,6 +58,8 @@ public class ServletLoginPage extends HttpServlet {
 				response.addCookie(cookieRM);
 				response.addCookie(cookieUN);
 			}
+			HttpSession session = request.getSession();
+			session.setAttribute("user", login);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 			requestDispatcher.forward(request, response);
 			return;
