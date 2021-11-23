@@ -177,6 +177,6 @@ public class Article {
 	}
 
 	// Override de la méthode Equals. 
-	
+	// parce qu'il faut bien que je push bordel
 	
 }
