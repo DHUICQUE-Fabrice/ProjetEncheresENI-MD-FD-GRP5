@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +46,18 @@ public class ServletLoginPage extends HttpServlet {
 		if (login == null) {
 			request.setAttribute("unknown", "true");
 		} else if (request.getParameter("userPassword").equals(login.getMotDePasse())) {
-			System.out.println("Connecté en tant que " + login.toString());
+			if (request.getParameter("rememberMe") != null && request.getParameter("rememberMe").equals("rememberMe")) {
+				Cookie cookieRM = new Cookie("rememberMe", "true");
+				Cookie cookieUN = new Cookie("userName", login.getPseudo());
+				cookieRM.setMaxAge(60);
+				cookieUN.setMaxAge(60);
+				response.addCookie(cookieRM);
+				response.addCookie(cookieUN);
+			}
+			System.out.println(request.getParameter("rememberMe"));
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+			requestDispatcher.forward(request, response);
+			return;
 		} else {
 			request.setAttribute("wrongPass", "true");
 		}
