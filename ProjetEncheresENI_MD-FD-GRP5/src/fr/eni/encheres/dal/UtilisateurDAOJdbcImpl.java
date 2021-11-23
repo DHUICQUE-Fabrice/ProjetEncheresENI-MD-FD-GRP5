@@ -13,7 +13,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	public static final String INSERT_USER = "INSERT INTO Utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	public static final String SELECT_ALL_USERS = "SELECT * FROM UTILISATEURS";
 
-	public void insert(Utilisateur utilisateur) {
+	public Utilisateur insert(Utilisateur utilisateur) {
 		if (utilisateur != null) {
 			try (Connection connection = ConnectionProvider.getConnection()) {
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER,
@@ -30,10 +30,15 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				preparedStatement.setInt(10, utilisateur.getCredit());
 				preparedStatement.setBoolean(11, utilisateur.isAdministrateur());
 				preparedStatement.execute();
+				ResultSet resultSet = preparedStatement.getGeneratedKeys();
+				if (resultSet.next()) {
+					utilisateur.setNoUtilisateur(resultSet.getInt(1));
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return utilisateur;
 	}
 
 	@Override
