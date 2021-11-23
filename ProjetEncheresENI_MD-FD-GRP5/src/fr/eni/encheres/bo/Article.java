@@ -1,8 +1,7 @@
 package fr.eni.encheres.bo;
 
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
 
 public class Article {
 
@@ -13,30 +12,29 @@ public class Article {
 	private Date date_fin;
 	private int prix_initial;
 	private int prix_vente;
-	private int no_utilisateur;
-	private int no_categorie;
+	private Utilisateur utilisateur;
+	private Categorie categorie;
 	private String url_image;
 	private String rue;
 	private int code_postal;
 	private String ville;
-	private List<Categorie> list_categorie = new ArrayList<>();
+	
 	
 	public Article() {
 	}
 
 	// Constructeur sans Identifiant
 	public Article(String nom_article, String description, Date date_debut, Date date_fin, int prix_initial,
-			int prix_vente, int no_utilisateur, int no_categorie, String url_image, String rue, int code_postal,
+			int prix_vente, Utilisateur utilisateur, Categorie categorie, String url_image, String rue, int code_postal,
 			String ville) {
-		super();
 		this.nom_article = nom_article;
 		this.description = description;
 		this.date_debut = date_debut;
 		this.date_fin = date_fin;
 		this.prix_initial = prix_initial;
 		this.prix_vente = prix_vente;
-		this.no_utilisateur = no_utilisateur;
-		this.no_categorie = no_categorie;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
 		this.url_image = url_image;
 		this.rue = rue;
 		this.code_postal = code_postal;
@@ -45,9 +43,8 @@ public class Article {
 
 	// Constructeur avec un Identidiant
 	public Article(int id_article, String nom_article, String description, Date date_debut, Date date_fin,
-			int prix_initial, int prix_vente, int no_utilisateur, int no_categorie, String url_image, String rue,
-			int code_postal, String ville) {
-		super();
+			int prix_initial, int prix_vente, Utilisateur utilisateur, Categorie categorie, String url_image,
+			String rue, int code_postal, String ville) {
 		this.id_article = id_article;
 		this.nom_article = nom_article;
 		this.description = description;
@@ -55,8 +52,8 @@ public class Article {
 		this.date_fin = date_fin;
 		this.prix_initial = prix_initial;
 		this.prix_vente = prix_vente;
-		this.no_utilisateur = no_utilisateur;
-		this.no_categorie = no_categorie;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
 		this.url_image = url_image;
 		this.rue = rue;
 		this.code_postal = code_postal;
@@ -64,7 +61,6 @@ public class Article {
 	}
 
 	// Getter de l'article
-	
 	public int getId_article() {
 		return id_article;
 	}
@@ -93,18 +89,14 @@ public class Article {
 		return prix_vente;
 	}
 	
-	public int getNo_utilisateur() {
-		return no_utilisateur;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public int getNo_categorie() {
-		return no_categorie;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public List<Categorie> getList_categorie() {
-		return list_categorie;
-	}
-	
 	public String getUrl_image() {
 		return url_image;
 	}
@@ -123,6 +115,10 @@ public class Article {
 	
 	
 	// Setter de l'article 
+	public void setId_article(int id_article) {
+		this.id_article = id_article;
+	}
+	
 	public void setNom_article(String nom_article) {
 		this.nom_article = nom_article;
 	}
@@ -131,6 +127,14 @@ public class Article {
 		this.description = description;
 	}
 
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	
 	public void setDate_debut(Date date_debut) {
 		this.date_debut = date_debut;
 	}
@@ -167,10 +171,29 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [nom_article=" + nom_article + ", description=" + description + ", date_debut=" + date_debut
-				+ ", date_fin=" + date_fin + ", prix_initial=" + prix_initial + ", prix_vente=" + prix_vente + ", rue="
-				+ rue + ", code_postal=" + code_postal + ", ville=" + ville + "]";
+				+ ", date_fin=" + date_fin + ", prix_initial=" + prix_initial + ", prix_vente=" + prix_vente
+				+ ", utilisateur=" + utilisateur + ", categorie=" + categorie + ", rue=" + rue + ", code_postal="
+				+ code_postal + ", ville=" + ville + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + code_postal;
+		result = prime * result + ((date_debut == null) ? 0 : date_debut.hashCode());
+		result = prime * result + ((date_fin == null) ? 0 : date_fin.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id_article;
+		result = prime * result + ((nom_article == null) ? 0 : nom_article.hashCode());
+		result = prime * result + prix_initial;
+		result = prime * result + prix_vente;
+		result = prime * result + ((rue == null) ? 0 : rue.hashCode());
+		result = prime * result + ((url_image == null) ? 0 : url_image.hashCode());
+		result = prime * result + ((ville == null) ? 0 : ville.hashCode());
+		return result;
+	}
+	
 	// Override de la méthode Equals. 
 	@Override
 	public boolean equals(Object obj) {
@@ -200,10 +223,6 @@ public class Article {
 			return false;
 		if (id_article != other.id_article)
 			return false;
-		if (no_categorie != other.no_categorie)
-			return false;
-		if (no_utilisateur != other.no_utilisateur)
-			return false;
 		if (nom_article == null) {
 			if (other.nom_article != null)
 				return false;
@@ -230,10 +249,5 @@ public class Article {
 			return false;
 		return true;
 	}
-
-	
-
-	
-	
 	
 }
