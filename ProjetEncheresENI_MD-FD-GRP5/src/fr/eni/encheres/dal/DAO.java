@@ -6,4 +6,11 @@ public interface DAO<T> {
 	public T insert(T obj);
 
 	public List<T> selectAll();
+
+	public T selectByID(int id);
+
+	public T update(int id);
+
+	public T delete(int id);
+
 }

@@ -69,4 +69,22 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 		}
 		return utilisateurs;
 	}
+
+	@Override
+	public Utilisateur selectByID(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur update(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Utilisateur delete(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
