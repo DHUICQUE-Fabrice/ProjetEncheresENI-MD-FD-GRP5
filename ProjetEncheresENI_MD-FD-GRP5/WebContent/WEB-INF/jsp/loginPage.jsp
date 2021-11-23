@@ -28,7 +28,5 @@
 			<br>
 			<p style="font-weight:bold;color:red">Mot de passe incorrect !</p>
 		</c:if>
-		
-		
 </body>
 </html>
