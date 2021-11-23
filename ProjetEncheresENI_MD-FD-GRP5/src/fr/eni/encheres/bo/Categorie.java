@@ -33,7 +33,7 @@ public class Categorie {
 		return libelle;
 	}
 
-	public int getId_categorie() {
+	public int getIdCategorie() {
 		return idCategorie;
 	}
 	
@@ -44,7 +44,7 @@ public class Categorie {
 		this.libelle = libelle;
 	}
 	
-	public void setId_categorie(int idCategorie) {
+	public void setIdCategorie(int idCategorie) {
 		this.idCategorie = idCategorie;
 	}
 
@@ -53,7 +53,7 @@ public class Categorie {
 	// -------------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Categorie [id_categorie=" + idCategorie + ", libelle=" + libelle + "]";
+		return "Categorie [idCategorie=" + idCategorie + ", libelle=" + libelle + "]";
 	}
 	
 	// -------------------------------------------------------------------------------
