@@ -2,67 +2,62 @@ package fr.eni.encheres.bo;
 
 public class Categorie {
 	
-	private int id_categorie;
+	private int idCategorie;
 	private String libelle;
 	
+	// -------------------------------------------------------------------------------
+	// 							Constructeur vide
+	// -------------------------------------------------------------------------------
 	public Categorie() {
 	}
 
+	// -------------------------------------------------------------------------------
+	//					 Constructeur sans Identifiant
+	// -------------------------------------------------------------------------------
 	public Categorie(String libelle) {
 		this.libelle = libelle;
 	}
-
-	public Categorie(int id_categorie, String libelle) {
-		this.id_categorie = id_categorie;
+	
+	// -------------------------------------------------------------------------------
+	//					 Constructeur avec Identifiant
+	// -------------------------------------------------------------------------------
+	public Categorie(int idCategorie, String libelle) {
+		this.idCategorie = idCategorie;
 		this.libelle = libelle;
 	}
 
+	// -------------------------------------------------------------------------------
+	// 							Getter de catégorie
+	// -------------------------------------------------------------------------------
 	public String getLibelle() {
 		return libelle;
 	}
 
+	public int getId_categorie() {
+		return idCategorie;
+	}
+	
+	// -------------------------------------------------------------------------------
+	// 							Getter de catégorie
+	// -------------------------------------------------------------------------------
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-
-	public int getId_categorie() {
-		return id_categorie;
-	}
 	
-	public void setId_categorie(int id_categorie) {
-		this.id_categorie = id_categorie;
+	public void setId_categorie(int idCategorie) {
+		this.idCategorie = idCategorie;
 	}
 
+	// -------------------------------------------------------------------------------
+	// 						Override de la métohde ToString.
+	// -------------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Categorie [id_categorie=" + id_categorie + ", libelle=" + libelle + "]";
+		return "Categorie [id_categorie=" + idCategorie + ", libelle=" + libelle + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id_categorie;
-		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Categorie other = (Categorie) obj;
-		if (id_categorie != other.id_categorie)
-			return false;
-		if (libelle == null) {
-			if (other.libelle != null)
-				return false;
-		} else if (!libelle.equals(other.libelle))
-			return false;
-		return true;
-	}
+	
+	// -------------------------------------------------------------------------------
+	//						Override de la méthode Equals. 
+	// -------------------------------------------------------------------------------
+	
 }
