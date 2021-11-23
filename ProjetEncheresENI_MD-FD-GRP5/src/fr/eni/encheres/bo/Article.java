@@ -195,59 +195,6 @@ public class Article {
 	}
 	
 	// Override de la méthode Equals. 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Article other = (Article) obj;
-		if (code_postal != other.code_postal)
-			return false;
-		if (date_debut == null) {
-			if (other.date_debut != null)
-				return false;
-		} else if (!date_debut.equals(other.date_debut))
-			return false;
-		if (date_fin == null) {
-			if (other.date_fin != null)
-				return false;
-		} else if (!date_fin.equals(other.date_fin))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (id_article != other.id_article)
-			return false;
-		if (nom_article == null) {
-			if (other.nom_article != null)
-				return false;
-		} else if (!nom_article.equals(other.nom_article))
-			return false;
-		if (prix_initial != other.prix_initial)
-			return false;
-		if (prix_vente != other.prix_vente)
-			return false;
-		if (rue == null) {
-			if (other.rue != null)
-				return false;
-		} else if (!rue.equals(other.rue))
-			return false;
-		if (url_image == null) {
-			if (other.url_image != null)
-				return false;
-		} else if (!url_image.equals(other.url_image))
-			return false;
-		if (ville == null) {
-			if (other.ville != null)
-				return false;
-		} else if (!ville.equals(other.ville))
-			return false;
-		return true;
-	}
+	
 	
 }
