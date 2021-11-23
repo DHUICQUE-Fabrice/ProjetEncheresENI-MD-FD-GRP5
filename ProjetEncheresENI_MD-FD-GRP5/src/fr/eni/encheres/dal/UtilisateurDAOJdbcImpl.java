@@ -32,7 +32,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 				preparedStatement.execute();
 				ResultSet resultSet = preparedStatement.getGeneratedKeys();
 				if (resultSet.next()) {
-					utilisateur.setNoUtilisateur(resultSet.getInt(1));
+					utilisateur.setIdUtilisateur(resultSet.getInt(1));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
