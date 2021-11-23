@@ -35,14 +35,18 @@
 		<label for="ville">Ville : </label>
 		<input type="text" name="ville"	id="ville">
 		<br>
-		<label for="motDePasse">Mot de Passe : </label>
-		<input type="password" name="motDePasse" id="motDePasse">
+		<label for="password">Mot de Passe : </label>
+		<input type="password" name="password" id="password">
 		<br>
 		<label for="confirmation">Confirmation : </label>
 		<input type="password" name="confirmation" id="confirmation">
 		<br>
 		<input type="submit" value="valider">
 	</form>
+	
+	<c:if test="${!empty wrongConfirmation }">
+		<p style="font-weight:bold;color:red">Confirmation du mot de passe erronée</p>
+	</c:if>
 
 </body>
 </html>

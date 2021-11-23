@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.ChiffrementPwd;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -35,6 +36,12 @@ public class ServletCreateAccount extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
+			request.setAttribute("wrongConfirmation", "wrong");
+			doGet(request, response);
+			return;
+		}
+
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
@@ -44,7 +51,7 @@ public class ServletCreateAccount extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
-		String motDePasse = request.getParameter("motDePasse");
+		String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
 
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 				motDePasse, 100, false);

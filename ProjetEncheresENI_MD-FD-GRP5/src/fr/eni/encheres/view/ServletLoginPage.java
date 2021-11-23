@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.ChiffrementPwd;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -39,13 +40,15 @@ public class ServletLoginPage extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		Utilisateur login = null;
 		for (Utilisateur utilisateur : utilisateurManager.allUsers()) {
-			if (request.getParameter("userName").equals(utilisateur.getPseudo())) {
+			String userName = request.getParameter("userName");
+			if (userName.equals(utilisateur.getPseudo()) || userName.equals(utilisateur.getEmail())) {
 				login = utilisateur;
 			}
 		}
+		String passwordtoCheck = ChiffrementPwd.SHAcrypted(request.getParameter("userPassword"));
 		if (login == null) {
 			request.setAttribute("unknown", "true");
-		} else if (request.getParameter("userPassword").equals(login.getMotDePasse())) {
+		} else if (passwordtoCheck.equals(login.getMotDePasse())) {
 			if (request.getParameter("rememberMe") != null && request.getParameter("rememberMe").equals("rememberMe")) {
 				Cookie cookieRM = new Cookie("rememberMe", "true");
 				Cookie cookieUN = new Cookie("userName", login.getPseudo());
@@ -54,7 +57,6 @@ public class ServletLoginPage extends HttpServlet {
 				response.addCookie(cookieRM);
 				response.addCookie(cookieUN);
 			}
-			System.out.println(request.getParameter("rememberMe"));
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 			requestDispatcher.forward(request, response);
 			return;
