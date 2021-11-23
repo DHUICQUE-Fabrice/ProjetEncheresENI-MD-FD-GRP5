@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,13 +37,13 @@ public class ServletCreateAccount extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		boolean pebkac = false;
 		if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
 			request.setAttribute("wrongConfirmation", "wrong");
-			doGet(request, response);
-			return;
+			pebkac = true;
 		}
 
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -52,6 +53,22 @@ public class ServletCreateAccount extends HttpServlet {
 		String codePostal = request.getParameter("codePostal");
 		String ville = request.getParameter("ville");
 		String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
+
+		List<Utilisateur> utilisateurs = utilisateurManager.allUsers();
+		for (Utilisateur utilisateur : utilisateurs) {
+			if (utilisateur.getPseudo().equals(pseudo)) {
+				request.setAttribute("pseudoExists", "true");
+				pebkac = true;
+			}
+			if (utilisateur.getEmail().equals(email)) {
+				request.setAttribute("emailExists", "true");
+				pebkac = true;
+			}
+		}
+		if (pebkac) {
+			doGet(request, response);
+			return;
+		}
 
 		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 				motDePasse, 0, false);

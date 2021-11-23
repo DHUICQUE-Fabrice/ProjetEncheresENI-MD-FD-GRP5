@@ -47,6 +47,11 @@
 	<c:if test="${!empty wrongConfirmation }">
 		<p style="font-weight:bold;color:red">Confirmation du mot de passe erronée</p>
 	</c:if>
-
+	<c:if test="${!empty pseudoExists }">
+		<p style="font-weight:bold;color:red">Ce pseudo existe déjà !</p>	
+	</c:if>
+	<c:if test="${!empty emailExists }">
+		<p style="font-weight:bold;color:red">Cet email est déjà associé à un compte existant !</p>	
+	</c:if>
 </body>
 </html>
