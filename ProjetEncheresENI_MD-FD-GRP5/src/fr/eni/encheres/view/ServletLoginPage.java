@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
+
 /**
  * Servlet implementation class ServletTest
  */
@@ -32,6 +35,20 @@ public class ServletLoginPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		Utilisateur login = null;
+		for (Utilisateur utilisateur : utilisateurManager.allUsers()) {
+			if (request.getParameter("userName").equals(utilisateur.getPseudo())) {
+				login = utilisateur;
+			}
+		}
+		if (login == null) {
+			request.setAttribute("unknown", "true");
+		} else if (request.getParameter("userPassword").equals(login.getMotDePasse())) {
+			System.out.println("Connecté en tant que " + login.toString());
+		} else {
+			request.setAttribute("wrongPass", "true");
+		}
 		doGet(request, response);
 	}
 

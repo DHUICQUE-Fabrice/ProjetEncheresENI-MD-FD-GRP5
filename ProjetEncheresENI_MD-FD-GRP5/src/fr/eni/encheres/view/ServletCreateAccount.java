@@ -51,7 +51,8 @@ public class ServletCreateAccount extends HttpServlet {
 		System.out.println(utilisateur.toString());
 		utilisateurManager.ajouter(utilisateur);
 
-		doGet(request, response);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 }

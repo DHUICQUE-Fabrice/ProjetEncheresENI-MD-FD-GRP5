@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +11,7 @@
 </head>
 <body>
 	<h1>ENI-Enchères</h1> <!-- A mettre dans un header.html pour faire un "include" -->
-	<form method="post" action="authenticateUser"><!-- Créer Servlet authenticateUser -->
+	<form method="post" action="login">
 		<label for="userName">Identifiant : </label><input type="text" name="userName" id="userName">
 		<label for="userPassword">Mot de passe : </label><input type="password" name="userPassword" id="userPassword">
 		<input type="submit" value="Connexion">	
@@ -17,5 +20,15 @@
 	</form>
 		<a href="forgottenPassword">Mot de passe oublié</a><!-- Créer page + servlet forgottenPassword -->
 		<a href="createAccount"><button>Créer un compte</button></a><!-- Créer une page + servlet createAccount -->
+		<c:if test="${!empty unknown }">
+			<br>
+			<p style="font-weight:bold;color:red">Utilisateur inconnu !</p>
+		</c:if>
+		<c:if test="${!empty wrongPass }">
+			<br>
+			<p style="font-weight:bold;color:red">Mot de passe incorrect !</p>
+		</c:if>
+		
+		
 </body>
 </html>
