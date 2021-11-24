@@ -1,15 +1,16 @@
 package fr.eni.encheres.bo;
 
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Article {
 
 	private int idArticle;
 	private String nomArticle;
 	private String description;
-	private Date dateDebut;
-	private Date dateFin;
+	private LocalDate dateDebut;
+	private LocalDate dateFin;
 	private int prixInitial;
 	private int prixVente;
 	private Utilisateur utilisateur;
@@ -28,7 +29,7 @@ public class Article {
 	// -------------------------------------------------------------------------------
 	//							 Constructeur sans Identifiant
 	// -------------------------------------------------------------------------------
-	public Article(String nomArticle, String description, Date dateDebut, Date dateFin, int prixInitial, int prixVente,
+	public Article(String nomArticle, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial, int prixVente,
 			Utilisateur utilisateur, Categorie categorie, String urlImage, String rue, int codePostal, String ville) {
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -47,7 +48,7 @@ public class Article {
 	// -------------------------------------------------------------------------------
 	//							 Constructeur avec un Identidiant
 	// -------------------------------------------------------------------------------
-	public Article(int idArticle, String nomArticle, String description, Date dateDebut, Date dateFin, int prixInitial,
+	public Article(int idArticle, String nomArticle, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
 			int prixVente, Utilisateur utilisateur, Categorie categorie, String urlImage, String rue, int codePostal,
 			String ville) {
 		this.idArticle = idArticle;
@@ -80,11 +81,11 @@ public class Article {
 		return description;
 	}
 
-	public Date getDateDebut() {
+	public LocalDate getDateDebut() {
 		return dateDebut;
 	}
 
-	public Date getDateFin() {
+	public LocalDate getDateFin() {
 		return dateFin;
 	}
 
@@ -135,11 +136,11 @@ public class Article {
 		this.description = description;
 	}
 
-	public void setDateDebut(Date dateDebut) {
+	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public void setDateFin(Date dateFin) {
+	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
 	}
 
