@@ -3,12 +3,12 @@ package fr.eni.encheres.bll;
 import java.util.List;
 
 import fr.eni.encheres.bo.Utilisateur;
-import fr.eni.encheres.dal.DAO;
 import fr.eni.encheres.dal.DAOFactory;
+import fr.eni.encheres.dal.UtilisateurDAO;
 import fr.eni.encheres.exceptions.BusinessException;
 
 public class UtilisateurManager {
-	private DAO<Utilisateur> utilisateurDAO;
+	private UtilisateurDAO utilisateurDAO;
 
 	public UtilisateurManager() {
 		this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
