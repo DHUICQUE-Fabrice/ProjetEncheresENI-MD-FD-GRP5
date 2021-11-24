@@ -11,7 +11,7 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	public static final String INSERT_USER = "INSERT INTO Utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String SELECT_ALL_USERS = "SELECT * FROM UTILISATEURS";
+	public static final String SELECT_ALL_USERS = "SELECT (no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM UTILISATEURS";
 
 	public Utilisateur insert(Utilisateur utilisateur) {
 		if (utilisateur != null) {
@@ -72,19 +72,19 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
 	@Override
 	public Utilisateur selectByID(int id) {
-		// TODO Auto-generated method stub
+		// TODO selectByID UtilisateurDAOJdbcImpl
 		return null;
 	}
 
 	@Override
 	public Utilisateur update(int id) {
-		// TODO Auto-generated method stub
+		// TODO update UtilisateurDAOJdbcImpl
 		return null;
 	}
 
 	@Override
 	public Utilisateur delete(int id) {
-		// TODO Auto-generated method stub
+		// TODO delete UtilisateurDAOJdbcImpl
 		return null;
 	}
 }
