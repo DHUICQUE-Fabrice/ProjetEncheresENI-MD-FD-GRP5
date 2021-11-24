@@ -2,16 +2,16 @@ package fr.eni.encheres.dal;
 
 import java.util.List;
 
-public interface EnchereDAO<T> {
-	public T insert(T obj);
+public interface EnchereDAO<Enchere> {
+	public Enchere insert(Enchere obj);
 
-	public List<T> selectAllByIDUser(int idUser);
+	public List<Enchere> selectAllByIDUser(int idUser);
 	
-	public List<T> selectAllByIDArticle(int idArticle);
+	public List<Enchere> selectAllByIDArticle(int idArticle);
 	
-	public T selectByIDArticle(int idArticle);
+	public Enchere selectByIDArticle(int idArticle);
 	
-	public T update(T obj);
+	public Enchere update(Enchere obj);
 
 
 }
