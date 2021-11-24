@@ -15,9 +15,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 
 	public Utilisateur insert(Utilisateur utilisateur) {
 		if (utilisateur != null) {
-			try (Connection connection = ConnectionProvider.getConnection()) {
-				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER,
-						PreparedStatement.RETURN_GENERATED_KEYS);
+			try (Connection connection = ConnectionProvider.getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER,
+							PreparedStatement.RETURN_GENERATED_KEYS);) {
 				preparedStatement.setString(1, utilisateur.getPseudo());
 				preparedStatement.setString(2, utilisateur.getNom());
 				preparedStatement.setString(3, utilisateur.getPrenom());

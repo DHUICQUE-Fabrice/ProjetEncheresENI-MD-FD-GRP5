@@ -12,8 +12,8 @@
 <body>
 	<h1>ENI-Enchères</h1> <!-- A mettre dans un header.html pour faire un "include" -->
 	<form method="post" action="login">
-		<label for="userName">Identifiant : </label><input type="text" name="userName" id="userName">
-		<label for="userPassword">Mot de passe : </label><input type="password" name="userPassword" id="userPassword">
+		<label for="userName">Identifiant : </label><input type="text" name="userName" id="userName" value="${userName }">
+		<label for="userPassword">Mot de passe : </label><input type="password" name="userPassword" id="userPassword" value="${userPassword }">
 		<input type="submit" value="Connexion">	
 		<label for="rememberMe">Se souvenir de moi</label><input type="checkbox" id="rememberMe" value="rememberMe" name="rememberMe">
 		<!-- Créer gestion du cookie pour le rememberMe -->

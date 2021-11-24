@@ -12,36 +12,39 @@
 <body>
 	<form method="post" action="createAccount">
 		<label for="pseudo">Pseudo : </label> 
-		<input type="text" name="pseudo" id="pseudo">
+		<input type="text" name="pseudo" id="pseudo" value="${pseudo }">
 		<br> 
 		<label for="nom">Nom : </label> 
-		<input type="text" name="nom" id="nom">
+		<input type="text" name="nom" id="nom" value="${nom }">
 		<br> 
 		<label for="prenom">Prénom : </label>
-		<input type="text" name="prenom" id="prenom">
+		<input type="text" name="prenom" id="prenom" value="${prenom }">
 		<br>
 		<label for="email">Email : </label>
-		<input type="text" name="email"	id="email">
+		<input type="text" name="email"	id="email" value="${email }">
 		<br>
 		<label for="telephone">Téléphone : </label>
-		<input type="text" name="telephone" id="telephone">
+		<input type="text" name="telephone" id="telephone" value="${telephone }">
 		<br>
 		<label for="rue">Rue : </label>
-		<input type="text" name="rue" id="rue">
+		<input type="text" name="rue" id="rue" value="${rue }">
 		<br>
 		<label for="codePostal">Code Postal : </label>
-		<input type="text" name="codePostal" id="codePostal">
+		<input type="text" name="codePostal" id="codePostal" value="${codePostal }">
 		<br>
 		<label for="ville">Ville : </label>
-		<input type="text" name="ville"	id="ville">
+		<input type="text" name="ville"	id="ville" value="${ ville}">
 		<br>
 		<label for="password">Mot de Passe : </label>
-		<input type="password" name="password" id="password">
+		<input type="password" name="password" id="password" value="${password }">
 		<br>
 		<label for="confirmation">Confirmation : </label>
-		<input type="password" name="confirmation" id="confirmation">
+		<input type="password" name="confirmation" id="confirmation" value="${confirmation }">
 		<br>
 		<input type="submit" value="valider">
+	</form>
+	<form method="get" action="encheres">
+		<input type="submit" value="Annuler">
 	</form>
 	
 	<c:if test="${!empty wrongConfirmation }">
