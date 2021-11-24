@@ -81,12 +81,12 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
 			
-			// Je récupère mon utilisateur ID depuis la BDD.
+			// Je rÃ©cupÃ¨re mon utilisateur ID depuis la BDD.
 			preparedStatement.setInt(1, id);
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				// Je récupère les infos a partir de la BDD 
+				// Je rÃ©cupÃ¨re les infos a partir de la BDD 
 				int noUtilisateur = resultSet.getInt(1);
 				String pseudo = resultSet.getString(2);
 				String nom = resultSet.getString(3);
