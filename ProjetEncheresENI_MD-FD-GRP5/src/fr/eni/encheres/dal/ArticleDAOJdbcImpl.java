@@ -24,7 +24,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			try (Connection connection = ConnectionProvider.getConnection();
 					PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ARTICLE,
 							PreparedStatement.RETURN_GENERATED_KEYS);) {
-				// Je transmet les informations a la BDD de l'article ajout�.
+				// Je transmet les informations a la BDD de l'article ajouté.
 				preparedStatement.setString(1, article.getNomArticle());
 				preparedStatement.setString(2, article.getDescription());
 				preparedStatement.setDate(3, java.sql.Date.valueOf(article.getDateDebut()));
@@ -56,7 +56,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES);
 				ResultSet resultSet = preparedStatement.executeQuery();) {
 			while (resultSet.next()) {
-				// Je r�cup�re les informations de la BDD a partir d'un ID.
+
+				// Je récupère les informations de la BDD a partir d'un ID.
 				int idArticle = resultSet.getInt(1);
 				String nomArticle = resultSet.getString(2);
 				String description = resultSet.getString(3);
@@ -75,7 +76,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
 				Article article = new Article(idArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
 						prixFinal, utilisateur, categorie, urlImage, rue, codePostal, ville);
-				// J'ajoute l'article dans une liste pour r�sup�rer tout les articles.
+				// J'ajoute l'article dans une liste pour récupérer tout les articles.
 				listArticle.add(article);
 			}
 		} catch (SQLException e) {
@@ -89,12 +90,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		Article article = null;
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ARTICLE_BY_ID);) {
-			// Je r�cup�re mon article ID depuis la BDD
+
+			// Je récupère mon article ID depuis la BDD
 			preparedStatement.setInt(1, id);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				// Je r�cup�re les informations a partir de la BDD En fonction de l'ID.
+				// Je récupère les informations a partir de la BDD En fonction de l'ID.
 				int idArticle = resultSet.getInt(13);
 				String nomArticle = resultSet.getString(1);
 				String description = resultSet.getString(2);
