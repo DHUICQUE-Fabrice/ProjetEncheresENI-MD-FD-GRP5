@@ -33,10 +33,10 @@ public class UtilisateurManager {
 		} else {
 			throw exception;
 		}
-		System.out.println(utilisateur.toString());
 		return utilisateur;
 	}
 
+	// TODO Méthodes supprimer, modifier, selectionner de UtilisateurManager
 	private void validerVille(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getVille().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_VILLE_NON_VIDE);
