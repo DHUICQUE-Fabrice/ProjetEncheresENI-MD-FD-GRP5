@@ -1,7 +1,6 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,10 +39,10 @@ public class ServletCreateAccount extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			boolean pebkac = false;
 			if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
 				request.setAttribute("wrongConfirmation", "wrong");
-				pebkac = true;
+				doGet(request, response);
+				return;
 			}
 
 			String pseudo = request.getParameter("pseudo");
@@ -56,31 +55,16 @@ public class ServletCreateAccount extends HttpServlet {
 			String ville = request.getParameter("ville");
 			String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
 
-			List<Utilisateur> utilisateurs = utilisateurManager.allUsers();
-			for (Utilisateur utilisateur : utilisateurs) {
-				if (utilisateur.getPseudo().equals(pseudo)) {
-					request.setAttribute("pseudoExists", "true");
-					pebkac = true;
-				}
-				if (utilisateur.getEmail().equals(email)) {
-					request.setAttribute("emailExists", "true");
-					pebkac = true;
-				}
-			}
-			if (pebkac) {
-				doGet(request, response);
-				return;
-			}
-
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 					motDePasse, 0, false);
 			System.out.println(utilisateur.toString());
 
-			utilisateurManager.ajouter(utilisateur);
+			utilisateur = utilisateurManager.ajouter(utilisateur);
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
+			return;
 		}
-
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
 		requestDispatcher.forward(request, response);
 	}

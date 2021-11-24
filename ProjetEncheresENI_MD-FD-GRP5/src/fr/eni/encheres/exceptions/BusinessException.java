@@ -7,25 +7,25 @@ public class BusinessException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Integer> listeCodeErreur;
+	private List<Integer> listeCodesErreurs;
 
 	public BusinessException() {
 		super();
-		this.listeCodeErreur = new ArrayList<Integer>();
+		this.listeCodesErreurs = new ArrayList<Integer>();
 	}
 
 	public void ajouterErreur(int code) {
-		if (!this.listeCodeErreur.contains(code)) {
-			listeCodeErreur.add(code);
+		if (!this.listeCodesErreurs.contains(code)) {
+			listeCodesErreurs.add(code);
 		}
 	}
 
 	public boolean hasErreurs() {
-		return (this.listeCodeErreur.size() > 0);
+		return (this.listeCodesErreurs.size() > 0);
 	}
 
-	public List<Integer> getListeCodeErreur() {
-		return this.listeCodeErreur;
+	public List<Integer> getListeCodesErreurs() {
+		return this.listeCodesErreurs;
 	}
 
 }

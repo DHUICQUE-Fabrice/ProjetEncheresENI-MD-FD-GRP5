@@ -11,13 +11,13 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	public static final String INSERT_USER = "INSERT INTO Utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String SELECT_ALL_USERS = "SELECT (no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) FROM UTILISATEURS";
+	public static final String SELECT_ALL_USERS = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 
 	public Utilisateur insert(Utilisateur utilisateur) {
 		if (utilisateur != null) {
 			try (Connection connection = ConnectionProvider.getConnection();
 					PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER,
-							PreparedStatement.RETURN_GENERATED_KEYS);) {
+							PreparedStatement.RETURN_GENERATED_KEYS)) {
 				preparedStatement.setString(1, utilisateur.getPseudo());
 				preparedStatement.setString(2, utilisateur.getNom());
 				preparedStatement.setString(3, utilisateur.getPrenom());
@@ -44,8 +44,9 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	@Override
 	public List<Utilisateur> selectAll() {
 		List<Utilisateur> utilisateurs = new ArrayList<>();
-		try (Connection connection = ConnectionProvider.getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
+
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				int noUtilisateur = resultSet.getInt(1);
@@ -77,7 +78,7 @@ public class UtilisateurDAOJdbcImpl implements DAO<Utilisateur> {
 	}
 
 	@Override
-	public Utilisateur update(int id) {
+	public Utilisateur update(Utilisateur utilisateur) {
 		// TODO update UtilisateurDAOJdbcImpl
 		return null;
 	}

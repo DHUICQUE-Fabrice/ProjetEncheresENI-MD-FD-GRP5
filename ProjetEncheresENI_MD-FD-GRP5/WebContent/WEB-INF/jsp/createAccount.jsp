@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.eni.encheres.messages.LecteurMessages"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -56,5 +59,16 @@
 	<c:if test="${!empty emailExists }">
 		<p style="font-weight:bold;color:red">Cet email est déjà associé à un compte existant !</p>	
 	</c:if>
+	
+	<%
+	List<Integer> listeCodesErreur = (ArrayList<Integer>)request.getAttribute("listeCodesErreurs");
+	if(listeCodesErreur != null){
+		for(int error:listeCodesErreur){
+			%>
+			<p style="font-weight:bold;color:red"><%=LecteurMessages.getMessageErreur(error) %></p>
+			<%
+		}
+	}
+	%>
 </body>
 </html>

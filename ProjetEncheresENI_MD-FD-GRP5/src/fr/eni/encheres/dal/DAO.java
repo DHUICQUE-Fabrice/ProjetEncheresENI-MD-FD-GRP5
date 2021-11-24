@@ -9,7 +9,7 @@ public interface DAO<T> {
 
 	public T selectByID(int id);
 
-	public T update(int id);
+	public T update(T obj);
 
 	public T delete(int id);
 
