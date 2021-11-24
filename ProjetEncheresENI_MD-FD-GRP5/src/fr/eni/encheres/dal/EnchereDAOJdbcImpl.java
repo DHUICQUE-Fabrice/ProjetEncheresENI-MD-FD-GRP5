@@ -12,24 +12,24 @@ import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 
-public class EnchereDAOJdbcImpl implements EnchereDAO<Enchere> {
+public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public static final String INSERT_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 	public static final String SELECT_ALL_ENCHERE_BY_ID_USER = "SELECT (no_article, date_enchere, montant_enchere) FROM ENCHERES WHERE no_utilisateur = ?";
 	public static final String SELECT_ALL_ENCHERE_BY_ID_ARTICLE = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article = ?";
 	public static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article = ?";
 	public static final String UPDATE_ENCHERE = "UPDATE ENCHERES SET date_enchere = ?, montant_enchere = ? WHERE no_article = ? AND no_Utilisateur = ?";
-	
+
 	@Override
 	public Enchere insert(Enchere enchere) {
 		if (enchere != null) {
 			try (Connection connection = ConnectionProvider.getConnection();
 					PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ENCHERE);) {
-				// Je transmet les informations a la BDD de l'article ajouté. 
+				// Je transmet les informations a la BDD de l'article ajouté.
 				preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
 				preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
 				preparedStatement.setDate(3, java.sql.Date.valueOf(enchere.getDateEnchere()));
 				preparedStatement.setInt(4, enchere.getMontantenchere());
-				
+
 				preparedStatement.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -42,19 +42,19 @@ public class EnchereDAOJdbcImpl implements EnchereDAO<Enchere> {
 	public Enchere update(Enchere enchere) {
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ENCHERE);) {
-			// Je transmet les informations a la BDD de l'article ajouté. 
+			// Je transmet les informations a la BDD de l'article ajouté.
 			preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
 			preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
 			preparedStatement.setDate(3, java.sql.Date.valueOf(enchere.getDateEnchere()));
 			preparedStatement.setInt(4, enchere.getMontantenchere());
-			
+
 			preparedStatement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<Enchere> selectAllByIDUser(int idUser) {
 		List<Enchere> enchereUser = new ArrayList<>();
@@ -75,7 +75,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO<Enchere> {
 				LocalDate date_enchere = resultSet.getDate(2).toLocalDate();
 				int montant_enchere = resultSet.getInt(3);
 
-				enchere = new Enchere(utilisateur, article, date_enchere,montant_enchere);
+				enchere = new Enchere(utilisateur, article, date_enchere, montant_enchere);
 				enchereUser.add(enchere);
 			}
 		} catch (SQLException e) {
@@ -104,7 +104,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO<Enchere> {
 				LocalDate date_enchere = resultSet.getDate(2).toLocalDate();
 				int montant_enchere = resultSet.getInt(3);
 
-				enchere = new Enchere(utilisateur, article, date_enchere,montant_enchere);
+				enchere = new Enchere(utilisateur, article, date_enchere, montant_enchere);
 				enchereArticle.add(enchere);
 			}
 		} catch (SQLException e) {
@@ -132,7 +132,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO<Enchere> {
 				LocalDate date_enchere = resultSet.getDate(2).toLocalDate();
 				int montant_enchere = resultSet.getInt(3);
 
-				enchere = new Enchere(utilisateur, article, date_enchere,montant_enchere);
+				enchere = new Enchere(utilisateur, article, date_enchere, montant_enchere);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

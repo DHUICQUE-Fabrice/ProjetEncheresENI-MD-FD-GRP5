@@ -18,6 +18,7 @@ public class EnchereManager {
 		// TODO Gérer les exceptions de EnchereManager;
 
 		this.enchereDAO.insert(enchere);
+		return enchere;
 	}
 
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
