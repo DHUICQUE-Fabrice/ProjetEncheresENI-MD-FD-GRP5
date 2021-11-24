@@ -86,7 +86,9 @@ public class ArticleDAOJdbcImpl implements DAO<Article> {
 		Article article = null;
 		try (Connection connection = ConnectionProvider.getConnection();PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ARTICLE_BY_ID);)
 		{
+			// Je récupère mon article ID depuis la BDD 
 			preparedStatement.setInt(1, id);
+			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				// Je récupère les informations a partir de la BDD En fonction de l'ID. 
