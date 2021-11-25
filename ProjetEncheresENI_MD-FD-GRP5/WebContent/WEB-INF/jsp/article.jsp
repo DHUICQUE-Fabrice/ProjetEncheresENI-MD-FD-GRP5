@@ -94,5 +94,6 @@
 	<div class="col-md-3">
 	</div>
 </div>
+<%@ include file="../inclusions/footer.jspf" %>
 </body>
 </html>
