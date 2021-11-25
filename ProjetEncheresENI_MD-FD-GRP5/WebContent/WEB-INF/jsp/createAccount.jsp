@@ -14,8 +14,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Nouvel utilisateur</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <%@ include file="../inclusions/header.jspf" %>
+<main class="flex-shrink-0">
 
 	<div class="container-fluid">
 		<h1>Formulaire d'inscription</h1>
@@ -127,5 +128,8 @@
 		}
 		}
 	%>
+	
+	</main>
+	<%@ include file="../inclusions/footer.jspf" %>
 </body>
 </html>

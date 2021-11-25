@@ -12,8 +12,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Se connecter</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <%@ include file="../inclusions/header.jspf" %>
+<main class="flex-shrink-0">
+
 	<div class="container-fluid">
 		<form method="post" action="login" class="">
 		<div class="row">
@@ -67,5 +69,8 @@
 		<br>
 		<p class="error">Mot de passe incorrect !</p>
 	</c:if>
+</main>	
+	
+<%@ include file="../inclusions/footer.jspf" %>
 </body>
 </html>
