@@ -12,23 +12,32 @@
 <title>Accueil</title>
 </head>
 <body>
-	<%
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">ENI-encheres</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse show" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="encheres">Accueil</a>
+        	<%
 		if (session.getAttribute("user") != null) {
 	%>
-	<form method="get" action="encheres">
-		<input type="hidden" name="disconnect" id="disconnect"
-			value="disconnect"> <input type="submit" value="Se déconnecter"><br>
-	</form>
-	<%
+		<a class="nav-link" href="encheres?disconnect=disconnect">Se déconnecter</a>
+			<%
 		} else {
 	%>
-	<a href="createAccount">S'inscrire</a>
-	<br>
-	<a href="login">Se connecter</a>
-	<br>
-	<%
+        <a class="nav-link" href="createAccount">S'inscrire</a>
+        <a class="nav-link" href="login">Se connecter</a>
+        	<%
 		}
 	%>
+      </div>
+    </div>
+  </div>
+</nav>
+	
 
 </body>
 </html>

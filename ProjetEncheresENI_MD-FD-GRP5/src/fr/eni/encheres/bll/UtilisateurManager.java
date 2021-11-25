@@ -36,7 +36,12 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 
-	// TODO Méthodes supprimer, modifier, selectionner de UtilisateurManager
+	// TODO Méthodes supprimer, modifier, UtilisateurManager
+
+	public List<Utilisateur> allUsers() {
+		return this.utilisateurDAO.selectAll();
+	}
+
 	private void validerVille(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getVille().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_VILLE_NON_VIDE);
@@ -59,10 +64,6 @@ public class UtilisateurManager {
 		if (utilisateur.getNom().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_NOM_NON_VIDE);
 		}
-	}
-
-	public List<Utilisateur> allUsers() {
-		return this.utilisateurDAO.selectAll();
 	}
 
 	private void validerEmail(Utilisateur utilisateur, BusinessException exception) {
