@@ -1,0 +1,16 @@
+.customButton { 
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    height: 222px;           /* make this the size of your image */
+    width: 222px;
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.error {
+	font-weight:bold;
+	color:red
+}
+
+

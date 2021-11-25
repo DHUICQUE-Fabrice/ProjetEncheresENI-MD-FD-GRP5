@@ -6,6 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="css/style.css" rel="stylesheet">
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Se connecter</title>
 </head>
@@ -22,11 +24,11 @@
 		<a href="createAccount"><button>Créer un compte</button></a><!-- Créer une page + servlet createAccount -->
 		<c:if test="${!empty unknown }">
 			<br>
-			<p style="font-weight:bold;color:red">Utilisateur inconnu !</p>
+			<p class="error">Utilisateur inconnu !</p>
 		</c:if>
 		<c:if test="${!empty wrongPass }">
 			<br>
-			<p style="font-weight:bold;color:red">Mot de passe incorrect !</p>
+			<p class="error">Mot de passe incorrect !</p>
 		</c:if>
 </body>
 </html>

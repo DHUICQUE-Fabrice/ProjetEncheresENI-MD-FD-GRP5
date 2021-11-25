@@ -9,6 +9,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="css/style.css" rel="stylesheet">
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Nouvel utilisateur</title>
 </head>
@@ -50,22 +52,13 @@
 		<input type="submit" value="Annuler">
 	</form>
 	
-	<c:if test="${!empty wrongConfirmation }">
-		<p style="font-weight:bold;color:red">Confirmation du mot de passe erronée</p>
-	</c:if>
-	<c:if test="${!empty pseudoExists }">
-		<p style="font-weight:bold;color:red">Ce pseudo existe déjà !</p>	
-	</c:if>
-	<c:if test="${!empty emailExists }">
-		<p style="font-weight:bold;color:red">Cet email est déjà associé à un compte existant !</p>	
-	</c:if>
 	
 	<%
 	List<Integer> listeCodesErreur = (ArrayList<Integer>)request.getAttribute("listeCodesErreurs");
 	if(listeCodesErreur != null){
 		for(int error:listeCodesErreur){
 			%>
-			<p style="font-weight:bold;color:red"><%=LecteurMessages.getMessageErreur(error) %></p>
+			<p class="error"><%=LecteurMessages.getMessageErreur(error) %></p>
 			<%
 		}
 	}
