@@ -10,9 +10,13 @@ public interface ArticleDAO {
 	public List<Article> selectAll();
 
 	public Article selectByID(int id);
+	
+	public List<Article> selectAllByCategorie(int id);
+	
+	public List<Article> selectAllByName(String name);
 
-	public Article update(Article article);
+	public Article updateArticle(Article article);
 
-	public Article delete(int id);
+	public Article deleteArticle(int id);
 
 }

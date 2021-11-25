@@ -1,5 +1,7 @@
 package fr.eni.encheres.bll;
 
+import java.util.List;
+
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
@@ -19,6 +21,32 @@ public class ArticleManager {
 		this.articleDAO.insert(article);
 		return article;
 	}
-	// TODO Méthodes supprimer, modifier, selectionner de ArticleManager
-
+	
+	public List<Article> allArticle() {
+		return this.articleDAO.selectAll();
+	}
+	
+	public List<Article> allArticleByCategorie(int idCategorie) {
+		return this.articleDAO.selectAllByCategorie(idCategorie);
+	}
+	
+	public List<Article> allArticleByName(String nomArticle) {
+		return this.articleDAO.selectAllByName(nomArticle);
+	}
+	
+	public Article selectByIdArticle(int idArticle) {
+		return this.articleDAO.selectByID(idArticle);
+	}
+	
+	public Article updateArticle(Article article) throws BusinessException {
+		BusinessException exception = new BusinessException();
+		this.articleDAO.updateArticle(article);
+		return null;
+	}
+	
+	public Article deleteArticle(int idArticle) throws BusinessException {
+		BusinessException exception = new BusinessException();
+		this.articleDAO.deleteArticle(idArticle);
+		return null;
+	}
 }
