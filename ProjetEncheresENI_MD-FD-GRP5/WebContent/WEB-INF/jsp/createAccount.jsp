@@ -15,6 +15,8 @@
 <title>Nouvel utilisateur</title>
 </head>
 <body>
+<%@ include file="../inclusions/header.jspf" %>
+
 	<div class="container-fluid">
 		<h1>Formulaire d'inscription</h1>
 		<br>

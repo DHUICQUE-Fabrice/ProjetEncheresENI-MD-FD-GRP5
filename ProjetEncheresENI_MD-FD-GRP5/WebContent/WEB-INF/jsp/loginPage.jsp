@@ -13,8 +13,7 @@
 <title>Se connecter</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
-	<!-- A mettre dans un header.html pour faire un "include" -->
+<%@ include file="../inclusions/header.jspf" %>
 	<div class="container-fluid">
 		<form method="post" action="login" class="">
 		<div class="row">
