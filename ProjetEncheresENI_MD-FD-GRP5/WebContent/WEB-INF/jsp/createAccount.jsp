@@ -15,53 +15,115 @@
 <title>Nouvel utilisateur</title>
 </head>
 <body>
-	<form method="post" action="createAccount">
-		<label for="pseudo">Pseudo : </label> 
-		<input type="text" name="pseudo" id="pseudo" value="${pseudo }">
-		<br> 
-		<label for="nom">Nom : </label> 
-		<input type="text" name="nom" id="nom" value="${nom }">
-		<br> 
-		<label for="prenom">Prénom : </label>
-		<input type="text" name="prenom" id="prenom" value="${prenom }">
+	<div class="container-fluid">
+		<h1>Formulaire d'inscription</h1>
 		<br>
-		<label for="email">Email : </label>
-		<input type="text" name="email"	id="email" value="${email }">
-		<br>
-		<label for="telephone">Téléphone : </label>
-		<input type="text" name="telephone" id="telephone" value="${telephone }">
-		<br>
-		<label for="rue">Rue : </label>
-		<input type="text" name="rue" id="rue" value="${rue }">
-		<br>
-		<label for="codePostal">Code Postal : </label>
-		<input type="text" name="codePostal" id="codePostal" value="${codePostal }">
-		<br>
-		<label for="ville">Ville : </label>
-		<input type="text" name="ville"	id="ville" value="${ ville}">
-		<br>
-		<label for="password">Mot de Passe : </label>
-		<input type="password" name="password" id="password" value="${password }">
-		<br>
-		<label for="confirmation">Confirmation : </label>
-		<input type="password" name="confirmation" id="confirmation" value="${confirmation }">
-		<br>
-		<input type="submit" value="valider">
-	</form>
-	<form method="get" action="encheres">
-		<input type="submit" value="Annuler">
-	</form>
-	
-	
+		<form method="post" action="createAccount">
+			<div class="row">
+				<div class="form-floating col-4">
+					<input type="text" name="pseudo" id="pseudo" value="${pseudo }"
+						class="form-control" placeholder="pseudo"><label
+						for="pseudo">Pseudo : </label>
+
+				</div>
+				<div class="form-floating col-4">
+					<input type="text" name="nom" id="nom" value="${nom }"
+						class="form-control" placeholder="nom"> <label for="nom">Nom
+						: </label>
+
+				</div>
+				<div class="form-floating col-4">
+					<input type="text" name="prenom" id="prenom" value="${prenom }"
+						class="form-control" placeholder="prenom"> <label
+						for="prenom">Prénom : </label>
+
+				</div>
+
+
+
+
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="form-floating col-6">
+					<input type="text" name="email" id="email" value="${email }"
+						class="form-control" placeholder="email"> <label
+						for="email">Email : </label>
+
+				</div>
+				<div class="form-floating col-6">
+					<input type="text" name="telephone" id="telephone"
+						value="${telephone }" class="form-control" placeholder="telephone">
+					<label for="telephone">Téléphone : </label>
+
+				</div>
+
+			</div>
+			<br>
+			<br>
+
+			<div class="row">
+				<div class="form-floating col-4">
+					<input type="text" name="rue" id="rue" value="${rue }"
+						class="form-control" placeholder="rue"> <label for="rue">Rue
+						: </label>
+
+				</div>
+				<div class="form-floating col-4">
+					<input type="text" name="codePostal" id="codePostal"
+						value="${codePostal }" class="form-control"
+						placeholder="codePostal"> <label for="codePostal">Code
+						Postal : </label>
+
+				</div>
+				<div class="form-floating col-4">
+					<input type="text" name="ville" id="ville" value="${ ville}"
+						class="form-control" placeholder="ville"> <label
+						for="ville">Ville : </label>
+
+				</div>
+
+			</div>
+			<br>
+			<br>
+
+			<div class="row">
+				<div class="form-floating col-6">
+					<input type="password" name="password" id="password"
+						value="${password }" class="form-control" placeholder="password">
+					<label for="password">Mot de Passe : </label>
+				</div>
+				<div class="form-floating col-6">
+					<input type="password" name="confirmation" id="confirmation"
+						value="${confirmation }" class="form-control"
+						placeholder="confirmation"> <label for="confirmation">Confirmation
+						: </label>
+				</div>
+
+			</div>
+			<br>
+			<input type="submit" value="Valider" class="btn-primary col-3">
+
+
+
+		</form>
+		<form method="get" action="encheres">
+			<br>
+			<input type="submit" value="Annuler" class="btn-secondary col-3">
+		</form>
+	</div>
+
+
 	<%
-	List<Integer> listeCodesErreur = (ArrayList<Integer>)request.getAttribute("listeCodesErreurs");
-	if(listeCodesErreur != null){
-		for(int error:listeCodesErreur){
-			%>
-			<p class="error"><%=LecteurMessages.getMessageErreur(error) %></p>
-			<%
+		List<Integer> listeCodesErreur = (ArrayList<Integer>) request.getAttribute("listeCodesErreurs");
+		if (listeCodesErreur != null) {
+			for (int error : listeCodesErreur) {
+	%>
+	<p class="error"><%=LecteurMessages.getMessageErreur(error)%></p>
+	<%
 		}
-	}
+		}
 	%>
 </body>
 </html>
