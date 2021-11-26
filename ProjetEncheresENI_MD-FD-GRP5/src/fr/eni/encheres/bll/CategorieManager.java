@@ -1,5 +1,7 @@
 package fr.eni.encheres.bll;
 
+import java.util.List;
+
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.dal.CategorieDAO;
 import fr.eni.encheres.dal.DAOFactory;
@@ -18,6 +20,11 @@ public class CategorieManager {
 
 		this.categorieDAO.insert(categorie);
 		return categorie;
+	}
+	
+	public List<Categorie> selectAll(){
+		
+		return	this.categorieDAO.selectAll();
 	}
 	// TODO Méthodes supprimer, modifier, selectionner de CategorieManager
 
