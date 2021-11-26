@@ -23,55 +23,55 @@
      
 	<main id="grilleChoix" class="col-12 col-sm-9 col-md-10">
 	<form>
-           	<div>
-        		<label for="article" class="form-label">Article :</label>
-				<input name="nomArticle" type="text" class="form-control" id="article" placeholder="Nom de l'article" value="" required>
+           	<div class="form group-row">
+        		<label for="article" class="col-form-label">Article :</label>
+				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" value="" required>
             </div>
 
-			<div>
-   				<label for="description" class="form-label">Descrption :</label>
-				<textarea name="description" class="form-control is-invalid" id="description" placeholder="Description de l'article vendu." required>Description de l'article vendu.</textarea>
+			<div class="form group-row">
+   				<label for="description" class="col-form-label">Descrption :</label>
+				<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required>Description.</textarea>
 			</div>
 
-			<div>
-				<label for="country" class="form-label">Catégories :</label>
-				<select name="categorie" class="form-select"  id="country" required>
+			<div class="form group-row">
+				<label for="country" class="col-form-label">Catégories :</label>
+				<select name="categorie" class="col-8 col-form-select"  id="country" required>
              		<option value="">Choose...</option>
                 	<option>Livre</option>
               	</select>
             </div>
 
-			<div>
-				<label class="form-label">Photo de l'article :</label>
-				<input name="image" type="file" class="form-control"  aria-label="Upload image">
+			<div class="form group-row">
+				<label class="col-form-label">Photo de l'article :</label>
+				<input name="image" type="file" class="col-8 col-form-control"  aria-label="Upload image">
 			</div>
 			
-			<div>
-				<label class="form-label">Prix Initial :</label>
+			<div class="form group-row">
+				<label class="col-form-label">Prix Initial :</label>
 				<input name="prixInitial" id="prixInitial" type="number"  value="" placeholder="Prix Initial">
 			</div>
 			
-			<div>
-   				<label for="dateDebut" class="form-label">Début de l'enchère :</label>
-				<input name="debutEnchère" type="date" class="form-control" id="dateDebut" placeholder="date début enchère" value="" required>
+			<div class="form group-row">
+   				<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
+				<input name="debutEnchère" type="date" class="col-8 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
 			</div>
 			
-			<div>
-   				<label for="dateFin" class="form-label">Fin de l'enchère :</label>
-				<input name="debutEnchère" type="date" class="form-control" id="dateFin" placeholder="date fin enchère" value="" required>
+			<div class="form group-row">
+   				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
+				<input name="debutEnchère" type="date" class="col-8 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
 			</div>
          
-         	<fieldset>
+         	<fieldset class="col-8 form group-row">
          		<legend>Retrait:</legend>
- 				<label for="rue" class="form-label">Rue :</label>
-  				<input type="text" id="rue" name="rue"><br><br>
- 				<label for="codePostal" class="form-label">Code postal :</label>
- 				<input type="number" id="codePostal" name="codePostal"><br><br>
-  				<label for="ville" class="form-label">Ville :</label>
-  				<input type="text" id="ville" name="ville"><br><br>
+ 				<label for="rue" class="col-form-label">Rue :</label>
+  				<input type="text" id="rue" class="col-8 col-form-control" name="rue"><br><br>
+ 				<label for="codePostal" class="col-form-label">Code postal :</label>
+ 				<input type="number" id="codePostal" class="col-8 col-form-control" name="codePostal"><br><br>
+  				<label for="ville" class="col-form-label">Ville :</label>
+  				<input type="text" id="ville" class="col-8 col-form-control" name="ville"><br><br>
          	</fieldset>
          
-			<div >
+			<div class="form group-row">
  				<button class="btn btn-primary" type="submit">Enregistrer</button>
  				<button class="btn btn-primary" type="submit">Annuler</button>
  				<button class="btn btn-primary" type="submit">Annuler la vente</button>
