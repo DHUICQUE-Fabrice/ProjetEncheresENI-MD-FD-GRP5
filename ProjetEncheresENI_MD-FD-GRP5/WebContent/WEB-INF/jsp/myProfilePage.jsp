@@ -56,16 +56,17 @@
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col-sm-12">
-						<a class="btn btn-info " target="__blank"
-							href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+					<div class="col-sm-3">
+						<a class="btn btn-info " href="editProfile">Modifier</a>
+					</div>
+					<div class="col-sm-3">
+						<a class="btn btn-info " href="encheres">Accueil</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		</div>
 		
-
 
 		<%@ include file="../inclusions/footer.jspf"%>
 </body>
