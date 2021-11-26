@@ -20,6 +20,7 @@
 		if (session.getAttribute("user") != null) {
 	%>
 		<a class="nav-link" href="article">Vendre un article</a>
+		
 			<%
 		} else {
 	%>

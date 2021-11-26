@@ -15,7 +15,7 @@ public class TodoClass {
 	// TODO Actions administrateur (Désactiver un compte utilisateur, supprimer des comptes, gérer les catégories)
 	// TODO Responsive design
 	// TODO Pages d'erreur custom : 404, 500
-	@
+	
 	/*
 	 * 
 	 * Liste des pages devant exister :

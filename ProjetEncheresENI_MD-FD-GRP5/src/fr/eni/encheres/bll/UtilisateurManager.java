@@ -42,6 +42,56 @@ public class UtilisateurManager {
 		return this.utilisateurDAO.selectAll();
 	}
 	
+	public Utilisateur modifierUtilisateur(Utilisateur utilisateur, String champ, String nouvelleValeur)
+			throws BusinessException {
+		BusinessException exception = new BusinessException();
+		switch (champ) {
+			case "pseudo":
+				utilisateur.setPseudo(nouvelleValeur);
+				validerPseudo(utilisateur, exception);
+				break;
+			case "nom":
+				utilisateur.setNom(nouvelleValeur);
+				validerNom(utilisateur, exception);
+				break;
+			case "prenom":
+				utilisateur.setPrenom(nouvelleValeur);
+				validerPrenom(utilisateur, exception);
+				break;
+			case "email":
+				utilisateur.setEmail(nouvelleValeur);
+				validerEmail(utilisateur, exception);
+				break;
+			case "telephone":
+				utilisateur.setTelephone(nouvelleValeur);
+				validerTelephone(utilisateur, exception);
+				break;
+			case "rue":
+				utilisateur.setRue(nouvelleValeur);
+				validerRue(utilisateur, exception);
+				break;
+			case "codePostal":
+				utilisateur.setCodePostal(nouvelleValeur);
+				validerCodePostal(utilisateur, exception);
+				break;
+			case "ville":
+				utilisateur.setVille(nouvelleValeur);
+				validerVille(utilisateur, exception);
+				break;
+			case "password":
+				utilisateur.setMotDePasse(nouvelleValeur);
+				validerMotDePasse(utilisateur, exception);
+			default:
+				break;
+		}
+		if (!exception.hasErreurs()) {
+			this.utilisateurDAO.update(utilisateur);
+		} else {
+			throw exception;
+		}
+		return utilisateur;
+	}
+	
 	private void validerVille(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getVille().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_VILLE_NON_VIDE);

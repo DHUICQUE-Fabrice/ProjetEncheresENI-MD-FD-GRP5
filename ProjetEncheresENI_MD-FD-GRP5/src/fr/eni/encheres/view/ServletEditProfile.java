@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.exceptions.BusinessException;
 
 /**
  * Servlet implementation class ServletEditProfile
@@ -30,7 +35,39 @@ public class ServletEditProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		try {
+			
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+			if (!request.getParameter("pseudo").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "pseudo", request.getParameter("pseudo"));
+			}
+			if (!request.getParameter("nom").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "nom", request.getParameter("nom"));
+			}
+			if (!request.getParameter("prenom").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "prenom", request.getParameter("prenom"));
+			}
+			if (!request.getParameter("email").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "email", request.getParameter("email"));
+			}
+			if (!request.getParameter("telephone").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "telephone", request.getParameter("telephone"));
+			}
+			if (!request.getParameter("rue").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "rue", request.getParameter("rue"));
+			}
+			if (!request.getParameter("codePostal").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "codePostal", request.getParameter("codePostal"));
+			}
+			if (!request.getParameter("ville").equals(utilisateur.getPseudo())) {
+				utilisateurManager.modifierUtilisateur(utilisateur, "ville", request.getParameter("ville"));
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		
 		doGet(request, response);
 	}
 	
