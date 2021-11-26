@@ -12,81 +12,71 @@
 <title>ENI Enchères.</title>
 </head>
 <body class="container-fluid">
-<%@ include file="../inclusions/header.jspf" %>
-<h2>Détails de la vente.</h2>
+	<%@ include file="../inclusions/header.jspf" %>
+	<h2>Vous avez remporté l'enchère.</h2>
 	
  
 <div class="row">
-	<nav id="sideMenu" class="col-12 col-sm-3 col-md-2">
+	<nav id="image" class="col-12 col-sm-4 col-md-4">
 		<img src="img/image_default.jpg" width="200" height="200"/>
     </nav>
-     
-	<main id="grilleChoix" class="col-12 col-sm-9 col-md-10">
-	<form>
-        
+S	<main id="formulaire" class="col-12 col-sm-8 col-md-8">
+		<form>
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
-				<input name="nomArticle" type="text" class="col-8 col-form-control" id="article" readonly>
+				<input name="nomArticle" type="text" class="col-form-control" id="article" readonly>
             </div>
 
 			<div class="form group-row">
    				<label for="description" class="col-form-label">Descrption :</label>
-				<textarea name="description" class="col-8 col-form-control" id="description" readonly></textarea>
+				<textarea name="description" class="col-6 col-form-control" id="description" readonly></textarea>
 			</div>
 
 			<div class="form group-row">
-				<label for="categorie" class="col-form-label">Catégories :</label>
-				<input name="categorie" type="text" class="col-6 col-form-control" id="categorie" readonly>
-            </div> 
-
-			<div class="form group-row">
 				<label for="offre" class="col-form-label">Meilleur offres :</label>
-				<input name="offre" type="text" class="col-4 col-form-control" id="offre" readonly>
-				<label for="acheteur" class="col-form-label"> par </label>
-				<input name="acheteur" type="text" class="col-4 col-form-control" id="acheteur" readonly>
+				<input name="offre" type="text" class="col-form-control" id="offre" readonly>
+				<label for="offre" class="col-form-label">Pts.</label>
 			</div>
 			
 			<div  class="form group-row">
 				<label for="miseAPrix" class="col-form-label">Mise a prix :</label>
-				<input name="miseAPrix" type="text" class="col-8 col-form-control" id="miseAPrix" readonly>
+				<input name="miseAPrix" type="text" class="col-form-control" id="miseAPrix" readonly>
+				<label for="offre" class="col-form-label">Pts.</label>
 			</div>
-			
-			<div  class="form group-row">
-				<label for="finEnchere" class="col-form-label">Fin de l'enchère :</label>
-				<input name="finEnchere" type="text" class="col-8 col-form-control" id="finEnchere" readonly>
-			</div>
-			
-       		<label class="form-label">Retrait :</label>
+						
+       		<label class="form-label">Retrait ______________________________</label>
          	<div  class="form group-row">
  				<label for="rue" class="col-form-label">Rue :</label>
-  				<input name="rue" type="text" class="col-8 col-form-control" id="rue" readonly>
+  				<input name="rue" type="text" class=" col-form-control" id="rue" readonly>
          	</div>
          	
          	<div  class="form group-row">
          		<label for="codePostal" class="col-form-label">Code postal :</label>
- 				<input name="codePostal" type="text" class="col-8 col-form-control" id="codePostal" readonly>
+ 				<input name="codePostal" type="text" class="col-form-control" id="codePostal" readonly>
          	</div>
 
 			<div  class="form group-row">
 				<label for="ville" class="col-form-label">Ville :</label>
-  				<input name="ville" type="text" class="col-8 col-form-control" id="ville" readonly>
+  				<input name="ville" type="text" class="col-form-control" id="ville" readonly>
 			</div>
 			
 			<div  class="form group-row">
 				<label for="vendeur" class="col-form-label">Vendeur :</label>
-  				<input name="vendeur" type="text" class="col-8 col-form-control" id="vendeur" readonly>
+  				<input name="vendeur" type="text" class="col-form-control" id="vendeur" readonly>
 			</div>
 		
+			<div  class="form group-row">
+				<label for="telephone" class="col-form-label">Telephone :</label>
+  				<input name="telephone" type="text" class=" col-form-control" id="telephone" readonly>
+			</div>
+			
 			<div class="form group-row">
-				<label for="encherir" class="col-form-label">Ma proposition :</label>
-  				<input name="encherir" type="number" class="col-4 col-form-control" id="encherir">
- 				<button class="btn btn-primary" type="submit">Enchérir</button>
+				<button class="btn btn-primary" type="submit">Retour</button>
+ 				<button class="btn btn-primary" type="submit">Retrait Effectué</button>
  			</div>
 		</form>
-	
 	</main>
 </div>
-<%@ include file="../inclusions/footer.jspf" %>
- 
+	<%@ include file="../inclusions/footer.jspf" %>
 </body>
 </html>

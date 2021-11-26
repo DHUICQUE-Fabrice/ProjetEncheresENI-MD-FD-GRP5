@@ -17,11 +17,11 @@
 	
  
 <div class="row">
-	<nav id="sideMenu" class="col-12 col-sm-3 col-md-2">
+	<nav id="sideMenu" class="col-12 col-sm-4 col-md-4">
 		<img src="img/image_default.jpg" width="200" height="200"/>
     </nav>
      
-	<main id="grilleChoix" class="col-12 col-sm-9 col-md-10">
+	<main id="grilleChoix" class="col-12 col-sm-8 col-md-8">
 	<form>
         
            	<div class="form group-row">
