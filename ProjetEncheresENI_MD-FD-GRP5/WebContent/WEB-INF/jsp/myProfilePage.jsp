@@ -62,10 +62,6 @@
 					<div class="col-sm-3">
 						<a class="btn btn-info " href="encheres">Accueil</a>
 					</div>
-					
-					<div class="col-sm-3">
-						<a class="btn btn-info " href="editProfile">Modifier</a>
-					</div>
 					<div class="col-sm-3">
 						<a class="btn btn-info " href="supprimer">Supprimer</a>
 					</div>

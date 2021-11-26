@@ -83,7 +83,7 @@
 				<div class="form-floating col-4">
 					<input type="password" name="oldPassword" id="oldPassword"
 						value="" class="form-control" placeholder="oldPassword">
-					<label for="oldPassword">Ancien Mot de Passe : </label>
+					<label for="oldPassword">Mot de Passe actuel : </label>
 				</div>				
 				<div class="form-floating col-4">
 					<input type="password" name="password" id="password"
@@ -120,6 +120,11 @@
 		}
 		}
 	%>
+		<c:if test="${!empty wrongPass }">
+		<br>
+		<p class="error">Veuillez rentrer votre mot de passe actuel !</p>
+	</c:if>
+	
 	
 	</main>
 	<%@ include file="../inclusions/footer.jspf" %>

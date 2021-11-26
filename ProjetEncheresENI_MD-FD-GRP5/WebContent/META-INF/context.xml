@@ -5,7 +5,7 @@
         driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
         type="javax.sql.DataSource"
         url="jdbc:sqlserver://77.149.66.147:49172;databasename=ENCHERES_GRP5_BDD"
-        username="groupe5"
+        username="userGrp5"
         password="Pa$$w0rd"
         
         maxTotal="100"
