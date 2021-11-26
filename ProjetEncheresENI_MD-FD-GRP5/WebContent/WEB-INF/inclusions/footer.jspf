@@ -1,4 +1,4 @@
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-auto py-3 bg-light fixed-bottom">
   <div class="container">
     <span class="text-muted">Site réalisé par Maxime Descatoire et Fabrice Dhuicque</span>
   </div>
