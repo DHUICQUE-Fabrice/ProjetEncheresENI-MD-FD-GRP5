@@ -9,72 +9,59 @@
 <link href="css/style.css" rel="stylesheet">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Article a vendre.</title>
+<title>ENI Enchères.</title>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="container-fluid">
 <%@ include file="../inclusions/header.jspf" %>
+<h2>Article a vendre.</h2>
+	
+ 
 <div class="row">
-	<div class="col-md-3">
-		<div class="col-md-3 themed-grid-col">
-			<img src="/image_default.jpg" alt="image de l'article vendu." width="200" height="200"/>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<form class="row g-3">
-           	<div class="col-sm-6">
+	<nav id="sideMenu" class="col-12 col-sm-3 col-md-2">
+		<img src="../img/image_default.jpg"  class="img-fluid" alt="image de l'article vendu." width="200" height="200"/>
+    </nav>
+     
+	<main id="grilleChoix" class="col-12 col-sm-9 col-md-10">
+	<form>
+           	<div>
         		<label for="article" class="form-label">Article :</label>
 				<input name="nomArticle" type="text" class="form-control" id="article" placeholder="Nom de l'article" value="" required>
-				<div class="invalid-feedback">
-					Le nom de l'articlt <strong>doit être renseigné</strong>.
-				</div>
             </div>
 
-			<div class="mb-3">
+			<div>
    				<label for="description" class="form-label">Descrption :</label>
 				<textarea name="description" class="form-control is-invalid" id="description" placeholder="Description de l'article vendu." required>Description de l'article vendu.</textarea>
-				<div class="invalid-feedback">
-					La description de l'articlt <strong>doit être renseignée</strong>.
-				</div>
 			</div>
 
-			<div class="col-md-5">
+			<div>
 				<label for="country" class="form-label">Catégories :</label>
 				<select name="categorie" class="form-select"  id="country" required>
              		<option value="">Choose...</option>
                 	<option>Livre</option>
               	</select>
-				<div class="invalid-feedback">
-					Vous devez choisir une Catégories pour votre article.
-				</div>
             </div>
 
-			<div class="mb-3">
+			<div>
 				<label class="form-label">Photo de l'article :</label>
 				<input name="image" type="file" class="form-control"  aria-label="Upload image">
 			</div>
 			
-			<div class="mb-3">
+			<div>
 				<label class="form-label">Prix Initial :</label>
 				<input name="prixInitial" id="prixInitial" type="number"  value="" placeholder="Prix Initial">
 			</div>
 			
-			<div class="mb-3">
+			<div>
    				<label for="dateDebut" class="form-label">Début de l'enchère :</label>
 				<input name="debutEnchère" type="date" class="form-control" id="dateDebut" placeholder="date début enchère" value="" required>
-				<div class="invalid-feedback">
-					La date de début de l'enchère de l'articlt <strong>doit être renseignée</strong>.
-				</div>
 			</div>
 			
-			<div class="mb-3">
+			<div>
    				<label for="dateFin" class="form-label">Fin de l'enchère :</label>
 				<input name="debutEnchère" type="date" class="form-control" id="dateFin" placeholder="date fin enchère" value="" required>
-				<div class="invalid-feedback">
-					La date de fin de l'enchère de l'articlt <strong>doit être renseignée</strong>.
-				</div>
 			</div>
          
-         	<fieldset class="col-6">
+         	<fieldset>
          		<legend>Retrait:</legend>
  				<label for="rue" class="form-label">Rue :</label>
   				<input type="text" id="rue" name="rue"><br><br>
@@ -84,16 +71,17 @@
   				<input type="text" id="ville" name="ville"><br><br>
          	</fieldset>
          
-			<div class="col-6">
+			<div >
  				<button class="btn btn-primary" type="submit">Enregistrer</button>
  				<button class="btn btn-primary" type="submit">Annuler</button>
  				<button class="btn btn-primary" type="submit">Annuler la vente</button>
 			</div>
 		</form>
-	</div>
-	<div class="col-md-3">
-	</div>
+	
+	</main>
 </div>
 <%@ include file="../inclusions/footer.jspf" %>
+ <script src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
+ 
 </body>
 </html>
