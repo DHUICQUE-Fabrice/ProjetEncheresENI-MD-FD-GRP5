@@ -16,7 +16,7 @@
 	<h2><input name="acheteur" type="text" class="col-form-control" id="acheteur" readonly> à remporté la vente.</h2>
 <div class="row">
 	<nav id="image" class="col-12 col-sm-4 col-md-4">
-		<img src="img/image_default.jpg"/>
+		<img src="img/image_default.jpg" width="200" height="200"/>
     </nav>
 	<main id="formulaire" class="col-12 col-sm-8 col-md-8">
 		<form>
