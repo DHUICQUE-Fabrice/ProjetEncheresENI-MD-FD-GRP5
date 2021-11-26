@@ -92,6 +92,11 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
+	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) {
+		this.utilisateurDAO.delete(utilisateur.getIdUtilisateur());
+		return utilisateur;
+	}
+	
 	private void validerVille(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getVille().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_VILLE_NON_VIDE);

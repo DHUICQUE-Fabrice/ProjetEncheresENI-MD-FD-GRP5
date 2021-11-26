@@ -4,7 +4,7 @@ public class TodoClass {
 	// TODO Vendre un article (in progress)
 	// TODO importer liste encheres en cours dans page accueil mode déconnecté
 	// TODO importer liste encheres en cours dans page accueil mode connecté
-	// TODO Page de gestion du profil (consultation, modification, suppression)
+	// TODO Page de gestion du profil (consultationOK, modificationOK, suppression)
 	// TODO Visualisation du profil des autres utilisateurs
 	// TODO Faire une enchère
 	// TODO Lister ses ventes
