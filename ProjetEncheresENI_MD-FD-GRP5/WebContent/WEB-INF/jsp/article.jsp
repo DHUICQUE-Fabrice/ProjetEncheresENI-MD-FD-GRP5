@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Article a vendre.</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <%@ include file="../inclusions/header.jspf" %>
 <div class="row">
 	<div class="col-md-3">
