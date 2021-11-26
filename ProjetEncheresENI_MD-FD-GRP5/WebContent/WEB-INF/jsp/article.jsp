@@ -14,9 +14,7 @@
 <body class="container-fluid">
 <%@ include file="../inclusions/header.jspf" %>
 <h2>Article a vendre.</h2>
-	
-	
- 
+
 <div class="row">
 	<nav id="sideMenu" class="col-12 col-sm-3 col-md-2">
 		<img src="img/image_default.jpg"  class="img-fluid" alt="image de l'article vendu." width="200" height="200"/>
