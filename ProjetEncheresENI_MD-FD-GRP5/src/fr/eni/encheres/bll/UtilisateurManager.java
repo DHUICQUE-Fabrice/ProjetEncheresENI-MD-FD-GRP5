@@ -9,15 +9,15 @@ import fr.eni.encheres.exceptions.BusinessException;
 
 public class UtilisateurManager {
 	private UtilisateurDAO utilisateurDAO;
-
+	
 	public UtilisateurManager() {
 		this.utilisateurDAO = DAOFactory.getUtilisateurDAO();
 	}
-
+	
 	public Utilisateur ajouter(Utilisateur utilisateur) throws BusinessException {
-
+		
 		BusinessException exception = new BusinessException();
-
+		
 		this.validerPseudo(utilisateur, exception);
 		this.validerNom(utilisateur, exception);
 		this.validerPrenom(utilisateur, exception);
@@ -27,7 +27,7 @@ public class UtilisateurManager {
 		this.validerCodePostal(utilisateur, exception);
 		this.validerVille(utilisateur, exception);
 		this.validerMotDePasse(utilisateur, exception);
-
+		
 		if (!exception.hasErreurs()) {
 			this.utilisateurDAO.insert(utilisateur);
 		} else {
@@ -35,37 +35,37 @@ public class UtilisateurManager {
 		}
 		return utilisateur;
 	}
-
+	
 	// TODO Méthodes supprimer, modifier, UtilisateurManager
-
+	
 	public List<Utilisateur> allUsers() {
 		return this.utilisateurDAO.selectAll();
 	}
-
+	
 	private void validerVille(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getVille().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_VILLE_NON_VIDE);
 		}
-
+		
 	}
-
+	
 	private void validerRue(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getRue().equals(""))
 			exception.ajouterErreur(CodesErreursBLL.REGLE_RUE_NON_VIDE);
 	}
-
+	
 	private void validerPrenom(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getPrenom().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_PRENOM_NON_VIDE);
 		}
 	}
-
+	
 	private void validerNom(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getNom().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_NOM_NON_VIDE);
 		}
 	}
-
+	
 	private void validerEmail(Utilisateur utilisateur, BusinessException exception) {
 		String email = utilisateur.getEmail();
 		if (!email.equals("")) {
@@ -81,9 +81,9 @@ public class UtilisateurManager {
 		} else {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_EMAIL_NON_VIDE);
 		}
-
+		
 	}
-
+	
 	private void validerTelephone(Utilisateur utilisateur, BusinessException exception) {
 		if (utilisateur.getTelephone() != null) {
 			String number = utilisateur.getTelephone();
@@ -95,7 +95,7 @@ public class UtilisateurManager {
 			}
 		}
 	}
-
+	
 	private void validerCodePostal(Utilisateur utilisateur, BusinessException exception) {
 		String number = utilisateur.getCodePostal();
 		System.out.println(number);
@@ -117,7 +117,7 @@ public class UtilisateurManager {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_NON_VIDE);
 		}
 	}
-
+	
 	private void validerMotDePasse(Utilisateur utilisateur, BusinessException exception) {
 		String mdp = utilisateur.getMotDePasse();
 		if (!mdp.equals("")) {
@@ -126,10 +126,14 @@ public class UtilisateurManager {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_MOT_DE_PASSE_NON_VIDE);
 		}
 	}
-
+	
 	private void validerPseudo(Utilisateur utilisateur, BusinessException exception) {
 		String pseudo = utilisateur.getPseudo();
 		if (!pseudo.equals("")) {
+			if (!pseudo.matches("^[a-zA-Z0-9]*$")) {
+				exception.ajouterErreur(CodesErreursBLL.REGLE_PSEUDO_ALPHANUMERIQUE_ERREUR);
+				return;
+			}
 			List<Utilisateur> utilisateurs = this.allUsers();
 			for (Utilisateur user : utilisateurs) {
 				if (pseudo.equals(user.getPseudo())) {

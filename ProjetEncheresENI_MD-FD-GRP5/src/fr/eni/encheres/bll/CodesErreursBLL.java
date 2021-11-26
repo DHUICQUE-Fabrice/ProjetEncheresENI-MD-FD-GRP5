@@ -15,5 +15,6 @@ public abstract class CodesErreursBLL {
 	public static final int REGLE_CODE_POSTAL_NON_VIDE = 20011;
 	public static final int REGLE_VILLE_NON_VIDE = 20012;
 	public static final int REGLE_MOT_DE_PASSE_NON_VIDE = 20013;
-
+	public static final int REGLE_PSEUDO_ALPHANUMERIQUE_ERREUR = 20014;
+	
 }
