@@ -18,26 +18,26 @@
 <body class="d-flex flex-column h-100">
 <%@ include file="../inclusions/header.jspf" %>
 <main class="flex-shrink-0">
-	<% Utilisateur user= (Utilisateur) session.getAttribute("user"); %>
+
 	<div class="container-fluid">
-		<h1>Formulaire d'inscription</h1>
+		<h1>Modifier mon profil</h1>
 		<br>
 		<form method="post" action="editProfile">
 			<div class="row">
 				<div class="form-floating col-4">
-					<input type="text" name="pseudo" id="pseudo" value="<%=user.getPseudo() %>"
+					<input type="text" name="pseudo" id="pseudo" value="${user.pseudo }"
 						class="form-control" placeholder="pseudo"><label
 						for="pseudo">Pseudo : </label>
 
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="nom" id="nom" value="<%=user.getNom() %>"
+					<input type="text" name="nom" id="nom" value="${user.nom }"
 						class="form-control" placeholder="nom"> <label for="nom">Nom
 						: </label>
 
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="prenom" id="prenom" value="<%=user.getPrenom() %>"
+					<input type="text" name="prenom" id="prenom" value="${user.prenom }"
 						class="form-control" placeholder="prenom"> <label
 						for="prenom">Prénom : </label>
 				</div>
@@ -46,13 +46,13 @@
 			<br>
 			<div class="row">
 				<div class="form-floating col-6">
-					<input type="text" name="email" id="email" value="<%=user.getEmail() %>"
+					<input type="text" name="email" id="email" value="${user.email }"
 						class="form-control" placeholder="email"> <label
 						for="email">Email : </label>
 				</div>
 				<div class="form-floating col-6">
 					<input type="text" name="telephone" id="telephone"
-						value="<%=user.getTelephone() %>" class="form-control" placeholder="telephone">
+						value="${user.getTelephone()}" class="form-control" placeholder="telephone">
 					<label for="telephone">Téléphone : </label>
 				</div>
 			</div>
@@ -60,18 +60,18 @@
 			<br>
 			<div class="row">
 				<div class="form-floating col-4">
-					<input type="text" name="rue" id="rue" value="<%=user.getRue() %>"
+					<input type="text" name="rue" id="rue" value="${user.getRue()}"
 						class="form-control" placeholder="rue"> <label for="rue">Rue
 						: </label>
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="codePostal" id="codePostal"
-						value="<%=user.getCodePostal() %>" class="form-control"
+						value="${user.getCodePostal()}" class="form-control"
 						placeholder="codePostal"> <label for="codePostal">Code
 						Postal : </label>
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="ville" id="ville" value="<%=user.getVille() %>"
+					<input type="text" name="ville" id="ville" value="${user.getVille()}"
 						class="form-control" placeholder="ville"> <label
 						for="ville">Ville : </label>
 				</div>

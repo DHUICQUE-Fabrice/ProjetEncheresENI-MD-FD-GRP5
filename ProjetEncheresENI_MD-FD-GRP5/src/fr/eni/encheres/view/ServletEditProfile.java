@@ -52,7 +52,7 @@ public class ServletEditProfile extends HttpServlet {
 					utilisateurManager.modifierUtilisateur(utilisateur, "prenom", request.getParameter("prenom"));
 				}
 				if (!request.getParameter("email").equals(utilisateur.getPseudo())) {
-					utilisateurManager.modifierUtilisateur(utilisateur, "email", request.getParameter("email"));
+					utilisateurManager.modifierUtilisateur(utilisateur, "eMail", request.getParameter("email"));
 				}
 				if (!request.getParameter("telephone").equals(utilisateur.getPseudo())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "telephone", request.getParameter("telephone"));

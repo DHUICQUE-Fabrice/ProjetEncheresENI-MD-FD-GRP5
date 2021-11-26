@@ -36,8 +36,6 @@ public class UtilisateurManager {
 		return utilisateur;
 	}
 	
-	// TODO Méthodes supprimer, modifier, UtilisateurManager
-	
 	public List<Utilisateur> allUsers() {
 		return this.utilisateurDAO.selectAll();
 	}
