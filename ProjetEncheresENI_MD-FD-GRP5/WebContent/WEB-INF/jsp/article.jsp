@@ -15,6 +15,7 @@
 <%@ include file="../inclusions/header.jspf" %>
 <h2>Article a vendre.</h2>
 	
+	
  
 <div class="row">
 	<nav id="sideMenu" class="col-12 col-sm-3 col-md-2">
