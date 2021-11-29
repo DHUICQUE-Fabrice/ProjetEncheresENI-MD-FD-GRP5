@@ -14,9 +14,9 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public static final String INSERT_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
-	public static final String SELECT_ALL_ENCHERE_BY_ID_USER = "SELECT (no_article, date_enchere, montant_enchere) FROM ENCHERES WHERE no_utilisateur = ?";
-	public static final String SELECT_ALL_ENCHERE_BY_ID_ARTICLE = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article = ?";
-	public static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article = ?";
+	public static final String SELECT_ALL_ENCHERE_BY_ID_USER = "SELECT no_article, date_enchere, montant_enchere FROM ENCHERES WHERE no_utilisateur = ?";
+	public static final String SELECT_ALL_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
+	public static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
 	public static final String UPDATE_ENCHERE = "UPDATE ENCHERES SET date_enchere = ?, montant_enchere = ? WHERE no_article = ? AND no_Utilisateur = ?";
 
 	@Override

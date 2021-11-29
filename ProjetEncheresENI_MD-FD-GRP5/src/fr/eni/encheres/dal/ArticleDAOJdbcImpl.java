@@ -14,10 +14,10 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String SELECT_ALL_ARTICLES = "SELECT (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) FROM ARTICLES_VENDUS";
-	public static final String SELECT_ALL_ARTICLES_BY_CATEGORIE = "SELECT (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) FROM ARTICLES_VENDUS WHERE no_categorie = ?";
-	public static final String SELECT_ALL_ARTICLES_BY_NAME = "SELECT (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) FROM ARTICLES_VENDUS WHERE nom_article LIKE ?%";
-	public static final String SELECT_ARTICLE_BY_ID = "SELECT (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) FROM ARTICLES_VENDUS WHERE no_article = ?";
+	public static final String SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS";
+	public static final String SELECT_ALL_ARTICLES_BY_CATEGORIE = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_categorie = ?";
+	public static final String SELECT_ALL_ARTICLES_BY_NAME = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE nom_article LIKE ?%";
+	public static final String SELECT_ARTICLE_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_article = ?";
 	public static final String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, no_categorie = ?, url_image = ?, rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
 	public static final String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
 

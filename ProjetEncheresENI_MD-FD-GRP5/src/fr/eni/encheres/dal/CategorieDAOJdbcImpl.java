@@ -10,11 +10,11 @@ import java.util.List;
 import fr.eni.encheres.bo.Categorie;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
-	public static final String INSERT_CATEGORIE = "INSERT INTO CATEGORIE (libelle) VALUES (?)";
-	public static final String SELECT_ALL_CATEGORIES = "SELECT (no_categorie, libelle) FROM CATEGORIE";
-	public static final String SELECT_CATEGORIE_BY_ID = "SELECT (libelle) FROM CATEGORIE WHERE no_categorie = ?";
-	public static final String UPDATE_CATEGORIE = "UPDATE CATEGORIE SET libelle = ? WHERE no_categorie = ?";
-	public static final String DELETE_CATEGORIE = "DELETE FROM CATEGORIE WHERE no_categorie = ?";
+	public static final String INSERT_CATEGORIE = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
+	public static final String SELECT_ALL_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
+	public static final String SELECT_CATEGORIE_BY_ID = "SELECT libelle FROM CATEGORIES WHERE no_categorie = ?";
+	public static final String UPDATE_CATEGORIE = "UPDATE CATEGORIES SET libelle = ? WHERE no_categorie = ?";
+	public static final String DELETE_CATEGORIE = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
 
 	@Override
 	public Categorie insert(Categorie categorie) {

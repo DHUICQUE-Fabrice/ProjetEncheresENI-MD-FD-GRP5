@@ -20,7 +20,7 @@
 		<img src="img/image_default.jpg"  class="img-fluid" alt="image de l'article vendu." width="200" height="200"/>
     </nav>
      
-	<main id="grilleChoix" class="col-12 col-sm-8 col-md-8">
+	<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
 	<form method="get" action="<%=request.getContextPath()%>/article"> 
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
@@ -35,8 +35,9 @@
 			<div class="form group-row">
 				<label for="country" class="col-form-label">Catégories :</label>
 				<select name="categorie" class="col-8 col-form-select"  id="country" required>
-             		<option value="">Choose...</option>
-                	<option>Livre</option>
+             		<c:forEach var="cat" items="${requestScope.categorie}">
+             			<option>${cat.getLibelle()}</option>
+             		</c:forEach>
               	</select>
             </div>
 
@@ -77,7 +78,7 @@
 			</div>
 		</form>
 	
-	</main>
+	</div>
 </div>
 <%@ include file="../inclusions/footer.jspf" %>
  <script src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
