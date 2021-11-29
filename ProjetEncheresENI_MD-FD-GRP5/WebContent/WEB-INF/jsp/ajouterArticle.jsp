@@ -35,7 +35,7 @@
 
 			<div class="form group-row">
 				<label for="categorie" class="col-form-label">Catégories :</label>
-				<select name="categorie" class="col-8 col-form-select"  id="categorie" required>
+				<select name="categorie" class="col-2 col-form-select"  id="categorie" required>
              		<c:forEach var="cat" items="${requestScope.categorie}">
              			<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
              		</c:forEach>
@@ -54,15 +54,15 @@
 			
 			<div class="form group-row">
    				<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-				<input name="debutEnchere" type="date" class="col-4 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
+				<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
 			</div>
 			
 			<div class="form group-row">
    				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-				<input name="finEnchere" type="date" class="col-4 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
+				<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
 			</div>
          
-         	<fieldset class="col-8 form group-row">
+         	<fieldset class="col-7 form group-row">
          		<legend>Retrait:</legend>
  				<label for="rue" class="col-form-label">Rue :</label>
   				<input name="rue" type="text" id="rue" class="col-8 col-form-control" ><br>
