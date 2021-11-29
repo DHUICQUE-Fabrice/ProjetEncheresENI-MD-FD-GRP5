@@ -2,11 +2,15 @@ package fr.eni.encheres.view;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletDetailUtilisateur
@@ -20,7 +24,12 @@ public class ServletDetailUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append(request.getParameter("userNumber"));
+		Utilisateur utilisateur = new Utilisateur();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		utilisateur = utilisateurManager.getUserById(Integer.parseInt(request.getParameter("userNumber")));
+		request.setAttribute("user", utilisateur);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/detailUtilisateur.jsp");
+		requestDispatcher.forward(request, response);
 	}
 	
 	/**

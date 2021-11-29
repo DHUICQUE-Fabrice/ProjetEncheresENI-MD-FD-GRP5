@@ -18,7 +18,7 @@
 <div class="container">
 
 <c:forEach var="article" items="${articles }">
-<form method="get" action="encheres">
+<form method="get" action="encherir">
 <input type="hidden" name="articleNumber" value="${article.idArticle }">
 <p>Nom de l'article : <input type="submit" class="btn btn-link" value="${article.nomArticle }"></p>
 </form>
