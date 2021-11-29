@@ -1,5 +1,8 @@
 package fr.eni.encheres.bll;
 
+import java.util.List;
+
+import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
@@ -19,6 +22,10 @@ public class EnchereManager {
 
 		this.enchereDAO.insert(enchere);
 		return enchere;
+	}
+	
+	public List<Enchere> allEnchereByArticle(int idArticle) {
+		return this.enchereDAO.selectAllByIDArticle(idArticle);
 	}
 
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager

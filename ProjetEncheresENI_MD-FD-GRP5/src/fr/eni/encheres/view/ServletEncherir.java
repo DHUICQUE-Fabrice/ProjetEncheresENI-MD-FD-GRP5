@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.org.apache.xml.internal.resolver.CatalogManager;
+
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.CategorieManager;
+import fr.eni.encheres.bll.EnchereManager;
+import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Enchere;
 
 /**
  * Servlet implementation class ServletAccueil
@@ -22,8 +32,35 @@ public class ServletEncherir extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/encherir.jsp");
-		requestDispatcher.forward(request, response);
+		int id = Integer.parseInt(request.getParameter("articleNumber"));
+		ArticleManager art = new ArticleManager();
+		CategorieManager cat = new CategorieManager();
+		EnchereManager enc = new EnchereManager();
+		
+		List<Enchere> listeEnchereArticle = enc.allEnchereByArticle(id);
+		
+		System.out.println(id);
+		
+		Article article =art.selectByIdArticle(id); 
+		Categorie categorie = cat.selectById(article.getCategorie().getIdCategorie());
+		
+		System.out.println(article);
+		System.out.println(categorie);
+		
+		request.setAttribute("nomArticle", article.getNomArticle());
+		request.setAttribute("description", article.getDescription());
+		request.setAttribute("categorie", categorie.getLibelle());
+		request.setAttribute("offre", article.getPrixVente());
+		request.setAttribute("acheteur", article.getUtilisateur().getIdUtilisateur());
+		request.setAttribute("miseAPrix", article.getPrixInitial());
+		request.setAttribute("finEnchere", article.getDateFin());
+		request.setAttribute("rue", article.getRue());
+		request.setAttribute("codePostal", article.getCodePostal());
+		request.setAttribute("ville", article.getVille());
+		request.setAttribute("vendeur", article.getUtilisateur().getPseudo());
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
+		
 	}
 
 	/**

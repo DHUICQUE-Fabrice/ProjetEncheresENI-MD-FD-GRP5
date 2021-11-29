@@ -25,7 +25,7 @@
 		<form method="post" action="<%=request.getContextPath()%>/article"> 
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
-				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" value="" required>
+				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" required>
             </div>
 
 			<div class="form group-row">

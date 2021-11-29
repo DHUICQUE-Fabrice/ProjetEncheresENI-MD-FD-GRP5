@@ -23,9 +23,10 @@
      
 	<main id="grilleChoix" class="col-12 col-sm-8 col-md-8">
 		<form  method="post" action="<%=request.getContextPath()%>/encherir">
+          
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
-				<input name="nomArticle" type="text" class="col-8 col-form-control" id="article" readonly>
+				<input name="nomArticle" type="text" class="col-8 col-form-control" id="article" value="${art.getNomArticle()}" readonly>
             </div>
 
 			<div class="form group-row">
