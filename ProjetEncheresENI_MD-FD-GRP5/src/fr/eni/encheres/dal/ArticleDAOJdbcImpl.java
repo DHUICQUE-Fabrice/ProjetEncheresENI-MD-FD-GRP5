@@ -175,25 +175,24 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				// Je récupère les informations a partir de la BDD En fonction de l'ID.
-				int idArticle = resultSet.getInt(13);
-				String nomArticle = resultSet.getString(1);
-				String description = resultSet.getString(2);
-				LocalDate dateDebut = resultSet.getDate(3).toLocalDate();
-				LocalDate dateFin = resultSet.getDate(4).toLocalDate();
-				int prixInitial = resultSet.getInt(5);
-				int prixFinal = resultSet.getInt(6);
+				int idArticle = resultSet.getInt("no_article");
+				String nomArticle = resultSet.getString("nom_article");
+				String description = resultSet.getString("description");
+				LocalDate dateDebut = resultSet.getDate("date_debut_encheres").toLocalDate();
+				LocalDate dateFin = resultSet.getDate("date_fin_encheres").toLocalDate();
+				int prixInitial = resultSet.getInt("prix_initial");
+				int prixFinal = resultSet.getInt("prix_vente");
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setIdUtilisateur(resultSet.getInt(7));
+				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
 				Categorie categorie = new Categorie();
-				categorie.setIdCategorie(resultSet.getInt(8));
-				String urlImage = resultSet.getString(9);
-				String rue = resultSet.getString(10);
-				int codePostal = resultSet.getInt(11);
-				String ville = resultSet.getString(12);
+				categorie.setIdCategorie(resultSet.getInt("no_categorie"));
+				String urlImage = resultSet.getString("url_image");
+				String rue = resultSet.getString("rue");
+				int codePostal = resultSet.getInt("code_postal");
+				String ville = resultSet.getString("ville");
 				
 				article = new Article(idArticle, nomArticle, description, dateDebut, dateFin, prixInitial, prixFinal,
 						utilisateur, categorie, urlImage, rue, codePostal, ville);
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
