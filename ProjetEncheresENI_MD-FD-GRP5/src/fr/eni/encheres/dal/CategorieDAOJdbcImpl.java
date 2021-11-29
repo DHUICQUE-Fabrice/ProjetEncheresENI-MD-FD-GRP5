@@ -15,7 +15,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	public static final String SELECT_CATEGORIE_BY_ID = "SELECT libelle FROM CATEGORIES WHERE no_categorie = ?";
 	public static final String UPDATE_CATEGORIE = "UPDATE CATEGORIES SET libelle = ? WHERE no_categorie = ?";
 	public static final String DELETE_CATEGORIE = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
-
+	
 	@Override
 	public Categorie insert(Categorie categorie) {
 		if (categorie != null) {
@@ -32,10 +32,10 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				e.printStackTrace();
 			}
 		}
-
+		
 		return categorie;
 	}
-
+	
 	@Override
 	public List<Categorie> selectAll() {
 		List<Categorie> categories = new ArrayList<Categorie>();
@@ -43,8 +43,8 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CATEGORIES)) {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				int idCategorie = resultSet.getInt(1);
-				String libelle = resultSet.getString(2);
+				int idCategorie = resultSet.getInt("no_categorie");
+				String libelle = resultSet.getString("libelle");
 				categories.add(new Categorie(idCategorie, libelle));
 			}
 		} catch (SQLException e) {
@@ -52,7 +52,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return categories;
 	}
-
+	
 	@Override
 	public Categorie selectByID(int id) {
 		Categorie categorie = new Categorie();
@@ -62,7 +62,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				categorie.setIdCategorie(id);
-				categorie.setLibelle(resultSet.getString(1));
+				categorie.setLibelle(resultSet.getString("libelle"));
 				
 			}
 		} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return categorie;
 	}
-
+	
 	@Override
 	public Categorie update(Categorie categorie) {
 		try (Connection connection = ConnectionProvider.getConnection();
@@ -82,7 +82,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return categorie;
 	}
-
+	
 	@Override
 	public Categorie delete(int id) {
 		try (Connection connection = ConnectionProvider.getConnection();
@@ -94,5 +94,5 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		}
 		return null;
 	}
-
+	
 }
