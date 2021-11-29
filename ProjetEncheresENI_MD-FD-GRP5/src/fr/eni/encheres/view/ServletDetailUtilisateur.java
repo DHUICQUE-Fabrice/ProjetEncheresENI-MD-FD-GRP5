@@ -24,10 +24,7 @@ public class ServletDetailUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Utilisateur utilisateur = new Utilisateur();
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		utilisateur = utilisateurManager.getUserById(Integer.parseInt(request.getParameter("userNumber")));
-		request.setAttribute("user", utilisateur);
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/detailUtilisateur.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -37,6 +34,10 @@ public class ServletDetailUtilisateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Utilisateur utilisateur = new Utilisateur();
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		utilisateur = utilisateurManager.getUserById(Integer.parseInt(request.getParameter("userNumber")));
+		request.setAttribute("user", utilisateur);
 		doGet(request, response);
 	}
 	
