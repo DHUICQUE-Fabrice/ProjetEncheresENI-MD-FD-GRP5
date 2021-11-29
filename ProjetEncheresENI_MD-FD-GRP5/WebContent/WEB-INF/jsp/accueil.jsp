@@ -17,7 +17,7 @@
 <main class="flex-shrink-0">
 <div class="container">
 <c:forEach var="article" items="${articles }">
-<p>Nom de l'article : <a href="detailArticle">${article.nomArticle }</a></p>
+<p>Nom de l'article : <a href="encherir">${article.nomArticle }</a></p>
 <p>Description de l'article : ${article.description }</p>
 <p>Début de l'enchère : ${article.dateDebut }</p>
 <p>Fin de l'enchère : ${article.dateFin }</p>
