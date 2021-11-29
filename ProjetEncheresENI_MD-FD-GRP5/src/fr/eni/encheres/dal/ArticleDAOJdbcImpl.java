@@ -99,7 +99,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			while (resultSet.next()) {
 				
 				// Je récupère les informations de la BDD a partir d'un ID.
-				int idArticle = resultSet.getInt(1);
+				int idArticle = resultSet.getInt("no_article");
 				String nomArticle = resultSet.getString(2);
 				String description = resultSet.getString(3);
 				LocalDate dateDebut = resultSet.getDate(4).toLocalDate();
@@ -114,6 +114,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				String rue = resultSet.getString(11);
 				int codePostal = resultSet.getInt(12);
 				String ville = resultSet.getString(13);
+				// description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS";
 				
 				// je créer un article qui contient les informations de la BDD
 				Article article = new Article(idArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
