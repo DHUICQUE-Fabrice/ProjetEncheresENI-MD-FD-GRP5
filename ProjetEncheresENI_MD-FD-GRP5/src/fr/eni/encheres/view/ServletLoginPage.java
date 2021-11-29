@@ -21,20 +21,18 @@ import fr.eni.encheres.bo.Utilisateur;
 @WebServlet("/login")
 public class ServletLoginPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
+	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -60,13 +58,14 @@ public class ServletLoginPage extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("user", login);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
-			requestDispatcher.forward(request, response);
+			response.sendRedirect("encheres");
+			//RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+			//requestDispatcher.forward(request, response);
 			return;
 		} else {
 			request.setAttribute("wrongPass", "true");
 		}
 		doGet(request, response);
 	}
-
+	
 }

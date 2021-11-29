@@ -16,7 +16,9 @@
 
 <main class="flex-shrink-0">
 <div class="container">
-
+<c:forEach var="article" items="${articles }">
+<p>${article }</p>
+</c:forEach>
 </div>
 
 

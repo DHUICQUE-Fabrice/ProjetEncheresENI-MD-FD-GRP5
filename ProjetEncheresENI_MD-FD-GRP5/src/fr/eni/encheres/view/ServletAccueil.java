@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bo.Article;
 
 /**
  * Servlet implementation class ServletAccueil
@@ -23,6 +27,9 @@ public class ServletAccueil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		ArticleManager articleManager = new ArticleManager();
+		List<Article> articles = articleManager.allArticle();
+		request.setAttribute("articles", articles);
 		if (request.getParameter("disconnect") != null && request.getParameter("disconnect").equals("disconnect")) {
 			session.invalidate();
 		}
