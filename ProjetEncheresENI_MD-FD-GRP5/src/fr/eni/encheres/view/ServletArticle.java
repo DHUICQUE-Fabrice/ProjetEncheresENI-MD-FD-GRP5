@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.exceptions.BusinessException;
 
 /**
  * Servlet implementation class ServletAccueil
@@ -36,7 +38,7 @@ public class ServletArticle extends HttpServlet {
 		request.setAttribute("categorie", cat.selectAll());
 		
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/article.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
 		requestDispatcher.forward(request, response);
 	}
 
@@ -46,15 +48,23 @@ public class ServletArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		if (action.equals("ajouter")) {
+			ajouterArticle(request, response);
+			
+		}else if (action.equals("delete")){
+			deleteArticle(request, response);
+		}
+
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+		requestDispatcher.forward(request, response);
 		
-		HttpSession session = request.getSession();
-		
-		doGet(request, response);
 	}
 
 	private void ajouterArticle(HttpServletRequest request, HttpServletResponse response) {
 		Article article = new Article();
 		CategorieManager cat = new CategorieManager();
+		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
 		
 		article.setNomArticle(request.getParameter("nomArticle"));
@@ -69,5 +79,48 @@ public class ServletArticle extends HttpServlet {
 		article.setVille(request.getParameter("ville"));
 		article.setUtilisateur((Utilisateur) session.getAttribute("user"));
 		
+		System.out.println(article.toString());
+		try {
+			art.ajouter(article);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private void modifierArticle(HttpServletRequest request, HttpServletResponse response) {
+		Article article = new Article();
+		CategorieManager cat = new CategorieManager();
+		ArticleManager art = new ArticleManager();
+		HttpSession session = request.getSession();
+		
+		
+		try {
+			
+			article.setNomArticle(request.getParameter("nomArticle"));
+			article.setDescription(request.getParameter("description"));
+			article.setCategorie(cat.selectById(Integer.valueOf(request.getParameter("categorie"))));
+			article.setUrlImage(request.getParameter("image"));
+			article.setPrixInitial(Integer.parseInt(request.getParameter("prixInitial")));
+			article.setDateDebut(LocalDate.parse(request.getParameter("debutEnchere")));
+			article.setDateFin(LocalDate.parse(request.getParameter("finEnchere")));
+			article.setRue(request.getParameter("rue"));
+			article.setCodePostal(Integer.parseInt(request.getParameter("codePostal")));
+			article.setVille(request.getParameter("ville"));
+			article.setUtilisateur((Utilisateur) session.getAttribute("user"));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	private void deleteArticle(HttpServletRequest request, HttpServletResponse response) {
+		ArticleManager art = new ArticleManager();
+		
+		int id = Integer.parseInt(request.getParameter("idArticle"));
+		try {
+			art.deleteArticle(id);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	}
 }

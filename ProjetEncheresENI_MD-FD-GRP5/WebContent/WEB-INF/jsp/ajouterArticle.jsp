@@ -1,3 +1,4 @@
+<%@page import="fr.eni.encheres.bo.Article"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -21,7 +22,7 @@
     </nav>
      
 	<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
-	<form method="get" action="<%=request.getContextPath()%>/article"> 
+		<form method="post" action="<%=request.getContextPath()%>/article"> 
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
 				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" value="" required>
@@ -33,10 +34,10 @@
 			</div>
 
 			<div class="form group-row">
-				<label for="country" class="col-form-label">Catégories :</label>
-				<select name="categorie" class="col-8 col-form-select"  id="country" required>
+				<label for="categorie" class="col-form-label">Catégories :</label>
+				<select name="categorie" class="col-8 col-form-select"  id="categorie" required>
              		<c:forEach var="cat" items="${requestScope.categorie}">
-             			<option>${cat.getLibelle()}</option>
+             			<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
              		</c:forEach>
               	</select>
             </div>
@@ -70,11 +71,10 @@
   				<label for="ville" class="col-form-label">Ville :</label>
   				<input name="ville" type="text" id="ville" class="col-8 col-form-control" ><br>
          	</fieldset>
-         
-			<div class="form group-row">
- 				<button class="btn btn-primary" type="submit">Enregistrer</button>
- 				<button class="btn btn-primary" type="submit">Annuler</button>
- 				<button class="btn btn-primary" type="submit">Annuler la vente</button>
+         	<div class="form group-row">
+ 				<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
+ 				<button name="action"class="btn btn-primary" type="submit"  value="annuler">Annuler</button>
+ 				<button name="action" class="btn btn-primary" type="submit"  value="delete">Annuler la vente</button>
 			</div>
 		</form>
 	

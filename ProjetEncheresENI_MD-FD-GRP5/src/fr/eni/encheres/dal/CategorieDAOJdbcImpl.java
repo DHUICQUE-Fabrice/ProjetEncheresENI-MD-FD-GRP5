@@ -55,15 +55,15 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
 	@Override
 	public Categorie selectByID(int id) {
-		Categorie categorie = null;
+		Categorie categorie = new Categorie();
 		try (Connection connection = ConnectionProvider.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CATEGORIE_BY_ID)) {
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				int idCategorie = resultSet.getInt(1);
-				String libelle = resultSet.getString(2);
-				categorie = new Categorie(idCategorie, libelle);
+				categorie.setIdCategorie(id);
+				categorie.setLibelle(resultSet.getString(1));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -13,7 +13,7 @@ import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
-	public static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, url_image, rue, code_postal, ville) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	public static final String SELECT_ALL_ARTICLES = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS";
 	public static final String SELECT_ALL_ARTICLES_BY_CATEGORIE = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_categorie = ?";
 	public static final String SELECT_ALL_ARTICLES_BY_NAME = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE nom_article LIKE ?%";
@@ -32,13 +32,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				preparedStatement.setDate(3, java.sql.Date.valueOf(article.getDateDebut()));
 				preparedStatement.setDate(4, java.sql.Date.valueOf(article.getDateFin()));
 				preparedStatement.setInt(5, article.getPrixInitial());
-				preparedStatement.setInt(6, article.getPrixVente());
-				preparedStatement.setInt(7, article.getUtilisateur().getIdUtilisateur());
-				preparedStatement.setInt(8, article.getCategorie().getIdCategorie());
-				preparedStatement.setString(9, article.getUrlImage());
-				preparedStatement.setString(10, article.getRue());
-				preparedStatement.setInt(11, article.getCodePostal());
-				preparedStatement.setString(12, article.getVille());
+				preparedStatement.setInt(6, article.getUtilisateur().getIdUtilisateur());
+				preparedStatement.setInt(7, article.getCategorie().getIdCategorie());
+				preparedStatement.setString(8, article.getUrlImage());
+				preparedStatement.setString(9, article.getRue());
+				preparedStatement.setInt(10, article.getCodePostal());
+				preparedStatement.setString(11, article.getVille());
 				preparedStatement.execute();
 				ResultSet resultSet = preparedStatement.getGeneratedKeys();
 				if (resultSet.next()) {
