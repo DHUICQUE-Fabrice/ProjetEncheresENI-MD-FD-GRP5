@@ -110,16 +110,12 @@
 	</div>
 
 
-	<%
-		List<Integer> listeCodesErreur = (ArrayList<Integer>) request.getAttribute("listeCodesErreurs");
-		if (listeCodesErreur != null) {
-			for (int error : listeCodesErreur) {
-	%>
-	<p class="error"><%=LecteurMessages.getMessageErreur(error)%></p>
-	<%
-		}
-		}
-	%>
+	<c:if test="${!empty requestScope.listeCodesErreurs }">
+		<c:forEach var="error" items="${requestScope.listeCodesErreurs }">
+			<p class="error"><c:out value="${LecteurMessages.getMessageErreur(error) }"></c:out></p>
+		</c:forEach>
+	
+	</c:if>
 		<c:if test="${!empty wrongPass }">
 		<br>
 		<p class="error">Veuillez rentrer votre mot de passe actuel !</p>

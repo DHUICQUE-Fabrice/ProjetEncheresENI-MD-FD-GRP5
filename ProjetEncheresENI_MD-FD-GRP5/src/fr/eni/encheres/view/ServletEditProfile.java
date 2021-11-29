@@ -36,6 +36,7 @@ public class ServletEditProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		BusinessException exception = new BusinessException();
 		HttpSession session = request.getSession();
 		try {
 			
@@ -45,26 +46,26 @@ public class ServletEditProfile extends HttpServlet {
 				if (!request.getParameter("pseudo").equals(utilisateur.getPseudo())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "pseudo", request.getParameter("pseudo"));
 				}
-				if (!request.getParameter("nom").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("nom").equals(utilisateur.getNom())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "nom", request.getParameter("nom"));
 				}
-				if (!request.getParameter("prenom").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("prenom").equals(utilisateur.getPrenom())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "prenom", request.getParameter("prenom"));
 				}
-				if (!request.getParameter("email").equals(utilisateur.getPseudo())) {
-					utilisateurManager.modifierUtilisateur(utilisateur, "eMail", request.getParameter("email"));
+				if (!request.getParameter("email").equals(utilisateur.getEmail())) {
+					utilisateurManager.modifierUtilisateur(utilisateur, "email", request.getParameter("email"));
 				}
-				if (!request.getParameter("telephone").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("telephone").equals(utilisateur.getTelephone())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "telephone", request.getParameter("telephone"));
 				}
-				if (!request.getParameter("rue").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("rue").equals(utilisateur.getRue())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "rue", request.getParameter("rue"));
 				}
-				if (!request.getParameter("codePostal").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("codePostal").equals(utilisateur.getCodePostal())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "codePostal",
 							request.getParameter("codePostal"));
 				}
-				if (!request.getParameter("ville").equals(utilisateur.getPseudo())) {
+				if (!request.getParameter("ville").equals(utilisateur.getVille())) {
 					utilisateurManager.modifierUtilisateur(utilisateur, "ville", request.getParameter("ville"));
 				}
 			} else {
@@ -72,7 +73,7 @@ public class ServletEditProfile extends HttpServlet {
 			}
 			
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 		
 		doGet(request, response);

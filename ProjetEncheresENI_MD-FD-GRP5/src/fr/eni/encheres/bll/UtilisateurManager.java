@@ -43,51 +43,54 @@ public class UtilisateurManager {
 	public Utilisateur modifierUtilisateur(Utilisateur utilisateur, String champ, String nouvelleValeur)
 			throws BusinessException {
 		BusinessException exception = new BusinessException();
+		Utilisateur utilisateurModifie = utilisateur;
 		switch (champ) {
 			case "pseudo":
-				utilisateur.setPseudo(nouvelleValeur);
-				validerPseudo(utilisateur, exception);
+				utilisateurModifie.setPseudo(nouvelleValeur);
+				this.validerPseudo(utilisateurModifie, exception);
 				break;
 			case "nom":
-				utilisateur.setNom(nouvelleValeur);
-				validerNom(utilisateur, exception);
+				utilisateurModifie.setNom(nouvelleValeur);
+				this.validerNom(utilisateurModifie, exception);
 				break;
 			case "prenom":
-				utilisateur.setPrenom(nouvelleValeur);
-				validerPrenom(utilisateur, exception);
+				utilisateurModifie.setPrenom(nouvelleValeur);
+				this.validerPrenom(utilisateurModifie, exception);
 				break;
 			case "email":
-				utilisateur.setEmail(nouvelleValeur);
-				validerEmail(utilisateur, exception);
+				utilisateurModifie.setEmail(nouvelleValeur);
+				this.validerEmail(utilisateurModifie, exception);
 				break;
 			case "telephone":
-				utilisateur.setTelephone(nouvelleValeur);
-				validerTelephone(utilisateur, exception);
+				utilisateurModifie.setTelephone(nouvelleValeur);
+				validerTelephone(utilisateurModifie, exception);
 				break;
 			case "rue":
-				utilisateur.setRue(nouvelleValeur);
-				validerRue(utilisateur, exception);
+				utilisateurModifie.setRue(nouvelleValeur);
+				validerRue(utilisateurModifie, exception);
 				break;
 			case "codePostal":
-				utilisateur.setCodePostal(nouvelleValeur);
-				validerCodePostal(utilisateur, exception);
+				utilisateurModifie.setCodePostal(nouvelleValeur);
+				validerCodePostal(utilisateurModifie, exception);
 				break;
 			case "ville":
-				utilisateur.setVille(nouvelleValeur);
-				validerVille(utilisateur, exception);
+				utilisateurModifie.setVille(nouvelleValeur);
+				validerVille(utilisateurModifie, exception);
 				break;
 			case "password":
-				utilisateur.setMotDePasse(nouvelleValeur);
-				validerMotDePasse(utilisateur, exception);
+				utilisateurModifie.setMotDePasse(nouvelleValeur);
+				validerMotDePasse(utilisateurModifie, exception);
 			default:
 				break;
 		}
 		if (!exception.hasErreurs()) {
-			this.utilisateurDAO.update(utilisateur);
+			System.out.println("Pas d'erreur");
+			this.utilisateurDAO.update(utilisateurModifie);
+			return utilisateurModifie;
 		} else {
+			System.out.println("Erreur");
 			throw exception;
 		}
-		return utilisateur;
 	}
 	
 	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) {
@@ -151,7 +154,6 @@ public class UtilisateurManager {
 	
 	private void validerCodePostal(Utilisateur utilisateur, BusinessException exception) {
 		String number = utilisateur.getCodePostal();
-		System.out.println(number);
 		if (!number.equals("")) {
 			Boolean isNumber = true;
 			for (int i = 0; i < number.length(); i++) {

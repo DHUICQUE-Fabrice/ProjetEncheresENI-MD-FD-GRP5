@@ -15,7 +15,6 @@ public class TodoClass {
 	// TODO Responsive design
 	// TODO Pages d'erreur custom : 404, 500
 	// TODO Sécuriser suppression avec mdp
-	// TODO Changer Scriptlets par JSTL s'il en reste
 	
 	/*
 	 * 
