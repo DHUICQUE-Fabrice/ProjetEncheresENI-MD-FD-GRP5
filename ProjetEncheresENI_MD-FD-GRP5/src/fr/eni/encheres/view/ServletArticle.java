@@ -35,11 +35,23 @@ public class ServletArticle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CategorieManager cat = new CategorieManager();
+		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
 		
+		String id= request.getParameter("idarticle");
+		if (id == null) {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
+			requestDispatcher.forward(request, response);
+		}else {
+			art.selectByIdArticle(Integer.parseInt(id));
+			
+			
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
+			requestDispatcher.forward(request, response);
+		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
-		requestDispatcher.forward(request, response);
+		
 	}
 
 	/**
@@ -54,7 +66,7 @@ public class ServletArticle extends HttpServlet {
 			
 		}else if (action.equals("delete")){
 			deleteArticle(request, response);
-		}
+		}else if (action.equals("annuler")){}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		requestDispatcher.forward(request, response);
@@ -78,8 +90,6 @@ public class ServletArticle extends HttpServlet {
 		article.setCodePostal(Integer.parseInt(request.getParameter("codePostal")));
 		article.setVille(request.getParameter("ville"));
 		article.setUtilisateur((Utilisateur) session.getAttribute("user"));
-		
-		System.out.println(article.toString());
 		try {
 			art.ajouter(article);
 		} catch (BusinessException e) {
@@ -96,6 +106,7 @@ public class ServletArticle extends HttpServlet {
 		
 		try {
 			
+			article.setIdArticle(Integer.parseInt(request.getParameter("idarticle")));
 			article.setNomArticle(request.getParameter("nomArticle"));
 			article.setDescription(request.getParameter("description"));
 			article.setCategorie(cat.selectById(Integer.valueOf(request.getParameter("categorie"))));
@@ -107,6 +118,8 @@ public class ServletArticle extends HttpServlet {
 			article.setCodePostal(Integer.parseInt(request.getParameter("codePostal")));
 			article.setVille(request.getParameter("ville"));
 			article.setUtilisateur((Utilisateur) session.getAttribute("user"));
+			
+			art.updateArticle(article);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

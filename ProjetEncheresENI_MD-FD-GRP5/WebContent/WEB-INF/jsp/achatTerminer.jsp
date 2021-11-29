@@ -21,7 +21,7 @@
 		<img src="img/image_default.jpg" width="200" height="200"/>
     </nav>
 S	<main id="formulaire" class="col-12 col-sm-8 col-md-8">
-		<form>
+		<form  method="post" action="<%=request.getContextPath()%>/encherir">
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
 				<input name="nomArticle" type="text" class="col-form-control" id="article" readonly>

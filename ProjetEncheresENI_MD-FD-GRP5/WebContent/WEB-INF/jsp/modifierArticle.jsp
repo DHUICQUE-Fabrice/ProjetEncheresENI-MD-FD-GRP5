@@ -22,7 +22,12 @@
     </nav>
      
 	<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
-		<form method="post" action="<%=request.getContextPath()%>/article"> 
+			
+			<form method="get" action="<%=request.getContextPath()%>/article"> 
+				<input name="idArticle" type="hidden" value="11">
+			</form>
+	
+			<form method="post" action="<%=request.getContextPath()%>/article"> 
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
 				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" value="" required>
@@ -74,6 +79,7 @@
          	<div class="form group-row">
  				<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
  				<button name="action"class="btn btn-primary" type="submit"  value="annuler">Annuler</button>
+ 				<button name="action" class="btn btn-primary" type="submit"  value="delete">Annuler la vente</button>
 			</div>
 		</form>
 	
