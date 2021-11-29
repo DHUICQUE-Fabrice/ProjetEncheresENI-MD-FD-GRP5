@@ -2,10 +2,7 @@ package fr.eni.encheres.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Article;
-import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exceptions.BusinessException;
 
@@ -27,10 +23,9 @@ import fr.eni.encheres.exceptions.BusinessException;
 @WebServlet("/article")
 public class ServletArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,25 +33,21 @@ public class ServletArticle extends HttpServlet {
 		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
 		
-		String id= request.getParameter("idarticle");
+		String id = request.getParameter("idarticle");
 		if (id == null) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
 			requestDispatcher.forward(request, response);
-		}else {
+		} else {
 			art.selectByIdArticle(Integer.parseInt(id));
-			
-			
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
 			requestDispatcher.forward(request, response);
 		}
 		
-		
 	}
-
+	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -64,15 +55,16 @@ public class ServletArticle extends HttpServlet {
 		if (action.equals("ajouter")) {
 			ajouterArticle(request, response);
 			
-		}else if (action.equals("delete")){
+		} else if (action.equals("delete")) {
 			deleteArticle(request, response);
-		}else if (action.equals("annuler")){}
-
+		} else if (action.equals("annuler")) {
+		}
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		requestDispatcher.forward(request, response);
 		
 	}
-
+	
 	private void ajouterArticle(HttpServletRequest request, HttpServletResponse response) {
 		Article article = new Article();
 		CategorieManager cat = new CategorieManager();
@@ -94,7 +86,7 @@ public class ServletArticle extends HttpServlet {
 			art.ajouter(article);
 		} catch (BusinessException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 	
 	private void modifierArticle(HttpServletRequest request, HttpServletResponse response) {
@@ -102,7 +94,6 @@ public class ServletArticle extends HttpServlet {
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
-		
 		
 		try {
 			

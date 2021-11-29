@@ -128,7 +128,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return Utilisateur;
+		return utilisateur;
 	}
 	
 	@Override
