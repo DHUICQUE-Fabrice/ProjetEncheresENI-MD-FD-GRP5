@@ -20,20 +20,18 @@ import fr.eni.encheres.exceptions.BusinessException;
 @WebServlet("/createAccount")
 public class ServletCreateAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/createAccount.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/createAccount.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
+	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,10 +39,9 @@ public class ServletCreateAccount extends HttpServlet {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
 				request.setAttribute("wrongConfirmation", "wrong");
-				doGet(request, response);
 				return;
 			}
-
+			
 			String pseudo = request.getParameter("pseudo");
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
@@ -54,19 +51,16 @@ public class ServletCreateAccount extends HttpServlet {
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 			String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
-
+			
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 					motDePasse, 0, false);
 			System.out.println(utilisateur.toString());
-
+			
 			utilisateur = utilisateurManager.ajouter(utilisateur);
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
-			doGet(request, response);
-			return;
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
-		requestDispatcher.forward(request, response);
+		doGet(request, response);
 	}
-
+	
 }

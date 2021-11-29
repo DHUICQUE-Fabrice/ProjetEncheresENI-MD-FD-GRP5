@@ -36,7 +36,6 @@ public class ServletEditProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BusinessException exception = new BusinessException();
 		HttpSession session = request.getSession();
 		try {
 			

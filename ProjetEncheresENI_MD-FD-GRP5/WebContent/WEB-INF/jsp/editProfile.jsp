@@ -26,19 +26,19 @@
 			<div class="row">
 				<div class="form-floating col-4">
 					<input type="text" name="pseudo" id="pseudo" value="${user.pseudo }"
-						class="form-control" placeholder="pseudo"><label
+						class="form-control" placeholder="pseudo" required><label
 						for="pseudo">Pseudo : </label>
 
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="nom" id="nom" value="${user.nom }"
-						class="form-control" placeholder="nom"> <label for="nom">Nom
+						class="form-control" placeholder="nom" required> <label for="nom">Nom
 						: </label>
 
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="prenom" id="prenom" value="${user.prenom }"
-						class="form-control" placeholder="prenom"> <label
+						class="form-control" placeholder="prenom" required> <label
 						for="prenom">Prénom : </label>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 			<div class="row">
 				<div class="form-floating col-6">
 					<input type="text" name="email" id="email" value="${user.email }"
-						class="form-control" placeholder="email"> <label
+						class="form-control" placeholder="email" required> <label
 						for="email">Email : </label>
 				</div>
 				<div class="form-floating col-6">
@@ -61,18 +61,18 @@
 			<div class="row">
 				<div class="form-floating col-4">
 					<input type="text" name="rue" id="rue" value="${user.rue}"
-						class="form-control" placeholder="rue"> <label for="rue">Rue
+						class="form-control" placeholder="rue" required> <label for="rue">Rue
 						: </label>
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="codePostal" id="codePostal"
 						value="${user.codePostal}" class="form-control"
-						placeholder="codePostal"> <label for="codePostal">Code
+						placeholder="codePostal" required> <label for="codePostal">Code
 						Postal : </label>
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="ville" id="ville" value="${user.ville}"
-						class="form-control" placeholder="ville"> <label
+						class="form-control" placeholder="ville" required> <label
 						for="ville">Ville : </label>
 				</div>
 			</div>
@@ -82,7 +82,7 @@
 			<div class="row">
 				<div class="form-floating col-4">
 					<input type="password" name="oldPassword" id="oldPassword"
-						value="" class="form-control" placeholder="oldPassword">
+						value="" class="form-control" placeholder="oldPassword" required>
 					<label for="oldPassword">Mot de Passe actuel : </label>
 				</div>				
 				<div class="form-floating col-4">
