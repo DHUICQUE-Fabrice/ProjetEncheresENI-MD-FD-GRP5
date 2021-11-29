@@ -52,22 +52,22 @@
 			
 			<div class="form group-row">
    				<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-				<input name="debutEnchère" type="date" class="col-8 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
+				<input name="debutEnchere" type="date" class="col-8 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
 			</div>
 			
 			<div class="form group-row">
    				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-				<input name="debutEnchère" type="date" class="col-8 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
+				<input name="finEnchere" type="date" class="col-8 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
 			</div>
          
          	<fieldset class="col-8 form group-row">
          		<legend>Retrait:</legend>
  				<label for="rue" class="col-form-label">Rue :</label>
-  				<input type="text" id="rue" class="col-8 col-form-control" name="rue"><br><br>
+  				<input name="rue" type="text" id="rue" class="col-8 col-form-control" ><br>
  				<label for="codePostal" class="col-form-label">Code postal :</label>
- 				<input type="number" id="codePostal" class="col-8 col-form-control" name="codePostal"><br><br>
+ 				<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" ><br>
   				<label for="ville" class="col-form-label">Ville :</label>
-  				<input type="text" id="ville" class="col-8 col-form-control" name="ville"><br><br>
+  				<input name="ville" type="text" id="ville" class="col-8 col-form-control" ><br>
          	</fieldset>
          
 			<div class="form group-row">
