@@ -16,18 +16,11 @@
 
 <main class="flex-shrink-0">
 <div class="container">
-<%
-		if (session.getAttribute("user") != null) {
-	%>
-		<a class="nav-link" href="article">Vendre un article</a>
-		
-			<%
-		} else {
-	%>
-        	<%
-		}
-	%>
+
 </div>
+
+
+
 
 </main>	
 <%@ include file="../inclusions/footer.jspf" %>

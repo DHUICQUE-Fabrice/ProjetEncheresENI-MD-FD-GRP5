@@ -39,12 +39,7 @@
 					<input type="text" name="prenom" id="prenom" value="${prenom }"
 						class="form-control" placeholder="prenom"> <label
 						for="prenom">Prénom : </label>
-
 				</div>
-
-
-
-
 			</div>
 			<br>
 			<br>

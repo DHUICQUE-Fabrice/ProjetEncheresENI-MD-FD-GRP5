@@ -52,7 +52,7 @@
 				</div>
 				<div class="form-floating col-6">
 					<input type="text" name="telephone" id="telephone"
-						value="${user.getTelephone()}" class="form-control" placeholder="telephone">
+						value="${user.telephone}" class="form-control" placeholder="telephone">
 					<label for="telephone">Téléphone : </label>
 				</div>
 			</div>
@@ -60,18 +60,18 @@
 			<br>
 			<div class="row">
 				<div class="form-floating col-4">
-					<input type="text" name="rue" id="rue" value="${user.getRue()}"
+					<input type="text" name="rue" id="rue" value="${user.rue}"
 						class="form-control" placeholder="rue"> <label for="rue">Rue
 						: </label>
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="codePostal" id="codePostal"
-						value="${user.getCodePostal()}" class="form-control"
+						value="${user.codePostal}" class="form-control"
 						placeholder="codePostal"> <label for="codePostal">Code
 						Postal : </label>
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="ville" id="ville" value="${user.getVille()}"
+					<input type="text" name="ville" id="ville" value="${user.ville}"
 						class="form-control" placeholder="ville"> <label
 						for="ville">Ville : </label>
 				</div>

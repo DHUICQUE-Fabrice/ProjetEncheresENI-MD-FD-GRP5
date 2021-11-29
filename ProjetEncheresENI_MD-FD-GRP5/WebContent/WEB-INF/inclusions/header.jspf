@@ -6,19 +6,16 @@
     </button>
     <div class="collapse navbar-collapse show" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        	<%
-		if (session.getAttribute("user") != null) {
-	%>
+<c:if test="${!empty sessionScope.user }">
+
 		<a class="nav-link" href="encheres?disconnect=disconnect">Se déconnecter</a>
 		<a class="nav-link" href="monProfil">Mon profil</a>
-			<%
-		} else {
-	%>
+		<a class="nav-link" href="article">Vendre un article</a>
+</c:if>
+<c:if test="${empty sessionScope.user }">
         <a class="nav-link" href="createAccount">S'inscrire</a>
         <a class="nav-link" href="login">Se connecter</a>
-        	<%
-		}
-	%>
+</c:if>
       </div>
     </div>
   </div>
