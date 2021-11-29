@@ -16,13 +16,21 @@
 
 <main class="flex-shrink-0">
 <div class="container">
+
 <c:forEach var="article" items="${articles }">
-<p>Nom de l'article : <a href="encherir">${article.nomArticle }</a></p>
+<form method="get" action="encheres">
+<input type="hidden" name="articleNumber" value="${article.idArticle }">
+<p>Nom de l'article : <input type="submit" class="btn btn-link" value="${article.nomArticle }"></p>
+</form>
+
 <p>Description de l'article : ${article.description }</p>
 <p>Début de l'enchère : ${article.dateDebut }</p>
 <p>Fin de l'enchère : ${article.dateFin }</p>
 <p>Mise à prix : ${article.prixInitial }</p>
-<p>Utilisateur : <a href="detailUtilisateur">${article.utilisateur.pseudo }</a></p>
+<form method="get" action="detailUtilisateur">
+<input type="hidden" name="userNumber" value="${article.utilisateur.idUtilisateur }">
+<p>Vendeur : <input type="submit" class="btn btn-link" value="${article.utilisateur.pseudo }"></p>
+</form>
 <p>Catégorie : ${article.categorie.libelle }</p>
 <p>Image : ${article.urlImage }</p>
 <hr>
