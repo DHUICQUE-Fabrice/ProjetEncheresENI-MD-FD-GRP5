@@ -17,7 +17,15 @@
 <main class="flex-shrink-0">
 <div class="container">
 <c:forEach var="article" items="${articles }">
-<p>${article }</p>
+<p>Nom de l'article : ${article.nomArticle }</p>
+<p>Description de l'article : ${article.description }</p>
+<p>Début de l'enchère : ${article.dateDebut }</p>
+<p>Fin de l'enchère : ${article.dateFin }</p>
+<p>Mise à prix : ${article.prixInitial }</p>
+<p>Utilisateur : ${article.utilisateur.pseudo }</p>
+<p>Catégorie : ${article.categorie.libelle }</p>
+<p>Image : ${article.urlImage }</p>
+<hr>
 </c:forEach>
 </div>
 

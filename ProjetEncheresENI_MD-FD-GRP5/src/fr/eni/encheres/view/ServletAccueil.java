@@ -29,6 +29,9 @@ public class ServletAccueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArticleManager articleManager = new ArticleManager();
 		List<Article> articles = articleManager.allArticle();
+		for (Article article : articles) {
+			System.out.println(article);
+		}
 		request.setAttribute("articles", articles);
 		if (request.getParameter("disconnect") != null && request.getParameter("disconnect").equals("disconnect")) {
 			session.invalidate();

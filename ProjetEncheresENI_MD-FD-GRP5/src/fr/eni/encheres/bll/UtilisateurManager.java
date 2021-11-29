@@ -93,6 +93,10 @@ public class UtilisateurManager {
 		}
 	}
 	
+	public Utilisateur getUserById(int id) {
+		return this.utilisateurDAO.selectByID(id);
+	}
+	
 	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) {
 		this.utilisateurDAO.delete(utilisateur.getIdUtilisateur());
 		return utilisateur;
