@@ -22,8 +22,7 @@
     </nav>
      
 	<main id="grilleChoix" class="col-12 col-sm-8 col-md-8">
-	<form>
-        
+		<form  method="post" action="<%=request.getContextPath()%>/encherir">
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
 				<input name="nomArticle" type="text" class="col-8 col-form-control" id="article" readonly>
@@ -80,7 +79,7 @@
 			<div class="form group-row">
 				<label for="encherir" class="col-form-label">Ma proposition :</label>
   				<input name="encherir" type="number" class="col-4 col-form-control" id="encherir">
- 				<button class="btn btn-primary" type="submit">Enchérir</button>
+ 				<button name="encherir" class="btn btn-primary" type="submit">Enchérir</button>
  			</div>
 		</form>
 	

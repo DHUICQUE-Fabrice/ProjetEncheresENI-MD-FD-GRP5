@@ -54,12 +54,12 @@
 			
 			<div class="form group-row">
    				<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-				<input name="debutEnchere" type="date" class="col-8 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
+				<input name="debutEnchere" type="date" class="col-4 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
 			</div>
 			
 			<div class="form group-row">
    				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-				<input name="finEnchere" type="date" class="col-8 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
+				<input name="finEnchere" type="date" class="col-4 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
 			</div>
          
          	<fieldset class="col-8 form group-row">
