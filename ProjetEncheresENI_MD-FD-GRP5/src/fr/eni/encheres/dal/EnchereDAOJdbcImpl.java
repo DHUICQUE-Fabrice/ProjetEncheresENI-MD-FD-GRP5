@@ -98,7 +98,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			while (resultSet.next()) {
 				// Je récupère les informations a partir de la BDD En fonction de l'ID.
 				Article article = new Article();
-				article.setIdArticle(resultSet.getInt("no_article"));
+				article.setIdArticle(idArticle);
 				Utilisateur utilisateur = new Utilisateur();
 				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
 				LocalDate dateEnchere = resultSet.getDate("date_enchere").toLocalDate();

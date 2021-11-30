@@ -3,14 +3,11 @@ package fr.eni.encheres.view;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.org.apache.xml.internal.resolver.CatalogManager;
 
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
@@ -25,10 +22,9 @@ import fr.eni.encheres.bo.Enchere;
 @WebServlet("/encherir")
 public class ServletEncherir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,13 +35,8 @@ public class ServletEncherir extends HttpServlet {
 		
 		List<Enchere> listeEnchereArticle = enc.allEnchereByArticle(id);
 		
-		System.out.println(id);
-		
-		Article article =art.selectByIdArticle(id); 
+		Article article = art.selectByIdArticle(id);
 		Categorie categorie = cat.selectById(article.getCategorie().getIdCategorie());
-		
-		System.out.println(article);
-		System.out.println(categorie);
 		
 		request.setAttribute("nomArticle", article.getNomArticle());
 		request.setAttribute("description", article.getDescription());
@@ -62,14 +53,13 @@ public class ServletEncherir extends HttpServlet {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
 		
 	}
-
+	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
+	
 }
