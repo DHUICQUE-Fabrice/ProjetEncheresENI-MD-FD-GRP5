@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -17,6 +19,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public static final String INSERT_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 	public static final String SELECT_ALL_ENCHERE_BY_ID_USER = "SELECT no_article, date_enchere, montant_enchere FROM ENCHERES WHERE no_utilisateur = ?";
 	public static final String SELECT_ALL_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
+	public static final String SELECT_MAX_ENCHERE_BY_ID_ARTICLE = "SELECT date_enchere, montant_enchere, no_utilisateur FROM ENCHERES WHERE (no_article=? AND montant_enchere = (SELECT MAX(montant_enchere) FROM ENCHERES WHERE no_article=?))";
 	public static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
 	public static final String UPDATE_ENCHERE = "UPDATE ENCHERES SET date_enchere = ?, montant_enchere = ? WHERE no_article = ? AND no_Utilisateur = ?";
 	public static final String DELETE_ENCHERES_BY_USER_ID = "DELETE FROM ENCHERES WHERE no_utilisateur=?";
@@ -32,7 +35,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
 				preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
 				preparedStatement.setDate(3, java.sql.Date.valueOf(enchere.getDateEnchere()));
-				preparedStatement.setInt(4, enchere.getMontantenchere());
+				preparedStatement.setInt(4, enchere.getMontantEnchere());
 				
 				preparedStatement.execute();
 			} catch (SQLException e) {
@@ -50,7 +53,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
 			preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
 			preparedStatement.setDate(3, java.sql.Date.valueOf(enchere.getDateEnchere()));
-			preparedStatement.setInt(4, enchere.getMontantenchere());
+			preparedStatement.setInt(4, enchere.getMontantEnchere());
 			
 			preparedStatement.execute();
 		} catch (SQLException e) {
@@ -104,7 +107,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				Article article = new Article();
 				article.setIdArticle(idArticle);
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
+				UtilisateurManager util = new UtilisateurManager();
+				utilisateur = util.getUserById(resultSet.getInt("no_utilisateur"));
 				LocalDate dateEnchere = resultSet.getDate("date_enchere").toLocalDate();
 				int montantEnchere = resultSet.getInt("montant_enchere");
 				
@@ -132,7 +136,38 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				Article article = new Article();
 				article.setIdArticle(resultSet.getInt("no_article"));
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
+				UtilisateurManager util = new UtilisateurManager();
+				utilisateur = util.getUserById(resultSet.getInt("no_utilisateur"));
+				LocalDate dateEnchere = resultSet.getDate("date_enchere").toLocalDate();
+				int montantEnchere = resultSet.getInt("montant_enchere");
+				
+				enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enchere;
+	}
+	
+	@Override
+	public Enchere selectMaxMontantByIdArticle(int idArticle) {
+		Enchere enchere = new Enchere();
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_MAX_ENCHERE_BY_ID_ARTICLE);) {
+			
+			// Je récupère mon Utilisateur ID depuis la BDD
+			preparedStatement.setInt(1, idArticle);
+			preparedStatement.setInt(2, idArticle);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				// Je récupère les informations a partir de la BDD En fonction de l'ID.
+				Article article = new Article();
+				ArticleManager art = new ArticleManager();
+				article = art.selectByIdArticle(idArticle);
+				Utilisateur utilisateur = new Utilisateur();
+				UtilisateurManager util = new UtilisateurManager();
+				utilisateur = util.getUserById(resultSet.getInt("no_utilisateur"));
 				LocalDate dateEnchere = resultSet.getDate("date_enchere").toLocalDate();
 				int montantEnchere = resultSet.getInt("montant_enchere");
 				
@@ -176,11 +211,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
 			preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
 			preparedStatement.setDate(3, Date.valueOf(enchere.getDateEnchere()));
-			preparedStatement.setInt(4, enchere.getMontantenchere());
+			preparedStatement.setInt(4, enchere.getMontantEnchere());
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return enchere;
 	}
+
+	
 }

@@ -13,6 +13,8 @@ public interface EnchereDAO {
 	
 	public Enchere selectByIDArticle(int idArticle);
 	
+	public Enchere selectMaxMontantByIdArticle (int idArticle);
+	
 	public Enchere update(Enchere obj);
 	
 	public Enchere delete(Enchere enchere);

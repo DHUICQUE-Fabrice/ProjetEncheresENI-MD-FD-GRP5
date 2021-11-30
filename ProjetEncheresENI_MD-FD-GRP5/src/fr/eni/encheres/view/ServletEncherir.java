@@ -33,22 +33,15 @@ public class ServletEncherir extends HttpServlet {
 		CategorieManager cat = new CategorieManager();
 		EnchereManager enc = new EnchereManager();
 		
-		List<Enchere> listeEnchereArticle = enc.allEnchereByArticle(id);
+		Enchere enchere =  enc.selectMaxMontantByIdArticle(id);
 		
+			
 		Article article = art.selectByIdArticle(id);
 		Categorie categorie = cat.selectById(article.getCategorie().getIdCategorie());
 		
-		request.setAttribute("nomArticle", article.getNomArticle());
-		request.setAttribute("description", article.getDescription());
-		request.setAttribute("categorie", categorie.getLibelle());
-		request.setAttribute("offre", article.getPrixVente());
-		request.setAttribute("acheteur", article.getUtilisateur().getIdUtilisateur());
-		request.setAttribute("miseAPrix", article.getPrixInitial());
-		request.setAttribute("finEnchere", article.getDateFin());
-		request.setAttribute("rue", article.getRue());
-		request.setAttribute("codePostal", article.getCodePostal());
-		request.setAttribute("ville", article.getVille());
-		request.setAttribute("vendeur", article.getUtilisateur().getPseudo());
+		request.setAttribute("article", article);
+		request.setAttribute("categorie", categorie);
+		request.setAttribute("enchere", enchere);
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
 		

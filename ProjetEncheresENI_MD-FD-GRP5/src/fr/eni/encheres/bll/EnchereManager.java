@@ -35,6 +35,10 @@ public class EnchereManager {
 		this.enchereDAO.deleteEncheresByUserId(userId);
 	}
 	
+	public Enchere selectMaxMontantByIdArticle(int idArticle) {
+		return enchereDAO.selectMaxMontantByIdArticle(idArticle);
+	}
+	
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
 	
 }
