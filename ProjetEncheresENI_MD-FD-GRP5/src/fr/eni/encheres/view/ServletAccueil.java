@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.ArticleManager;
+import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Categorie;
 
 /**
  * Servlet implementation class ServletAccueil
@@ -30,6 +32,9 @@ public class ServletAccueil extends HttpServlet {
 		ArticleManager articleManager = new ArticleManager();
 		List<Article> articles = articleManager.allArticle();
 		request.setAttribute("articles", articles);
+		CategorieManager categorieManager = new CategorieManager();
+		List<Categorie> categories = categorieManager.selectAll();
+		request.setAttribute("categories", categories);
 		if (request.getParameter("disconnect") != null && request.getParameter("disconnect").equals("disconnect")) {
 			session.invalidate();
 		}
