@@ -39,8 +39,8 @@
 					<div class="col">
 						<div class="card shadow-sm">
 							<img class="bd-placeholder-img card-img-top"
-								src="img/image_default.jpg"
-								alt="Image de ${article.nomArticle }">
+								src="${article.urlImage }"
+								alt="Image de ${article.nomArticle } (url : ${article.urlImage })">
 							<div class="card-body">
 								<c:choose>
 									<c:when test="${!empty sessionScope.user }">
