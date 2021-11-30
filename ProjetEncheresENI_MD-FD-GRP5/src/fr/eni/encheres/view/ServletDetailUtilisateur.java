@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -37,7 +40,10 @@ public class ServletDetailUtilisateur extends HttpServlet {
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		utilisateur = utilisateurManager.getUserById(Integer.parseInt(request.getParameter("userNumber")));
+		ArticleManager articleManager = new ArticleManager();
+		List<Article> articles = articleManager.allArticlesByUser(utilisateur.getIdUtilisateur());
 		request.setAttribute("user", utilisateur);
+		request.setAttribute("articles", articles);
 		doGet(request, response);
 	}
 	

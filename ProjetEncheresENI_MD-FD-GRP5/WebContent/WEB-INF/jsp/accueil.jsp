@@ -38,29 +38,46 @@
 				<c:forEach var="article" items="${articles }">
 					<div class="col">
 						<div class="card shadow-sm">
-							<img class="bd-placeholder-img card-img-top" src="img/image_default.jpg"
+							<img class="bd-placeholder-img card-img-top"
+								src="img/image_default.jpg"
 								alt="Image de ${article.nomArticle }">
 							<div class="card-body">
-								<form method="post" action="encherir">
-									<input type="hidden" name="articleNumber"
-										value="${article.idArticle }">
-									<p>
-										Nom de l'article : <input type="submit" class="btn btn-link"
-											value="${article.nomArticle }">
-									</p>
-								</form>
+								<c:choose>
+									<c:when test="${!empty sessionScope.user }">
+										<form method="post" action="encherir">
+											<input type="hidden" name="articleNumber"
+												value="${article.idArticle }">
+											<p>
+												Nom de l'article : <input type="submit" class="btn btn-link"
+													value="${article.nomArticle }">
+											</p>
+										</form>
+									</c:when>
+									<c:otherwise>
+										<p>Nom de l'article : ${article.nomArticle }</p>
+									</c:otherwise>
+								</c:choose>
 								<p>Description de l'article : ${article.description }</p>
 								<p>Début de l'enchère : ${article.dateDebut }</p>
 								<p>Fin de l'enchère : ${article.dateFin }</p>
 								<p>Mise à prix : ${article.prixInitial }</p>
-								<form method="post" action="detailUtilisateur">
-									<input type="hidden" name="userNumber"
-										value="${article.utilisateur.idUtilisateur }">
-									<p>
-										Vendeur : <input type="submit" class="btn btn-link"
-											value="${article.utilisateur.pseudo }">
-									</p>
-								</form>
+								<c:choose>
+									<c:when test="${!empty sessionScope.user }">
+										<form method="post" action="detailUtilisateur">
+											<input type="hidden" name="userNumber"
+												value="${article.utilisateur.idUtilisateur }">
+											<p>
+												Vendeur : <input type="submit" class="btn btn-link"
+													value="${article.utilisateur.pseudo }">
+											</p>
+										</form>
+									</c:when>
+									<c:otherwise>
+										<p>Vendeur : ${article.utilisateur.pseudo }</p>
+									</c:otherwise>
+								</c:choose>
+
+
 								<p>Catégorie : ${article.categorie.libelle }</p>
 
 							</div>
