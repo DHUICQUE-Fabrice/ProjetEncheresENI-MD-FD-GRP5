@@ -15,9 +15,6 @@ public class CategorieManager {
 	}
 	
 	public Categorie ajouter(Categorie categorie) throws BusinessException {
-		BusinessException exception = new BusinessException();
-		// TODO Gérer les exceptions de CategorieManager;
-		
 		this.categorieDAO.insert(categorie);
 		return categorie;
 	}

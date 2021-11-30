@@ -113,7 +113,7 @@ public class ServletArticle extends HttpServlet {
 			art.updateArticle(article);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	

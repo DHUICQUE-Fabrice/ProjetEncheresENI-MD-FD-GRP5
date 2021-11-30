@@ -1,6 +1,7 @@
 package fr.eni.encheres.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	public static final String SELECT_ALL_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
 	public static final String SELECT_ENCHERE_BY_ID_ARTICLE = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?";
 	public static final String UPDATE_ENCHERE = "UPDATE ENCHERES SET date_enchere = ?, montant_enchere = ? WHERE no_article = ? AND no_Utilisateur = ?";
+	public static final String DELETE_ENCHERES_BY_USER_ID = "DELETE FROM ENCHERES WHERE no_utilisateur=?";
+	public static final String DELETE_ENCHERES_BY_ARTICLE_ID = "DELETE FROM ENCHERES WHERE no_article=?";
+	public static final String DELETE_ENCHERE = "DELETE FROM ENCHERES WHERE no_utilisateur=? AND no_article=? AND date_enchere=? AND montant_enchere=?";
 	
 	@Override
 	public Enchere insert(Enchere enchere) {
@@ -135,6 +139,46 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enchere;
+	}
+	
+	@Override
+	public List<Enchere> deleteEncheresByUserId(int userId) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ENCHERES_BY_USER_ID);) {
+			preparedStatement.setInt(1, userId);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public List<Enchere> deleteEncheresByArticleId(int articleId) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ENCHERES_BY_ARTICLE_ID);) {
+			preparedStatement.setInt(1, articleId);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public Enchere delete(Enchere enchere) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ENCHERE)) {
+			preparedStatement.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
+			preparedStatement.setInt(2, enchere.getArticle().getIdArticle());
+			preparedStatement.setDate(3, Date.valueOf(enchere.getDateEnchere()));
+			preparedStatement.setInt(4, enchere.getMontantenchere());
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return enchere;

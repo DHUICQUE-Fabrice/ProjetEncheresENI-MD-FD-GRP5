@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.ChiffrementPwd;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.exceptions.BusinessException;
 
 /**
  * Servlet implementation class ServletMyProfile
@@ -41,14 +42,18 @@ public class ServletMyProfile extends HttpServlet {
 			request.setAttribute("demandeSuppression", "suppressionDemandee");
 		}
 		if (path.contains("suppressionConfirmee")) {
-			deleteProfile(request, response);
+			try {
+				deleteProfile(request, response);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 		doGet(request, response);
 	}
 	
 	private void deleteProfile(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, BusinessException {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");

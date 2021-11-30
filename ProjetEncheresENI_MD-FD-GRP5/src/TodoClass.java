@@ -1,21 +1,16 @@
 
 public class TodoClass {
 	// TODO CSS des jsp (in progress)
-	// TODO Vendre un article (in progress)
 	// TODO importer liste encheres en cours dans page accueil mode déconnecté
 	// TODO importer liste encheres en cours dans page accueil mode connecté
-	// TODO Visualisation du profil des autres utilisateurs
 	// TODO Faire une enchère
 	// TODO Lister ses ventes
 	// TODO Annuler une vente
 	// TODO Mot de passe oublié
 	// TODO Se souvenir de moi
-	// TODO Affichage du compte de points
 	// TODO Actions administrateur (Désactiver un compte utilisateur, supprimer des comptes, gérer les catégories)
 	// TODO Responsive design
 	// TODO Pages d'erreur custom : 404, 500
-	// TODO Sécuriser suppression avec mdp
-	// TODO Regrouper Servlets par jsp
 	
 	/*
 	 * 

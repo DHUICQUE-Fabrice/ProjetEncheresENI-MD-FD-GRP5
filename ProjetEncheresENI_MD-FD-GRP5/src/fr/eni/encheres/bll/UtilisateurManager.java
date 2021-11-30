@@ -2,6 +2,8 @@ package fr.eni.encheres.bll;
 
 import java.util.List;
 
+import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.UtilisateurDAO;
@@ -97,7 +99,19 @@ public class UtilisateurManager {
 		return this.utilisateurDAO.selectByID(id);
 	}
 	
-	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) {
+	public Utilisateur supprimerUtilisateur(Utilisateur utilisateur) throws BusinessException {
+		int userId = utilisateur.getIdUtilisateur();
+		EnchereManager enchereManager = new EnchereManager();
+		enchereManager.deleteAllEncheresOfUser(userId);
+		ArticleManager articleManager = new ArticleManager();
+		List<Article> articlesToDelete = articleManager.allArticlesByUser(userId);
+		for (Article article : articlesToDelete) {
+			List<Enchere> encheres = enchereManager.allEnchereByArticle(article.getIdArticle());
+			for (Enchere enchere : encheres) {
+				enchereManager.supprimerEnchere(enchere);
+			}
+			articleManager.deleteArticle(article.getIdArticle());
+		}
 		this.utilisateurDAO.delete(utilisateur.getIdUtilisateur());
 		return utilisateur;
 	}

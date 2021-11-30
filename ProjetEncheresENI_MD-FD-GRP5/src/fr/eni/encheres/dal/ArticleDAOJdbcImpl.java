@@ -20,8 +20,10 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public static final String SELECT_ALL_ARTICLES_BY_CATEGORIE = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_categorie = ?";
 	public static final String SELECT_ALL_ARTICLES_BY_NAME = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE nom_article LIKE ?%";
 	public static final String SELECT_ARTICLE_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_article = ?";
+	public static final String SELECT_ARTICLE_BY_USER_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, url_image, rue, code_postal, ville FROM ARTICLES_VENDUS WHERE no_utilisateur = ?";
 	public static final String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, no_categorie = ?, url_image = ?, rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
 	public static final String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
+	public static final String DELETE_ARTICLE_BY_USER_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
 	
 	public Article insert(Article article) {
 		if (article != null) {
@@ -56,8 +58,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public List<Article> selectAll() {
 		List<Article> listArticle = new ArrayList<>();
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES);
-				ResultSet resultSet = preparedStatement.executeQuery();) {
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES);) {
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				
 				// Je récupère les informations de la BDD a partir d'un ID.
@@ -94,8 +96,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public List<Article> selectAllByCategorie(int idCategorie) {
 		List<Article> listArticle = new ArrayList<>();
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES_BY_CATEGORIE);
-				ResultSet resultSet = preparedStatement.executeQuery();) {
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES_BY_CATEGORIE);) {
+			preparedStatement.setInt(1, idCategorie);
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				
 				// Je récupère les informations de la BDD a partir d'un ID.
@@ -133,8 +136,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public List<Article> selectAllByName(String nomArticle) {
 		List<Article> listArticle = new ArrayList<>();
 		try (Connection connection = ConnectionProvider.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES_BY_NAME);
-				ResultSet resultSet = preparedStatement.executeQuery();) {
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ARTICLES_BY_NAME);) {
+			preparedStatement.setString(1, nomArticle);
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				
 				// Je récupère les informations de la BDD a partir d'un ID.
@@ -145,9 +149,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				int prixInitial = resultSet.getInt("prix_initial");
 				int prixFinal = resultSet.getInt("prix_vente");
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
+				UtilisateurManager utilisateurManager = new UtilisateurManager();
+				utilisateur = utilisateurManager.getUserById(resultSet.getInt("no_utilisateur"));
 				Categorie categorie = new Categorie();
-				categorie.setIdCategorie(resultSet.getInt("no_categorie"));
+				CategorieManager categorieManager = new CategorieManager();
+				categorie = categorieManager.selectById(resultSet.getInt("no_categorie"));
 				String urlImage = resultSet.getString("url_image");
 				String rue = resultSet.getString("rue");
 				int codePostal = resultSet.getInt("code_postal");
@@ -183,9 +189,11 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				int prixInitial = resultSet.getInt("prix_initial");
 				int prixFinal = resultSet.getInt("prix_vente");
 				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setIdUtilisateur(resultSet.getInt("no_utilisateur"));
+				UtilisateurManager utilisateurManager = new UtilisateurManager();
+				utilisateur = utilisateurManager.getUserById(resultSet.getInt("no_utilisateur"));
 				Categorie categorie = new Categorie();
-				categorie.setIdCategorie(resultSet.getInt("no_categorie"));
+				CategorieManager categorieManager = new CategorieManager();
+				categorie = categorieManager.selectById(resultSet.getInt("no_categorie"));
 				String urlImage = resultSet.getString("url_image");
 				String rue = resultSet.getString("rue");
 				int codePostal = resultSet.getInt("code_postal");
@@ -234,5 +242,56 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public List<Article> deleteArticleByUserId(int userId) {
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ARTICLE_BY_USER_ID);) {
+			preparedStatement.setInt(1, userId);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Article> selectAllArticlesOfUser(int userId) {
+		List<Article> listArticle = new ArrayList<>();
+		try (Connection connection = ConnectionProvider.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ARTICLE_BY_USER_ID);) {
+			preparedStatement.setInt(1, userId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				
+				// Je récupère les informations de la BDD a partir d'un ID.
+				int idArticle = resultSet.getInt("no_article");
+				String nomArticle = resultSet.getString("nom_article");
+				String description = resultSet.getString("description");
+				LocalDate dateDebut = resultSet.getDate("date_debut_encheres").toLocalDate();
+				LocalDate dateFin = resultSet.getDate("date_fin_encheres").toLocalDate();
+				int prixInitial = resultSet.getInt("prix_initial");
+				int prixFinal = resultSet.getInt("prix_vente");
+				Utilisateur utilisateur = new Utilisateur();
+				UtilisateurManager utilisateurManager = new UtilisateurManager();
+				utilisateur = utilisateurManager.getUserById(userId);
+				Categorie categorie = new Categorie();
+				CategorieManager categorieManager = new CategorieManager();
+				categorie = categorieManager.selectById(resultSet.getInt("no_categorie"));
+				String urlImage = resultSet.getString("url_image");
+				String rue = resultSet.getString("rue");
+				int codePostal = resultSet.getInt("code_postal");
+				String ville = resultSet.getString("code_postal");
+				
+				Article article = new Article(idArticle, nomArticle, description, dateDebut, dateFin, prixInitial,
+						prixFinal, utilisateur, categorie, urlImage, rue, codePostal, ville);
+				// J'ajoute l'article dans une liste pour récupérer tout les articles.
+				listArticle.add(article);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listArticle;
 	}
 }
