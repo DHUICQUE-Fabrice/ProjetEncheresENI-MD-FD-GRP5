@@ -59,8 +59,6 @@ public class ServletLoginPage extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", login);
 			response.sendRedirect("encheres");
-			//RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
-			//requestDispatcher.forward(request, response);
 			return;
 		} else {
 			request.setAttribute("wrongPass", "true");

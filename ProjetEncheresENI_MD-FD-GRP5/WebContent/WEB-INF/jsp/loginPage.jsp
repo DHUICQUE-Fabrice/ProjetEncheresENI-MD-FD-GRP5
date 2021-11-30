@@ -61,14 +61,11 @@
 	%>
 	<a href="createAccount"><button class="btn-secondary">Créer
 			un compte</button></a>
-	<c:if test="${!empty unknown }">
+	<c:if test="${!empty unknown || !empty wrongPass}">
 		<br>
-		<p class="error">Utilisateur inconnu !</p>
+		<p class="error">Couple Login/Mot de passe incorrect !</p>
 	</c:if>
-	<c:if test="${!empty wrongPass }">
-		<br>
-		<p class="error">Mot de passe incorrect !</p>
-	</c:if>
+	
 </main>	
 	
 <%@ include file="../inclusions/footer.jspf" %>

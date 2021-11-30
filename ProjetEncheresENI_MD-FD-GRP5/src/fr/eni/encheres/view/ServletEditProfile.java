@@ -75,7 +75,7 @@ public class ServletEditProfile extends HttpServlet {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 		
-		doGet(request, response);
+		response.sendRedirect("monProfil");
 	}
 	
 }

@@ -60,8 +60,7 @@ public class ServletArticle extends HttpServlet {
 		} else if (action.equals("annuler")) {
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
-		requestDispatcher.forward(request, response);
+		response.sendRedirect("encheres");
 		
 	}
 	
