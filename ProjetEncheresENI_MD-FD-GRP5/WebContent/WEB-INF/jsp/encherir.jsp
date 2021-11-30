@@ -78,6 +78,7 @@
 			</div>
 		
 			<div class="form group-row">
+				<input name="article" type="hidden" value="${article.idArticle}">
 				<label for="encherir" class="col-form-label">Ma proposition :</label>
   				<input name="encherir" type="number" class="col-2 col-form-control" id="encherir" value="${enchere.montantEnchere + 1}">
  				<button name="encherir" class="btn btn-primary" type="submit">Enchérir</button>
