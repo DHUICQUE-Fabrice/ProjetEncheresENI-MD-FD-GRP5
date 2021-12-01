@@ -19,18 +19,9 @@ public class EnchereManager {
 		BusinessException exception = new BusinessException();
 		
 		this.validerEnchereMontant(enchere, exception);
-		
+		this.validerCreditSuffisant(enchere, exception);
 		if (!exception.hasErreurs()) {
-			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			Utilisateur utilisateurDebite = enchere.getUtilisateur();
-			utilisateurDebite.setCredit(utilisateurDebite.getCredit() - enchere.getMontantEnchere());
-			Enchere enchereMaxPrecedente = selectMaxMontantByIdArticle(enchere.getArticle().getIdArticle());
-			Utilisateur utilisateurRecredite = enchereMaxPrecedente.getUtilisateur();
-			utilisateurRecredite.setCredit(utilisateurRecredite.getCredit() + enchereMaxPrecedente.getMontantEnchere());
-			utilisateurManager.modifierUtilisateur(utilisateurDebite, "credit",
-					String.valueOf(utilisateurDebite.getCredit()));
-			utilisateurManager.modifierUtilisateur(utilisateurRecredite, "credit",
-					String.valueOf(utilisateurRecredite.getCredit()));
+			debiteCredite(enchere);
 			this.enchereDAO.insert(enchere);
 		} else {
 			System.out.println(exception.getListeCodesErreurs().get(0));
@@ -38,6 +29,33 @@ public class EnchereManager {
 		}
 		
 		return enchere;
+	}
+	
+	private void validerCreditSuffisant(Enchere enchere, BusinessException exception) {
+		if (enchere.getMontantEnchere() > enchere.getUtilisateur().getCredit()) {
+			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_CREDIT_INSUFFISANT);
+		}
+	}
+	
+	private void debiteCredite(Enchere enchere) {
+		try {
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			Utilisateur utilisateurDebite = enchere.getUtilisateur();
+			
+			Enchere enchereMaxPrecedente = selectMaxMontantByIdArticle(enchere.getArticle().getIdArticle());
+			Utilisateur utilisateurRecredite = enchereMaxPrecedente.getUtilisateur();
+			
+			utilisateurDebite.setCredit(utilisateurDebite.getCredit() - enchere.getMontantEnchere());
+			utilisateurRecredite.setCredit(utilisateurRecredite.getCredit() + enchereMaxPrecedente.getMontantEnchere());
+			
+			utilisateurManager.modifierUtilisateur(utilisateurDebite, "credit",
+					String.valueOf(utilisateurDebite.getCredit()));
+			utilisateurManager.modifierUtilisateur(utilisateurRecredite, "credit",
+					String.valueOf(utilisateurRecredite.getCredit()));
+			
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<Enchere> allEnchereByArticle(int idArticle) {
