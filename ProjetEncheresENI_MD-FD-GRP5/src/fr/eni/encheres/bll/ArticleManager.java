@@ -23,7 +23,9 @@ public class ArticleManager {
 		this.validerNomArticle(article, exception);
 		this.validerDescription(article, exception);
 		this.validerDateDebut(article, exception);
+		System.out.println(article.getDateDebut());
 		this.validerDateFin(article, exception);
+		System.out.println(article.getDateFin());
 		this.validerPrixInitial(article, exception);
 		this.validerRue(article, exception);
 		this.validerCodePostal(article, exception);
@@ -86,7 +88,7 @@ public class ArticleManager {
 	}
 	
 	private void validerDateDebut(Article article, BusinessException exception) {
-		if (article.getDateDebut().equals("")) {
+		if (article.getDateDebut().toString().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_DEBUT_ENCHERE_VIDE);
 		}else if (article.getDateDebut().isBefore(LocalDate.now())) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_DEBUT_VALEUR_ERREUR);
@@ -94,7 +96,7 @@ public class ArticleManager {
 	}
 	
 	private void validerDateFin(Article article, BusinessException exception) {
-		if (article.getDateFin().equals("")) {
+		if (article.getDateFin().toString().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_FIN_ENCHERE_VIDE);
 		}else if (article.getDateFin().isBefore(article.getDateDebut())) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_FIN_VALEUR_ERREUR);

@@ -46,9 +46,7 @@
 				<label class="col-form-label">Photo de l'article :</label>
 				<input name="image" type="file" class="col-8 col-form-control"  aria-label="Upload image">
 			</div>
-			
-			
-			
+						
 			<div class="form group-row">
 				<label class="col-form-label">Prix Initial :</label>
 				<input name="prixInitial" id="prixInitial" type="number"  value="1" placeholder="Prix Initial" min="1" pattern="\d+">
@@ -61,7 +59,7 @@
 			
 			<div class="form group-row">
    				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-				<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" min="${article.getDateDebut()}" required>
+				<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" min="${LocalDate.now()}" required>
 			</div>
          
          	<fieldset class="col-7 form group-row">
