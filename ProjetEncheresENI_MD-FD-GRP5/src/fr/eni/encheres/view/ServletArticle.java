@@ -114,11 +114,11 @@ public class ServletArticle extends HttpServlet {
 		try {
 			art.ajouter(article);
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 	}
 	
-	private void modifierArticle(HttpServletRequest request, HttpServletResponse response) {
+	private void modifierArticle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException  {
 		Article article = new Article();
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
@@ -141,19 +141,19 @@ public class ServletArticle extends HttpServlet {
 			
 			art.updateArticle(article);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (BusinessException e) {
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 	}
 	
-	private void deleteArticle(HttpServletRequest request, HttpServletResponse response) {
+	private void deleteArticle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException  {
 		ArticleManager art = new ArticleManager();
 		
 		int id = Integer.parseInt(request.getParameter("idArticle"));
 		try {
 			art.deleteArticle(id);
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 	}
 	

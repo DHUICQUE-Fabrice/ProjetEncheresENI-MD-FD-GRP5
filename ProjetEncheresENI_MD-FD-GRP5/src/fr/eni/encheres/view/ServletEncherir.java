@@ -77,7 +77,8 @@ public class ServletEncherir extends HttpServlet {
 				
 				response.sendRedirect("encheres");
 			} catch (BusinessException e) {
-				e.printStackTrace();
+				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+				
 			}
 			
 		}

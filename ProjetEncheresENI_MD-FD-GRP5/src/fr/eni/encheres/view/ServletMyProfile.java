@@ -48,8 +48,7 @@ public class ServletMyProfile extends HttpServlet {
 			try {
 				deleteProfile(request, response);
 			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
+				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());			}
 			return;
 		}
 		doGet(request, response);

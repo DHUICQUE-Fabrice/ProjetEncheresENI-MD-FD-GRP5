@@ -18,12 +18,11 @@ public class EnchereManager {
 	BusinessException exception = new BusinessException();
 		
 		this.validerEnchereMontant(enchere, exception);
-		System.out.println(enchere.getArticle().getPrixInitial());
-		System.out.println(enchere.getArticle().getPrixVente());
 		
 		if (!exception.hasErreurs()) {
 			this.enchereDAO.insert(enchere);
 		} else {
+			System.out.println(exception.getListeCodesErreurs().get(0));
 			throw exception;
 		}
 		return enchere;
