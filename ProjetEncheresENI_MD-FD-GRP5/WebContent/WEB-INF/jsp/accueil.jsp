@@ -52,27 +52,6 @@
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
-		</div>
-
-			<div class="col-4">
-					<label>Mes ventes</label>
-					<input type="radio" id="vente" name="selection" /> 
-					<div class="form-check">			
-						<input class="form-check-input"  type="checkbox" name="vente" id="ventesEnCours" disabled> 
-						<label class="form-check-label">Mes ventes en cours</label>
-					</div>
-					<div class="form-check">				
-						<input class="form-check-input"  type="checkbox" name="vente"	id="ventesNonDebutees" disabled>
-						<label class="form-check-label">Mes	ventes non débutées</label>
-					</div>
-			 		<div class="form-check">				 
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesTerminees" disabled>			
-						<label class="form-check-label">Mes ventes terminées</label>
-					</div>
-			</div>
-=======
->>>>>>> branch 'main' of https://github.com/DHUICQUE-Fabrice/ProjetEncheresENI-MD-FD-GRP5.git
 		</form>
 	</div>
 	<br>

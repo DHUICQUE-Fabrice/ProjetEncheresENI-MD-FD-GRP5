@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
-import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.exceptions.BusinessException;
@@ -28,7 +27,6 @@ public class ArticleManager {
 		this.validerRue(article, exception);
 		this.validerCodePostal(article, exception);
 		this.validerVille(article, exception);
-
 		
 		if (!exception.hasErreurs()) {
 			this.articleDAO.insert(article);
@@ -88,7 +86,7 @@ public class ArticleManager {
 	private void validerDateDebut(Article article, BusinessException exception) {
 		if (article.getDateDebut().toString().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_DEBUT_ENCHERE_VIDE);
-		}else if (article.getDateDebut().isBefore(LocalDate.now())) {
+		} else if (article.getDateDebut().isBefore(LocalDate.now())) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_DEBUT_VALEUR_ERREUR);
 		}
 	}
@@ -96,7 +94,7 @@ public class ArticleManager {
 	private void validerDateFin(Article article, BusinessException exception) {
 		if (article.getDateFin().toString().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_FIN_ENCHERE_VIDE);
-		}else if (article.getDateFin().isBefore(article.getDateDebut())) {
+		} else if (article.getDateFin().isBefore(article.getDateDebut())) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_DATE_FIN_VALEUR_ERREUR);
 		}
 	}
@@ -123,7 +121,7 @@ public class ArticleManager {
 		int cp = article.getCodePostal();
 		if (cp <= 0) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_NOMBRE_ERREUR);
-		}else if (cp < 1000 || cp > 99999) {
+		} else if (cp < 1000 || cp > 99999) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_VALEUR_ERREUR);
 		}
 	}

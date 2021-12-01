@@ -40,7 +40,6 @@ public class ServletArticle extends HttpServlet {
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
-		HttpSession session = request.getSession();
 		
 		String id = request.getParameter("idarticle");
 		if (id == null) {
@@ -84,7 +83,7 @@ public class ServletArticle extends HttpServlet {
 		if (action.equals("ajouter")) {
 			if (request.getParameter("idArticle") == null) {
 				ajouterArticle(request, response);
-			}else {
+			} else {
 				modifierArticle(request, response);
 			}
 			
@@ -123,7 +122,8 @@ public class ServletArticle extends HttpServlet {
 		}
 	}
 	
-	private void modifierArticle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException  {
+	private void modifierArticle(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		Article article = new Article();
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
@@ -151,7 +151,8 @@ public class ServletArticle extends HttpServlet {
 		}
 	}
 	
-	private void deleteArticle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException  {
+	private void deleteArticle(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		ArticleManager art = new ArticleManager();
 		
 		int id = Integer.parseInt(request.getParameter("idArticle"));
