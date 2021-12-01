@@ -65,11 +65,11 @@
          	<fieldset class="col-7 form group-row">
          		<legend>Retrait:</legend>
  				<label for="rue" class="col-form-label">Rue :</label>
-  				<input name="rue" type="text" id="rue" class="col-8 col-form-control" required><br>
+  				<input name="rue" type="text" id="rue" class="col-8 col-form-control" value="${user.rue }" required><br>
  				<label for="codePostal" class="col-form-label">Code postal :</label>
- 				<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" min="1000" max="99999" required><br>
+ 				<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" min="1000" max="99999"  value="${user.codePostal }" required><br>
   				<label for="ville" class="col-form-label">Ville :</label>
-  				<input name="ville" type="text" id="ville" class="col-8 col-form-control" required><br>
+  				<input name="ville" type="text" id="ville" class="col-8 col-form-control" value="${user.ville }" required><br>
          	</fieldset>
          	<div class="form group-row">
  				<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
