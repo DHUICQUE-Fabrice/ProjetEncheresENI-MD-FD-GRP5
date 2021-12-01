@@ -77,11 +77,13 @@ public class ServletEncherir extends HttpServlet {
 			
 			try {
 				Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+				Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
 				enchere.setArticle(article);
-				enchere.setUtilisateur((Utilisateur) session.getAttribute("user"));
+				enchere.setUtilisateur(utilisateur);
 				enchere.setDateEnchere(LocalDate.now());
 				enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
 				ench.ajouter(enchere);
+				
 				request.setAttribute("article", article);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/encherir.jsp");
 				requestDispatcher.forward(request, response);
