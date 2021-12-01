@@ -16,6 +16,10 @@ public class EnchereManager {
 	}
 	
 	public Enchere ajouter(Enchere enchere) throws BusinessException {
+	BusinessException exception = new BusinessException();
+		
+		this.validerEnchereMontant(enchere, article, exception);
+		
 		this.enchereDAO.insert(enchere);
 		return enchere;
 	}
@@ -41,9 +45,11 @@ public class EnchereManager {
 	}
 	
 	
-	private void validerEnchereMontant(Enchere enchere, BusinessException exception) {
-		if (enchere.getMontantEnchere() <= 0) {
-			exception.ajouterErreur(CodesErreursBLL.REGLE_PRIX_INITIAL_NOMBRE_ERREUR);
+	private void validerEnchereMontant(Enchere enchere, Article article, BusinessException exception) {
+		if (enchere.getMontantEnchere() <= article.getPrixInitial()) {
+			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_PRIX_INITIAL_ERREUR);
+		}else if(enchere.getMontantEnchere() <= article.getPrixVente()) {
+			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_PRIX_ENCHERE_ERREUR);
 		}
 	}
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
