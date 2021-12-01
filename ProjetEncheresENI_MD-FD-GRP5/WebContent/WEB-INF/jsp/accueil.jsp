@@ -11,7 +11,7 @@
 </head>
 <body class="d-flex flex-column h-100">
 	<%@ include file="../inclusions/header.jspf"%>
-	<main class="flex-shrink-0">
+	<div class="flex-shrink-0">
 	<div>
 		<br>
 		<form method="post" action="encheres" class="form">
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 	</div>
-	</main>
+	</div>
 	<%@ include file="../inclusions/footer.jspf"%>
 	<script>
 		var achat = document.getElementById("achat");
