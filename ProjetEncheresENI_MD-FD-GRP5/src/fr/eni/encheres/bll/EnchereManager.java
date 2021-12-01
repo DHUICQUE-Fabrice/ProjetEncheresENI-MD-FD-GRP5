@@ -85,6 +85,5 @@ public class EnchereManager {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_PRIX_ENCHERE_ERREUR);
 		}
 	}
-	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
 	
 }

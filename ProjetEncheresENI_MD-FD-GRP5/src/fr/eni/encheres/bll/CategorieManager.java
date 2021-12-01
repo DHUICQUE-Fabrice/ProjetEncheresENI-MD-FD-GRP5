@@ -22,7 +22,6 @@ public class CategorieManager {
 	public List<Categorie> selectAll() {
 		return this.categorieDAO.selectAll();
 	}
-	// TODO Méthodes supprimer, modifier, selectionner de CategorieManager
 	
 	public Categorie selectById(int id) {
 		return this.categorieDAO.selectByID(id);

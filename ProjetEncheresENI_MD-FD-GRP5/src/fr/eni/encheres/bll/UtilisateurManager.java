@@ -192,7 +192,6 @@ public class UtilisateurManager {
 	private void validerMotDePasse(Utilisateur utilisateur, BusinessException exception) {
 		String mdp = utilisateur.getMotDePasse();
 		if (!mdp.equals("")) {
-			// TODO vérifier force du mdp
 		} else {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_MOT_DE_PASSE_NON_VIDE);
 		}

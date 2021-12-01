@@ -35,22 +35,22 @@
 		<br>
 		<div class="row">
 			<div class="col-4"> <label>Achats</label><input type="radio" id="achat"
-					name="selection" />
+					name="selection" checked/>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" disabled>
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" checked>
 					<label class="form-check-label">Enchères ouvertes</label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" disabled>
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" checked>
 					<label class="form-check-label">Mes	enchères en cours</label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees" disabled>
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees" >
 					<label class="form-check-label">Mes enchères Remportées</label>
 				</div>
 			</div>
 		</div>
-		</form>
+
 	<div class="col-4">
 					<label>Mes ventes</label>
 		<input type="radio" id="vente" name="selection" /> 
@@ -67,6 +67,7 @@
 						<label class="form-check-label">Mes ventes terminées</label>
 					</div>
 			</div>
+					</form>
 	</div>
 	<br>
 	<div class="container">
