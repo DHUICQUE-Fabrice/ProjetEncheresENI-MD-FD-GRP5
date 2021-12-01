@@ -49,7 +49,6 @@ public class ServletArticle extends HttpServlet {
 		} else {
 			art.selectByIdArticle(Integer.parseInt(id));
 			
-						
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
 			requestDispatcher.forward(request, response);
 		}
