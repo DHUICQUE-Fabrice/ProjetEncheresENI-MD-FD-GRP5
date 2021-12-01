@@ -86,11 +86,9 @@ public class UtilisateurManager {
 				break;
 		}
 		if (!exception.hasErreurs()) {
-			System.out.println("Pas d'erreur");
 			this.utilisateurDAO.update(utilisateurModifie);
 			return utilisateurModifie;
 		} else {
-			System.out.println("Erreur");
 			throw exception;
 		}
 	}

@@ -3,7 +3,6 @@ public class TodoClass {
 	// TODO CSS des jsp (in progress)
 	// TODO importer liste encheres en cours dans page accueil mode déconnecté
 	// TODO importer liste encheres en cours dans page accueil mode connecté
-	// TODO Faire une enchère
 	// TODO Lister ses ventes
 	// TODO Annuler une vente
 	// TODO Mot de passe oublié
