@@ -39,6 +39,8 @@ public class EnchereManager {
 		return enchereDAO.selectMaxMontantByIdArticle(idArticle);
 	}
 	
+	
+	
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
 	
 }
