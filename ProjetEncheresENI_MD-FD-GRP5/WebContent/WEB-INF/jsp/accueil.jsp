@@ -51,9 +51,9 @@
 			</div>
 		</div>
 
-	<div class="col-4">
+			<div class="col-4">
 					<label>Mes ventes</label>
-		<input type="radio" id="vente" name="selection" /> 
+					<input type="radio" id="vente" name="selection" /> 
 					<div class="form-check">			
 						<input class="form-check-input"  type="checkbox" name="vente" id="ventesEnCours" disabled> 
 						<label class="form-check-label">Mes ventes en cours</label>
@@ -67,7 +67,7 @@
 						<label class="form-check-label">Mes ventes terminées</label>
 					</div>
 			</div>
-					</form>
+		</form>
 	</div>
 	<br>
 	<div class="container">
