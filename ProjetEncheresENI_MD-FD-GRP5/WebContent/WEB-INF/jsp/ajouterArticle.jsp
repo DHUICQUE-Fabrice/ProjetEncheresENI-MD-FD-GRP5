@@ -22,7 +22,7 @@
     </nav>
      
 	<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
-		<form method="post" action="<%=request.getContextPath()%>/article"> 
+		<form method="post" action="<%=request.getContextPath()%>/article" enctype="multipart/form-data"> 
            	<div class="form group-row">
         		<label for="article" class="col-form-label">Article :</label>
 				<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" required>
@@ -46,6 +46,7 @@
 				<label class="col-form-label">Photo de l'article :</label>
 				<input name="image" type="file" class="col-8 col-form-control"  aria-label="Upload image">
 			</div>
+			
 			
 			<div class="form group-row">
 				<label class="col-form-label">Prix Initial :</label>

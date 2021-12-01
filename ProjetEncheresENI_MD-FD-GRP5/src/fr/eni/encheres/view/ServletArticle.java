@@ -1,15 +1,18 @@
 package fr.eni.encheres.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
@@ -21,8 +24,11 @@ import fr.eni.encheres.exceptions.BusinessException;
  * Servlet implementation class ServletAccueil
  */
 @WebServlet("/article")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, maxFileSize = 1024 * 1024 * 50, maxRequestSize = 1024 * 1024
+		* 100)
 public class ServletArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String UPLOAD_DIR = "img";
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,6 +57,24 @@ public class ServletArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		String appPath = request.getServletContext().getRealPath("");
+		String uploadFilePath = appPath + UPLOAD_DIR;
+		
+		File fileSaveDir = new File(uploadFilePath);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
+		
+		String fileName = null;
+		for (Part part : request.getParts()) {
+			if (part.getName().equals("image")) {
+				fileName = getFileName(part);
+				part.write(uploadFilePath + File.separator + fileName);
+				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
+			}
+		}
+		
 		String action = request.getParameter("action");
 		if (action.equals("ajouter")) {
 			ajouterArticle(request, response);
@@ -64,7 +88,9 @@ public class ServletArticle extends HttpServlet {
 		
 	}
 	
-	private void ajouterArticle(HttpServletRequest request, HttpServletResponse response) {
+	private void ajouterArticle(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
 		Article article = new Article();
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
@@ -73,7 +99,7 @@ public class ServletArticle extends HttpServlet {
 		article.setNomArticle(request.getParameter("nomArticle"));
 		article.setDescription(request.getParameter("description"));
 		article.setCategorie(cat.selectById(Integer.parseInt(request.getParameter("categorie"))));
-		article.setUrlImage(request.getParameter("image"));
+		article.setUrlImage(String.valueOf(request.getAttribute("urlImage")));
 		article.setPrixInitial(Integer.parseInt(request.getParameter("prixInitial")));
 		article.setDateDebut(LocalDate.parse(request.getParameter("debutEnchere")));
 		article.setDateFin(LocalDate.parse(request.getParameter("finEnchere")));
@@ -125,5 +151,16 @@ public class ServletArticle extends HttpServlet {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private String getFileName(Part part) {
+		String contentDisp = part.getHeader("content-disposition");
+		String[] tokens = contentDisp.split(";");
+		for (String token : tokens) {
+			if (token.trim().startsWith("filename")) {
+				return token.substring(token.indexOf("=") + 2, token.length() - 1);
+			}
+		}
+		return "";
 	}
 }
