@@ -3,6 +3,7 @@ package fr.eni.encheres.view;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,15 +33,22 @@ public class ServletEncherir extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		int id = Integer.parseInt(request.getParameter("articleNumber"));
+		Article article;
+		int id;
 		ArticleManager art = new ArticleManager();
+		if (request.getParameter("articleNumber") != null) {
+			id = Integer.parseInt(request.getParameter("articleNumber"));
+			article = art.selectByIdArticle(id);
+		} else {
+			article = (Article) request.getAttribute("article");
+			id = article.getIdArticle();
+		}
+		
 		CategorieManager cat = new CategorieManager();
 		EnchereManager enc = new EnchereManager();
 		
 		Enchere enchere = enc.selectMaxMontantByIdArticle(id);
 		
-		Article article = art.selectByIdArticle(id);
 		Categorie categorie = cat.selectById(article.getCategorie().getIdCategorie());
 		
 		request.setAttribute("article", article);
@@ -68,17 +76,20 @@ public class ServletEncherir extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 			try {
-				enchere.setArticle(art.selectByIdArticle(Integer.parseInt(request.getParameter("article"))));
+				Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+				enchere.setArticle(article);
 				enchere.setUtilisateur((Utilisateur) session.getAttribute("user"));
 				enchere.setDateEnchere(LocalDate.now());
 				enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
-				
 				ench.ajouter(enchere);
+				request.setAttribute("article", article);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/encherir.jsp");
+				requestDispatcher.forward(request, response);
 				
-				response.sendRedirect("encheres");
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
-				
+				System.out.println("ouais je l'ai catché");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
 			}
 			
 		}

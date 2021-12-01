@@ -15,6 +15,7 @@
 	<%@ include file="../inclusions/header.jspf"%>
 
 	<main class="flex-shrink-0">
+
 	<div>
 		<br>
 		<form method="post" action="encheres" class="form">
@@ -27,8 +28,43 @@
 			</select>
 		</form>
 		<br>
-		<p>Ici, les boutons radio que nous redoutons tant mais qu'il va
-			bien falloir coder à un moment donné...</p>
+		<div class="row">
+				<div class="col-4"> <label>Achats</label><input type="radio" id="achat"
+					name="selection" />
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="achat"
+						id="encheresOuvertes" disabled><label class="form-check-label">Enchères
+						ouvertes</label>
+				</div>
+				<div class="form-check">
+		
+					<input class="form-check-input" type="checkbox" name="achat"
+						id="encheresEnCours" disabled><label class="form-check-label">Mes
+						enchères en cours</label>
+				</div>
+				<div class="form-check">
+		
+					<input class="form-check-input" type="checkbox" name="achat"
+						id="encheresRemportees" disabled><label class="form-check-label">Mes
+						enchères Remportées</label>
+				</div></div>
+<div class="col-4">
+					<label>Mes ventes</label>
+		<input type="radio" id="vente" name="selection" /> 
+					<div class="form-check">			
+						<input class="form-check-input"  type="checkbox" name="vente" id="ventesEnCours" disabled> 
+						<label class="form-check-label">Mes ventes en cours</label>
+					</div>
+					<div class="form-check">				
+						<input class="form-check-input"  type="checkbox" name="vente"	id="ventesNonDebutees" disabled>
+						<label class="form-check-label">Mes	ventes non débutées</label>
+					</div>
+			 		<div class="form-check">				 
+						<input class="form-check-input" type="checkbox" name="vente" id="ventesTerminees" disabled>			
+						<label class="form-check-label">Mes ventes terminées</label>
+					</div>
+			</div>
+	</div>
 	</div>
 	<br>
 	<div class="container">
@@ -94,5 +130,44 @@
 
 	</main>
 	<%@ include file="../inclusions/footer.jspf"%>
+	<script>
+		var achat = document.getElementById("achat");
+			var encheresOuvertes = document.getElementById("encheresOuvertes");
+			var encheresEnCours = document.getElementById("encheresEnCours");
+			var encheresRemportees = document.getElementById("encheresRemportees");
+		var vente = document.getElementById("vente");
+			var ventesEnCours = document.getElementById("ventesEnCours");
+			var ventesNonDebutees = document.getElementById("ventesNonDebutees");
+			var ventesTerminees = document.getElementById("ventesTerminees");
+
+			achat.addEventListener("change", function(event) {
+			if (event.target.checked) {
+				encheresOuvertes.disabled = false;
+				encheresEnCours.disabled = false;
+				encheresRemportees.disabled = false;
+				
+				ventesEnCours.disabled = true;
+				ventesEnCours.checked = false;
+				ventesNonDebutees.disabled = true;
+				ventesNonDebutees.checked = false;
+				ventesTerminees.disabled = true;
+				ventesTerminees.checked = false;			
+			}
+		}, false);			
+			vente.addEventListener("change", function(event) {
+				if (event.target.checked) {
+					ventesEnCours.disabled = false;
+					ventesNonDebutees.disabled = false;
+					ventesTerminees.disabled = false;
+					
+					encheresOuvertes.disabled = true;
+					encheresOuvertes.checked = false;
+					encheresEnCours.disabled = true;
+					encheresEnCours.checked = false;
+					encheresRemportees.disabled = true;
+					encheresRemportees.checked = false;				
+				}
+			}, false);
+	</script>
 </body>
 </html>
