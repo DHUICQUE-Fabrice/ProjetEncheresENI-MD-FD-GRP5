@@ -1,4 +1,4 @@
-<%@page import="fr.eni.encheres.bo.Article"%>
+<%@page import="fr.eni.encheres.bo.Article, java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -30,7 +30,7 @@
 
 			<div class="form group-row">
    				<label for="description" class="col-form-label">Descrption :</label>
-				<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required>Description.</textarea>
+				<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required></textarea>
 			</div>
 
 			<div class="form group-row">
@@ -47,29 +47,30 @@
 				<input name="image" type="file" class="col-8 col-form-control"  aria-label="Upload image">
 			</div>
 			
+			
 			<div class="form group-row">
 				<label class="col-form-label">Prix Initial :</label>
-				<input name="prixInitial" id="prixInitial" type="number"  value="" placeholder="Prix Initial">
+				<input name="prixInitial" id="prixInitial" type="number"  value="1" placeholder="Prix Initial" min="1" pattern="\d+">
 			</div>
 			
 			<div class="form group-row">
    				<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-				<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" placeholder="date début enchère" value="" required>
+				<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" min="${LocalDate.now()}" required>
 			</div>
 			
 			<div class="form group-row">
    				<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-				<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" placeholder="date fin enchère" value="" required>
+				<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" min="${article.getDateDebut()}" required>
 			</div>
          
          	<fieldset class="col-7 form group-row">
          		<legend>Retrait:</legend>
  				<label for="rue" class="col-form-label">Rue :</label>
-  				<input name="rue" type="text" id="rue" class="col-8 col-form-control" ><br>
+  				<input name="rue" type="text" id="rue" class="col-8 col-form-control" required><br>
  				<label for="codePostal" class="col-form-label">Code postal :</label>
- 				<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" ><br>
+ 				<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" min="1000" max="99999" required><br>
   				<label for="ville" class="col-form-label">Ville :</label>
-  				<input name="ville" type="text" id="ville" class="col-8 col-form-control" ><br>
+  				<input name="ville" type="text" id="ville" class="col-8 col-form-control" required><br>
          	</fieldset>
          	<div class="form group-row">
  				<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
