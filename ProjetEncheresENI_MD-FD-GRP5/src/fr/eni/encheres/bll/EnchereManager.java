@@ -2,7 +2,6 @@ package fr.eni.encheres.bll;
 
 import java.util.List;
 
-import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
@@ -18,9 +17,15 @@ public class EnchereManager {
 	public Enchere ajouter(Enchere enchere) throws BusinessException {
 	BusinessException exception = new BusinessException();
 		
-		this.validerEnchereMontant(enchere, article, exception);
+		this.validerEnchereMontant(enchere, exception);
+		System.out.println(enchere.getArticle().getPrixInitial());
+		System.out.println(enchere.getArticle().getPrixVente());
 		
-		this.enchereDAO.insert(enchere);
+		if (!exception.hasErreurs()) {
+			this.enchereDAO.insert(enchere);
+		} else {
+			throw exception;
+		}
 		return enchere;
 	}
 	
@@ -45,10 +50,10 @@ public class EnchereManager {
 	}
 	
 	
-	private void validerEnchereMontant(Enchere enchere, Article article, BusinessException exception) {
-		if (enchere.getMontantEnchere() <= article.getPrixInitial()) {
+	private void validerEnchereMontant(Enchere enchere, BusinessException exception) {
+		if (enchere.getMontantEnchere() <= enchere.getArticle().getPrixInitial()) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_PRIX_INITIAL_ERREUR);
-		}else if(enchere.getMontantEnchere() <= article.getPrixVente()) {
+		}else if(enchere.getMontantEnchere() <= enchere.getArticle().getPrixVente()) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_ENCHERE_PRIX_ENCHERE_ERREUR);
 		}
 	}
