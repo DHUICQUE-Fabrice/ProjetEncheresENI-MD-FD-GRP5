@@ -31,29 +31,27 @@
 				</select>
 				<button name="action" class="btn btn-primary" type="submit" value="rechercher">Rechercher</button>
 			</fieldset>
-				</form>
+		
 		<br>
 		<div class="row">
-				<div class="col-4"> <label>Achats</label><input type="radio" id="achat"
+			<div class="col-4"> <label>Achats</label><input type="radio" id="achat"
 					name="selection" />
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" name="achat"
-						id="encheresOuvertes" disabled><label class="form-check-label">Enchères
-						ouvertes</label>
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" disabled>
+					<label class="form-check-label">Enchères ouvertes</label>
 				</div>
 				<div class="form-check">
-		
-					<input class="form-check-input" type="checkbox" name="achat"
-						id="encheresEnCours" disabled><label class="form-check-label">Mes
-						enchères en cours</label>
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" disabled>
+					<label class="form-check-label">Mes	enchères en cours</label>
 				</div>
 				<div class="form-check">
-		
-					<input class="form-check-input" type="checkbox" name="achat"
-						id="encheresRemportees" disabled><label class="form-check-label">Mes
-						enchères Remportées</label>
-				</div></div>
-<div class="col-4">
+					<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees" disabled>
+					<label class="form-check-label">Mes enchères Remportées</label>
+				</div>
+			</div>
+		</div>
+		</form>
+	<div class="col-4">
 					<label>Mes ventes</label>
 		<input type="radio" id="vente" name="selection" /> 
 					<div class="form-check">			
@@ -69,7 +67,6 @@
 						<label class="form-check-label">Mes ventes terminées</label>
 					</div>
 			</div>
-	</div>
 	</div>
 	<br>
 	<div class="container">
@@ -88,10 +85,7 @@
 										<form method="post" action="encherir">
 											<input type="hidden" name="articleNumber"
 												value="${article.idArticle }">
-											<p>
-												Nom de l'article : <input type="submit" class="btn btn-link"
-													value="${article.nomArticle }">
-											</p>
+											<p>Nom de l'article : <input type="submit" class="btn btn-link"	value="${article.nomArticle }">	</p>
 										</form>
 									</c:when>
 									<c:otherwise>
