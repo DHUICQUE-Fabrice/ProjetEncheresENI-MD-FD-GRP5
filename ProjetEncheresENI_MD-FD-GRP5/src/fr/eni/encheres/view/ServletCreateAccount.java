@@ -27,6 +27,7 @@ public class ServletCreateAccount extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/createAccount.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -36,6 +37,7 @@ public class ServletCreateAccount extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		try {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			String pseudo = request.getParameter("pseudo");

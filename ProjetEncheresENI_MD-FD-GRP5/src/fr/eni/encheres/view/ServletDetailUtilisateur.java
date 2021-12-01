@@ -27,6 +27,7 @@ public class ServletDetailUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/detailUtilisateur.jsp");
 		requestDispatcher.forward(request, response);
@@ -37,6 +38,8 @@ public class ServletDetailUtilisateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		Utilisateur utilisateur = new Utilisateur();
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		utilisateur = utilisateurManager.getUserById(Integer.parseInt(request.getParameter("userNumber")));

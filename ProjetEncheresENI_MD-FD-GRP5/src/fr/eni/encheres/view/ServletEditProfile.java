@@ -27,6 +27,8 @@ public class ServletEditProfile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/editProfile.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -36,6 +38,8 @@ public class ServletEditProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		try {
 			

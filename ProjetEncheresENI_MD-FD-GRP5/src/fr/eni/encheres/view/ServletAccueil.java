@@ -28,6 +28,7 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		ArticleManager articleManager = new ArticleManager();
 		List<Article> articles = articleManager.allArticle();
@@ -47,7 +48,7 @@ public class ServletAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
 		requestDispatcher.forward(request, response);
 	}

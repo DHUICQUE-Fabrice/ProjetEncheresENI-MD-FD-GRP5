@@ -36,6 +36,7 @@ public class ServletArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
@@ -58,7 +59,7 @@ public class ServletArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		String appPath = request.getServletContext().getRealPath("");
 		String uploadFilePath = appPath + UPLOAD_DIR;
 		

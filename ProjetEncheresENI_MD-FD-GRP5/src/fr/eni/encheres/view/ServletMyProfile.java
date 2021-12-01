@@ -27,6 +27,7 @@ public class ServletMyProfile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myProfilePage.jsp");
 		requestDispatcher.forward(request, response);
@@ -37,6 +38,8 @@ public class ServletMyProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String path = request.getServletPath();
 		if (path.contains("supprimer")) {
 			request.setAttribute("demandeSuppression", "suppressionDemandee");
