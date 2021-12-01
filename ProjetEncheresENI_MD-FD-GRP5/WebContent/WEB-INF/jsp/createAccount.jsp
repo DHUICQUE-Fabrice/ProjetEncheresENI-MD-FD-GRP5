@@ -24,19 +24,19 @@
 		<form method="post" action="createAccount">
 			<div class="row">
 				<div class="form-floating col-4">
-					<input type="text" name="pseudo" id="pseudo" value="${pseudo }"
+					<input type="text" name="pseudo" id="pseudo" value="${user.pseudo }"
 						class="form-control" placeholder="pseudo" required><label
 						for="pseudo">Pseudo : </label>
 
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="nom" id="nom" value="${nom }"
+					<input type="text" name="nom" id="nom" value="${user.nom }"
 						class="form-control" placeholder="nom" required> <label for="nom">Nom
 						: </label>
 
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="prenom" id="prenom" value="${prenom }"
+					<input type="text" name="prenom" id="prenom" value="${user.prenom }"
 						class="form-control" placeholder="prenom" required> <label
 						for="prenom">Prénom : </label>
 				</div>
@@ -45,14 +45,14 @@
 			<br>
 			<div class="row">
 				<div class="form-floating col-6">
-					<input type="text" name="email" id="email" value="${email }"
+					<input type="text" name="email" id="email" value="${user.email }"
 						class="form-control" placeholder="email" required> <label
 						for="email">Email : </label>
 
 				</div>
 				<div class="form-floating col-6">
 					<input type="text" name="telephone" id="telephone"
-						value="${telephone }" class="form-control" placeholder="telephone">
+						value="${user.telephone }" class="form-control" placeholder="telephone">
 					<label for="telephone">Téléphone : </label>
 
 				</div>
@@ -63,20 +63,20 @@
 
 			<div class="row">
 				<div class="form-floating col-4">
-					<input type="text" name="rue" id="rue" value="${rue }"
+					<input type="text" name="rue" id="rue" value="${user.rue }"
 						class="form-control" placeholder="rue" required> <label for="rue">Rue
 						: </label>
 
 				</div>
 				<div class="form-floating col-4">
 					<input type="text" name="codePostal" id="codePostal"
-						value="${codePostal }" class="form-control"
+						value="${user.codePostal }" class="form-control"
 						placeholder="codePostal"> <label for="codePostal" required>Code
 						Postal : </label>
 
 				</div>
 				<div class="form-floating col-4">
-					<input type="text" name="ville" id="ville" value="${ ville}"
+					<input type="text" name="ville" id="ville" value="${user.ville}"
 						class="form-control" placeholder="ville" required> <label
 						for="ville">Ville : </label>
 
@@ -89,7 +89,7 @@
 			<div class="row">
 				<div class="form-floating col-6">
 					<input type="password" name="password" id="password"
-						value="${password }" class="form-control" placeholder="password" required>
+						value="" class="form-control" placeholder="password" required>
 					<label for="password">Mot de Passe : </label>
 				</div>
 				<div class="form-floating col-6">
@@ -118,6 +118,8 @@
 			<p class="error"><c:out value="${LecteurMessages.getMessageErreur(error) }"></c:out></p>
 	</c:forEach>
 	</c:if>
+			<p class="error">${wrongConfirmation }</p>
+
 	
 	</main>
 	<%@ include file="../inclusions/footer.jspf" %>

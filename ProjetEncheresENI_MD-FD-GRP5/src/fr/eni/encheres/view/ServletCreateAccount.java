@@ -38,11 +38,6 @@ public class ServletCreateAccount extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
-				request.setAttribute("wrongConfirmation", "wrong");
-				return;
-			}
-			
 			String pseudo = request.getParameter("pseudo");
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
@@ -52,19 +47,26 @@ public class ServletCreateAccount extends HttpServlet {
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 			String motDePasse = ChiffrementPwd.SHAcrypted(request.getParameter("password"));
-			
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
 					motDePasse, 0, false);
+			request.setAttribute("user", utilisateur);
+			if (!request.getParameter("password").equals(request.getParameter("confirmation"))) {
+				request.setAttribute("wrongConfirmation", "La confirmation du mot de passe ne correspond pas");
+				doGet(request, response);
+				return;
+			}
 			System.out.println(utilisateur.toString());
 			
 			utilisateur = utilisateurManager.ajouter(utilisateur);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", utilisateur);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
+			requestDispatcher.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
-		requestDispatcher.forward(request, response);
+		
 	}
 	
 }
