@@ -29,6 +29,7 @@ import fr.eni.encheres.exceptions.BusinessException;
 public class ServletArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String UPLOAD_DIR = "img";
+	private static final String DEFAULT_IMG = "no-image-found-360x250.png";
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -70,7 +71,9 @@ public class ServletArticle extends HttpServlet {
 		for (Part part : request.getParts()) {
 			if (part.getName().equals("image")) {
 				fileName = getFileName(part);
-				part.write(uploadFilePath + File.separator + fileName);
+				if (!fileName.equals(DEFAULT_IMG)) {
+					part.write(uploadFilePath + File.separator + fileName);
+				}
 				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
 			}
 		}
@@ -158,9 +161,12 @@ public class ServletArticle extends HttpServlet {
 		String[] tokens = contentDisp.split(";");
 		for (String token : tokens) {
 			if (token.trim().startsWith("filename")) {
+				if (token.length() < 15) {
+					return DEFAULT_IMG;
+				}
 				return token.substring(token.indexOf("=") + 2, token.length() - 1);
 			}
 		}
-		return "";
+		return DEFAULT_IMG;
 	}
 }
