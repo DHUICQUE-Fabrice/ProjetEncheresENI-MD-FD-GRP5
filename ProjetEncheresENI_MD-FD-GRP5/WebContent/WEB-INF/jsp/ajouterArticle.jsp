@@ -48,6 +48,7 @@
 			</div>
 			
 			
+			
 			<div class="form group-row">
 				<label class="col-form-label">Prix Initial :</label>
 				<input name="prixInitial" id="prixInitial" type="number"  value="1" placeholder="Prix Initial" min="1" pattern="\d+">
