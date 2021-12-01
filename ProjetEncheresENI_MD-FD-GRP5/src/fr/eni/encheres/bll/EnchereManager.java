@@ -2,6 +2,7 @@ package fr.eni.encheres.bll;
 
 import java.util.List;
 
+import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
@@ -40,7 +41,11 @@ public class EnchereManager {
 	}
 	
 	
-	
+	private void validerEnchereMontant(Enchere enchere, BusinessException exception) {
+		if (enchere.getMontantEnchere() <= 0) {
+			exception.ajouterErreur(CodesErreursBLL.REGLE_PRIX_INITIAL_NOMBRE_ERREUR);
+		}
+	}
 	// TODO Méthodes supprimer, modifier, selectionner de EnchereManager
 	
 }

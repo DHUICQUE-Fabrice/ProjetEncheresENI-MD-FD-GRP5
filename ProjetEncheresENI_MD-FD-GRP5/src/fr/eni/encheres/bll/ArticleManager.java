@@ -23,9 +23,7 @@ public class ArticleManager {
 		this.validerNomArticle(article, exception);
 		this.validerDescription(article, exception);
 		this.validerDateDebut(article, exception);
-		System.out.println(article.getDateDebut());
 		this.validerDateFin(article, exception);
-		System.out.println(article.getDateFin());
 		this.validerPrixInitial(article, exception);
 		this.validerRue(article, exception);
 		this.validerCodePostal(article, exception);
@@ -74,7 +72,7 @@ public class ArticleManager {
 		this.articleDAO.deleteArticleByUserId(userId);
 	}
 	
-	// Methode de validation de l'article. 
+	// Methode de validation de l'article a ajouter. 
 	private void validerNomArticle(Article article, BusinessException exception) {
 		if (article.getNomArticle().equals("")) {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_NOM_ARTICLE_VIDE);

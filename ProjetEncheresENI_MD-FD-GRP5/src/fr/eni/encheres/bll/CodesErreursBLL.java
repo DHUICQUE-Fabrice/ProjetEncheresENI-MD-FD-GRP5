@@ -28,4 +28,7 @@ public abstract class CodesErreursBLL {
 	public static final int REGLE_DATE_FIN_VALEUR_ERREUR = 21011;
 	public static final int REGLE_PRIX_INITIAL_NOMBRE_ERREUR = 21012;
 	
+	public static final int REGLE_ENCHERE_PRIX_INITIAL_ERREUR = 22000;
+	public static final int REGLE_ENCHERE_PRIX_ENCHERE_ERREUR = 22001;
+	
 }
