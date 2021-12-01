@@ -26,17 +26,13 @@
 			<form method="post" action="<%=request.getContextPath()%>/article"
 				enctype="multipart/form-data">
 				<div class="form group-row">
-					<label for="article" class="col-form-label">Article :</label> <input
-						name="nomArticle" type="text" class=" col-8 col-form-control"
-						id="article" placeholder="Nom de l'article" required>
+					<label for="article" class="col-form-label">Article :</label>
+					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" required>
 				</div>
 
 				<div class="form group-row">
-					<label for="description" class="col-form-label">Descrption
-						:</label>
-					<textarea name="description"
-						class="col-8 col-form-control is-invalid" id="description"
-						placeholder="Description de l'article vendu." required></textarea>
+					<label for="description" class="col-form-label">Descrption :</label>
+					<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required></textarea>
 				</div>
 
 				<div class="form group-row">
@@ -50,49 +46,36 @@
 				</div>
 
 				<div class="form group-row">
-					<label class="col-form-label">Photo de l'article :</label> <input
-						name="image" type="file" class="col-8 col-form-control"
-						aria-label="Upload image">
+					<label class="col-form-label">Photo de l'article :</label> 
+					<input name="image" type="file" class="col-8 col-form-control" aria-label="Upload image">
 				</div>
 
 				<div class="form group-row">
-					<label class="col-form-label">Prix Initial :</label> <input
-						name="prixInitial" id="prixInitial" type="number" value="1"
-						placeholder="Prix Initial" min="1" pattern="\d+">
+					<label class="col-form-label">Prix Initial :</label> <input name="prixInitial" id="prixInitial" type="number" value="1"	placeholder="Prix Initial" min="1" pattern="\d+">
 				</div>
 
 				<div class="form group-row">
-					<label for="dateDebut" class="col-form-label">Début de
-						l'enchère :</label> <input name="debutEnchere" type="date"
-						class="col-2 col-form-control" id="dateDebut"
-						min="${LocalDate.now()}" required>
+					<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
+					<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" min="${LocalDate.now()}" required>
 				</div>
 
 				<div class="form group-row">
-					<label for="dateFin" class="col-form-label">Fin de
-						l'enchère :</label> <input name="finEnchere" type="date"
-						class="col-2 col-form-control" id="dateFin"
-						min="${LocalDate.now()}" required>
+					<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
+					<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" min="${LocalDate.now()}" required>
 				</div>
 
 				<fieldset class="col-7 form group-row">
 					<legend>Retrait:</legend>
-					<label for="rue" class="col-form-label">Rue :</label> <input
-						name="rue" type="text" id="rue" class="col-8 col-form-control"
-						value="${user.rue }" required><br> <label
-						for="codePostal" class="col-form-label">Code postal :</label> <input
-						name="codePostal" type="number" id="codePostal"
-						class="col-8 col-form-control" min="1000" max="99999"
-						value="${user.codePostal }" required><br> <label
-						for="ville" class="col-form-label">Ville :</label> <input
-						name="ville" type="text" id="ville" class="col-8 col-form-control"
-						value="${user.ville }" required><br>
+					<label for="rue" class="col-form-label">Rue :</label>
+					<input name="rue" type="text" id="rue" class="col-8 col-form-control" value="${user.rue }" required><br> 
+					<label for="codePostal" class="col-form-label">Code postal :</label> 
+					<input name="codePostal" type="number" id="codePostal" class="col-8 col-form-control" min="1000" max="99999" value="${user.codePostal }" required><br>
+					<label for="ville" class="col-form-label">Ville :</label>
+					<input name="ville" type="text" id="ville" class="col-8 col-form-control" value="${user.ville }" required><br>
 				</fieldset>
 				<div class="form group-row">
-					<button name="action" class="btn btn-primary" type="submit"
-						value="ajouter">Enregistrer</button>
-					<button name="action" class="btn btn-primary" type="submit"
-						value="annuler">Annuler</button>
+					<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
+					<button name="action" class="btn btn-primary" type="submit"	value="annuler">Annuler</button>
 				</div>
 			</form>
 			<c:if test="${!empty requestScope.listeCodesErreurs }">

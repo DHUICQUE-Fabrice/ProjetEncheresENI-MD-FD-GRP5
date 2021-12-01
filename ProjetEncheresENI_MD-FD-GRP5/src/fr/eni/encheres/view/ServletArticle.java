@@ -40,6 +40,7 @@ public class ServletArticle extends HttpServlet {
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
+		HttpSession session = request.getSession();
 		
 		String id = request.getParameter("idarticle");
 		if (id == null) {
@@ -48,6 +49,7 @@ public class ServletArticle extends HttpServlet {
 		} else {
 			art.selectByIdArticle(Integer.parseInt(id));
 			
+						
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
 			requestDispatcher.forward(request, response);
 		}
@@ -81,7 +83,11 @@ public class ServletArticle extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		if (action.equals("ajouter")) {
-			ajouterArticle(request, response);
+			if (request.getParameter("idArticle") == null) {
+				ajouterArticle(request, response);
+			}else {
+				modifierArticle(request, response);
+			}
 			
 		} else if (action.equals("delete")) {
 			deleteArticle(request, response);

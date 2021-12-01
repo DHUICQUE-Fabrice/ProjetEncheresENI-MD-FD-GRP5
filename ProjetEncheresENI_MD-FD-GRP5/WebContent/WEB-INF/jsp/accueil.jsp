@@ -19,14 +19,19 @@
 	<div>
 		<br>
 		<form method="post" action="encheres" class="form">
-			<label for="catSelect">Choix de la catégorie : </label> <select
-				name="categorie" id="catSelect">
-				<option value="all">Toutes</option>
-				<c:forEach var="cat" items="${categories }">
-					<option value="${cat.idCategorie }">${cat.libelle }</option>
-				</c:forEach>
-			</select>
-		</form>
+			<fieldset class="col-7 form group-row">
+				<legend>Filtre :</legend>
+				<input name="filtre" type="text" id="filtre" class="col-4 col-form-control"><br> 
+				<label for="catSelect">Choix de la catégorie : </label> 
+				<select	name="categorie" id="catSelect">
+						<option value="all">Toutes</option>
+						<c:forEach var="cat" items="${categories }">
+						<option value="${cat.idCategorie }">${cat.libelle }</option>
+						</c:forEach>
+				</select>
+				<button name="action" class="btn btn-primary" type="submit" value="rechercher">Rechercher</button>
+			</fieldset>
+				</form>
 		<br>
 		<div class="row">
 				<div class="col-4"> <label>Achats</label><input type="radio" id="achat"
