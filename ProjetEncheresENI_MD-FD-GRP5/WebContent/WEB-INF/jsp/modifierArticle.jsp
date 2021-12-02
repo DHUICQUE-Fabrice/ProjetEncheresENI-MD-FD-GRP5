@@ -27,8 +27,8 @@
 		</nav>
 
 		<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
-			<form method="post" action="<%=request.getContextPath()%>/article"
-				enctype="multipart/form-data">
+			<form method="post" action="<%=request.getContextPath()%>/article" enctype="multipart/form-data">
+				<input name="article" type="hidden" value="${article.idArticle}">
 				<div class="form group-row">
 					<label for="article" class="col-form-label">Article :</label>
 					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" value="${article.getNomArticle}" placeholder="Nom de l'article" required>
