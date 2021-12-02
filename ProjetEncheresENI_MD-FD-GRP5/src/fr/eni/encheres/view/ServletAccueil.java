@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
+import fr.eni.encheres.bll.EnchereManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 
 /**
@@ -62,7 +65,6 @@ public class ServletAccueil extends HttpServlet {
 		String ventesEnCours = request.getParameter("ventesEnCours");
 		String ventesNonDebutees = request.getParameter("ventesNonDebutees");
 		String ventesTerminees = request.getParameter("ventesTerminees");
-		
 		CategorieManager categorieManager = new CategorieManager();
 		if (request.getParameter("categorie").contains("all")) {
 			articles.addAll(rechercherArticles(request, filtreTexte, null, achat, encheresOuvertes, encheresEnCours,
@@ -109,7 +111,6 @@ public class ServletAccueil extends HttpServlet {
 				}
 			}
 		}
-		System.out.println(articles.size());
 		//Si l'utilisateur a rentré un texte, on filtre sur ce texte les résultats
 		if (!filtreText.equals("")) {
 			filtreText = filtreText.toLowerCase().trim();
@@ -127,6 +128,72 @@ public class ServletAccueil extends HttpServlet {
 				}
 			}
 		}
+		List<Article> articlesTemp = new ArrayList<>();
+		for (String string : paramsChecked) {
+			if (string != null) {
+				switch (string) {
+					case "encheresOuvertes":
+						for (Article article : articles) {
+							if (article.getDateDebut().isBefore(LocalDate.now())
+									&& article.getDateFin().isAfter(LocalDate.now())) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					case "encheresEnCours":
+						for (Article article : articles) {
+							EnchereManager enchereManager = new EnchereManager();
+							List<Enchere> encheres = enchereManager.allEnchereByArticle(article.getIdArticle());
+							Boolean add = false;
+							for (Enchere enchere : encheres) {
+								if (enchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()) {
+									add = true;
+								}
+							}
+							if (add) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					case "encheresRemportees":
+						for (Article article : articles) {
+							EnchereManager enchereManager = new EnchereManager();
+							Enchere maxEnchere = enchereManager.selectMaxMontantByIdArticle(article.getIdArticle());
+							if (maxEnchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()
+									&& article.getDateFin().isBefore(LocalDate.now())) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					case "ventesEnCours":
+						for (Article article : articles) {
+							if (article.getDateDebut().isBefore(LocalDate.now())
+									&& article.getDateFin().isAfter(LocalDate.now())) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					case "ventesNonDebutees":
+						for (Article article : articles) {
+							if (article.getDateDebut().isAfter(LocalDate.now())) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					case "ventesTerminees":
+						for (Article article : articles) {
+							if (article.getDateFin().isBefore(LocalDate.now())) {
+								articlesTemp.add(article);
+							}
+						}
+						break;
+					
+					default:
+						break;
+				}
+			}
+		}
+		articles = articlesTemp;
 		
 		return articles;
 	}

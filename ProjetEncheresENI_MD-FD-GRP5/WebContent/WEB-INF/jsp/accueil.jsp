@@ -38,25 +38,25 @@
 					<label>Achats</label>
 					<input type="radio" id="achat" name="achatRadio" value="true" checked/>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" value = "encheresOuvertes"> <label class="form-check-label">Enchères ouvertes</label>
+						<input class="form-check-input" type="checkbox" name="encheresOuvertes" id="encheresOuvertes" value = "encheresOuvertes"> <label class="form-check-label">Enchères ouvertes</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" value = "encheresEnCours"> <label class="form-check-label">Mes enchères en cours</label>
+						<input class="form-check-input" type="checkbox" name="encheresEnCours" id="encheresEnCours" value = "encheresEnCours"> <label class="form-check-label">Mes enchères en cours</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees" value = "encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
+						<input class="form-check-input" type="checkbox" name="encheresRemportees" id="encheresRemportees" value = "encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
 					</div>
 				</div>
 				<div class="col-4">
 					<label>Mes ventes</label> <input type="radio" id="vente" name="achatRadio" value="false" />
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesEnCours" value = "" disabled> <label class="form-check-label">Mes ventes en cours</label>
+						<input class="form-check-input" type="checkbox" name="ventesEnCours" id="ventesEnCours" value = "ventesEnCours" disabled> <label class="form-check-label">Mes ventes en cours</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesNonDebutees" value = "" disabled> <label class="form-check-label">Mes ventes non débutées</label>
+						<input class="form-check-input" type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" value = "ventesNonDebutees" disabled> <label class="form-check-label">Mes ventes non débutées</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesTerminees" value = "" disabled> <label class="form-check-label">Mes ventes terminées</label>
+						<input class="form-check-input" type="checkbox" name="ventesTerminees" id="ventesTerminees" value = "ventesTerminees" disabled> <label class="form-check-label">Mes ventes terminées</label>
 					</div>
 				</div>
 			</div>
