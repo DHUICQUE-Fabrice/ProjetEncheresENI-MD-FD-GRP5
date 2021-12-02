@@ -68,6 +68,7 @@
 				</div>
 				<c:choose>
 					<c:when test="${user.idUtilisateur == article.utilisateur.idUtilisateur }">
+						<input name="article" type="hidden" value="${article.idArticle}">
 						<div class="form group-row">
 							<button name="action" class="btn btn-primary" type="submit" value="modifier">Modifier l'article</button>
 							<button name="action" class="btn btn-primary" type="submit" value="supprimer">Annuler la vente</button>
