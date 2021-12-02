@@ -22,7 +22,9 @@
 		<form method="post" action="encheres" class="form">
 			<fieldset class="col-7 form group-row">
 				<legend>Filtre :</legend>
-				<input name="filtre" type="text" id="filtre" class="col-4 col-form-control"><br> <label for="catSelect">Choix de la catégorie : </label> <select name="categorie" id="catSelect">
+				<input name="filtre" type="text" id="filtre" class="col-4 col-form-control"><br> 
+				<label for="catSelect">Choix de la catégorie : </label> 
+				<select name="categorie" id="catSelect">
 					<option value="all">Toutes</option>
 					<c:forEach var="cat" items="${categories }">
 						<option value="${cat.idCategorie }">${cat.libelle }</option>
@@ -33,27 +35,28 @@
 			<br>
 			<div class="row">
 				<div class="col-4">
-					<label>Achats</label><input type="radio" id="achat" name="selection" checked />
+					<label>Achats</label>
+					<input type="radio" id="achat" name="achatRadio" value="true" checked/>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" checked> <label class="form-check-label">Enchères ouvertes</label>
+						<input class="form-check-input" type="checkbox" name="achat" id="encheresOuvertes" value = "encheresOuvertes"> <label class="form-check-label">Enchères ouvertes</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" checked> <label class="form-check-label">Mes enchères en cours</label>
+						<input class="form-check-input" type="checkbox" name="achat" id="encheresEnCours" value = "encheresEnCours"> <label class="form-check-label">Mes enchères en cours</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
+						<input class="form-check-input" type="checkbox" name="achat" id="encheresRemportees" value = "encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
 					</div>
 				</div>
 				<div class="col-4">
-					<label>Mes ventes</label> <input type="radio" id="vente" name="selection" />
+					<label>Mes ventes</label> <input type="radio" id="vente" name="achatRadio" value="false" />
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesEnCours" disabled> <label class="form-check-label">Mes ventes en cours</label>
+						<input class="form-check-input" type="checkbox" name="vente" id="ventesEnCours" value = "" disabled> <label class="form-check-label">Mes ventes en cours</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesNonDebutees" disabled> <label class="form-check-label">Mes ventes non débutées</label>
+						<input class="form-check-input" type="checkbox" name="vente" id="ventesNonDebutees" value = "" disabled> <label class="form-check-label">Mes ventes non débutées</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="vente" id="ventesTerminees" disabled> <label class="form-check-label">Mes ventes terminées</label>
+						<input class="form-check-input" type="checkbox" name="vente" id="ventesTerminees" value = "" disabled> <label class="form-check-label">Mes ventes terminées</label>
 					</div>
 				</div>
 			</div>

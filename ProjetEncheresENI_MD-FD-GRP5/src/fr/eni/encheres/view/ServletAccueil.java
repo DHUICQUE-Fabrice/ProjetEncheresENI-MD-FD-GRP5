@@ -1,6 +1,7 @@
 package fr.eni.encheres.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import fr.eni.encheres.bll.ArticleManager;
 import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletAccueil
@@ -50,8 +52,65 @@ public class ServletAccueil extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
+		String filtreTexte = request.getParameter("filtre");
+		Boolean achat = Boolean.valueOf((request.getParameter("achatRadio")));
+		List<Article> articles = new ArrayList<Article>();
+		
+		String encheresOuvertes = request.getParameter("encheresOuvertes");
+		String encheresEnCours = request.getParameter("encheresEnCours");
+		String encheresRemportees = request.getParameter("encheresRemportees");
+		String ventesEnCours = request.getParameter("ventesEnCours");
+		String ventesNonDebutees = request.getParameter("ventesNonDebutees");
+		String ventesTerminees = request.getParameter("ventesTerminees");
+		
+		CategorieManager categorieManager = new CategorieManager();
+		if (request.getParameter("categorie").contains("all")) {
+			
+			List<Categorie> categories = categorieManager.selectAll();
+			for (Categorie categorie : categories) {
+				articles.addAll(rechercherArticles(request, filtreTexte, categorie, achat, encheresOuvertes,
+						encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees));
+			}
+		} else {
+			Categorie categorie = categorieManager.selectById(Integer.parseInt(request.getParameter("categorie")));
+			articles.addAll(rechercherArticles(request, filtreTexte, categorie, achat, encheresOuvertes,
+					encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees));
+		}
+		request.setAttribute("articles", articles);
+		
+		List<Categorie> categories = categorieManager.selectAll();
+		request.setAttribute("categories", categories);
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}
 	
+	private List<Article> rechercherArticles(HttpServletRequest request, String filtreText, Categorie categorie,
+			boolean achat, String... paramsChecked) {
+		List<Article> articles = new ArrayList<>();
+		HttpSession session = request.getSession();
+		ArticleManager articleManager = new ArticleManager();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+		articles = articleManager.allArticleByCategorie(categorie.getIdCategorie());
+		
+		//Si l'utilisateur est connecté, on enlève de la liste soit ses propres articles si on est en mode achat, sinon, l'inverse.
+		if (utilisateur != null) {
+			if (achat) {
+				// Obligé de passer par une boucle for classique plutôt qu'un foreach pour éviter "java.util.ConcurrentModificationException"
+				for (int i = 0; i < articles.size(); i++) {
+					if (articles.get(i).getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()) {
+						articles.remove(i);
+					}
+				}
+			} else {
+				for (int i = 0; i < articles.size(); i++) {
+					if (articles.get(i).getUtilisateur().getIdUtilisateur() != utilisateur.getIdUtilisateur()) {
+						articles.remove(i);
+					}
+				}
+			}
+		}
+		
+		return articles;
+	}
 }
