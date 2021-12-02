@@ -65,12 +65,8 @@ public class ServletAccueil extends HttpServlet {
 		
 		CategorieManager categorieManager = new CategorieManager();
 		if (request.getParameter("categorie").contains("all")) {
-			
-			List<Categorie> categories = categorieManager.selectAll();
-			for (Categorie categorie : categories) {
-				articles.addAll(rechercherArticles(request, filtreTexte, categorie, achat, encheresOuvertes,
-						encheresEnCours, encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees));
-			}
+			articles.addAll(rechercherArticles(request, filtreTexte, null, achat, encheresOuvertes, encheresEnCours,
+					encheresRemportees, ventesEnCours, ventesNonDebutees, ventesTerminees));
 		} else {
 			Categorie categorie = categorieManager.selectById(Integer.parseInt(request.getParameter("categorie")));
 			articles.addAll(rechercherArticles(request, filtreTexte, categorie, achat, encheresOuvertes,
@@ -91,8 +87,11 @@ public class ServletAccueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArticleManager articleManager = new ArticleManager();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
-		articles = articleManager.allArticleByCategorie(categorie.getIdCategorie());
-		
+		if (categorie == null) {
+			articles = articleManager.allArticle();
+		} else {
+			articles = articleManager.allArticleByCategorie(categorie.getIdCategorie());
+		}
 		//Si l'utilisateur est connecté, on enlève de la liste soit ses propres articles si on est en mode achat, sinon, l'inverse.
 		if (utilisateur != null) {
 			if (achat) {
@@ -107,6 +106,24 @@ public class ServletAccueil extends HttpServlet {
 					if (articles.get(i).getUtilisateur().getIdUtilisateur() != utilisateur.getIdUtilisateur()) {
 						articles.remove(i);
 					}
+				}
+			}
+		}
+		System.out.println(articles.size());
+		//Si l'utilisateur a rentré un texte, on filtre sur ce texte les résultats
+		if (!filtreText.equals("")) {
+			filtreText = filtreText.toLowerCase().trim();
+			List<Article> articlesTemp = articles;
+			for (int i = 0; i < articles.size(); i++) {
+				if (!articles.get(i).getNomArticle().toLowerCase().contains(filtreText)
+						&& !articles.get(i).getDescription().toLowerCase().contains(filtreText)) {
+					articlesTemp.set(i, null);
+				}
+			}
+			articles = new ArrayList<Article>();
+			for (Article article : articlesTemp) {
+				if (article != null) {
+					articles.add(article);
 				}
 			}
 		}
