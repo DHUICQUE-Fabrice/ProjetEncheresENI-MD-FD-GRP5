@@ -22,7 +22,7 @@
 		<form method="post" action="login" class="">
 			<div class="row">
 				<div class="form-floating col-6">
-					<input type="text" name="userName" id="userName" value="" class="form-control" placeholder="Pseudo"> <label for="userName">Identifiant : </label>
+					<input type="text" name="userName" id="userName" value="${userRemembered }" class="form-control" placeholder="Pseudo"> <label for="userName">Identifiant : </label>
 				</div>
 				<div class="form-floating col-6">
 					<input type="password" name="userPassword" id="userPassword" value="${userPassword }" class="form-control" placeholder="password"> <label for="userPassword">Mot de passe : </label>
@@ -33,7 +33,7 @@
 					<input type="submit" value="Connexion" class="btn-primary col-2">
 				</div>
 				<div class="col-6">
-					<input type="checkbox" id="rememberMe" value="rememberMe" name="rememberMe" class="form-check-input"> <label for="rememberMe" class="col-form-label" class="form-check-label">Se souvenir de moi </label>
+					<input type="checkbox" id="rememberMe" value="rememberMe" name="rememberMe" class="form-check-input" checked> <label for="rememberMe" class="col-form-label" class="form-check-label">Se souvenir de moi </label>
 				</div>
 			</div>
 		</form>

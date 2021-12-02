@@ -39,6 +39,7 @@ public class ServletAccueil extends HttpServlet {
 		if (request.getParameter("disconnect") != null && request.getParameter("disconnect").equals("disconnect")) {
 			session.invalidate();
 		}
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
 		requestDispatcher.forward(request, response);
 	}

@@ -28,7 +28,12 @@ public class ServletLoginPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("rememberMe")) {
+				request.setAttribute("userRemembered", cookie.getValue());
+			}
+		}
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginPage.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -53,12 +58,9 @@ public class ServletLoginPage extends HttpServlet {
 			request.setAttribute("unknown", "true");
 		} else if (passwordtoCheck.equals(login.getMotDePasse())) {
 			if (request.getParameter("rememberMe") != null && request.getParameter("rememberMe").equals("rememberMe")) {
-				Cookie cookieRM = new Cookie("rememberMe", "true");
-				Cookie cookieUN = new Cookie("userName", login.getPseudo());
-				cookieRM.setMaxAge(60);
-				cookieUN.setMaxAge(60);
+				Cookie cookieRM = new Cookie("rememberMe", login.getPseudo());
+				cookieRM.setMaxAge(60 * 60 * 24 * 30);
 				response.addCookie(cookieRM);
-				response.addCookie(cookieUN);
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("user", login);
