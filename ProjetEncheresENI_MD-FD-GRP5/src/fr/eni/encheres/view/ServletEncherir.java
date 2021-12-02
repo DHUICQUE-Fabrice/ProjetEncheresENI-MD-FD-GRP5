@@ -58,18 +58,43 @@ public class ServletEncherir extends HttpServlet {
 		request.setAttribute("test", "erreur");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
 		requestDispatcher.forward(request, response);
+		
+		System.out.println("je suis dans le doGet");
 	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		
-		if (request.getParameter("encherir") == null) {
+		if (request.getParameter("action") == null) {
 			doGet(request, response);
-		} else {
+			return;
+		}
+		
+		
+		if (request.getParameter("action").equals("modifier")) {
+			
+			System.out.println("je suis dans le modifier");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/modifierArticle.jsp");
+			requestDispatcher.forward(request, response);
+			
+		}else if (request.getParameter("action").equals("supprimer")) {
+			
+			ArticleManager art = new ArticleManager();
+			System.out.println(request.getParameter("article"));
+			
+			Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+			System.out.println(article);
+			
+			deleteArticle(article, request, response);
+			System.out.println("je suis dans le supprimer");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
+			requestDispatcher.forward(request, response);
+			
+		}else if (request.getParameter("action").equals("encherir")) {
 			
 			Enchere enchere = new Enchere();
 			EnchereManager ench = new EnchereManager();
@@ -94,8 +119,20 @@ public class ServletEncherir extends HttpServlet {
 				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 				doGet(request, response);
 			}
-			
 		}
+		System.out.println(request.getParameter("action") + "je suis juste dans le doPost");
 	}
 	
+	private void deleteArticle(Article article, HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		ArticleManager art = new ArticleManager();
+		
+		System.out.println(article.getIdArticle());
+		int id = article.getIdArticle();
+		try {
+			art.deleteArticle(id);
+		} catch (BusinessException e) {
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+		}
+	}
 }

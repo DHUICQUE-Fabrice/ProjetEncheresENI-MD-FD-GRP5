@@ -69,8 +69,8 @@
 				<c:choose>
 					<c:when test="${user.idUtilisateur == article.utilisateur.idUtilisateur }">
 						<div class="form group-row">
-							<button name="modifier" class="btn btn-primary" type="submit">Modifier l'article</button>
-							<button name="annuler" class="btn btn-primary" type="submit">Annuler la vente</button>
+							<button name="action" class="btn btn-primary" type="submit" value="modifier">Modifier l'article</button>
+							<button name="action" class="btn btn-primary" type="submit" value="supprimer">Annuler la vente</button>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -84,7 +84,7 @@
 									<input name="encherir" type="number" class="col-2 col-form-control" id="encherir" min="${enchere.montantEnchere + 1}" value="${enchere.montantEnchere + 1}">
 								</c:otherwise>
 							</c:choose>
-							<button name="encherir" class="btn btn-primary" type="submit">Enchérir</button>
+							<button name="action" class="btn btn-primary" type="submit" value="encherir">Enchérir</button>
 						</div>
 					</c:otherwise>
 				</c:choose>

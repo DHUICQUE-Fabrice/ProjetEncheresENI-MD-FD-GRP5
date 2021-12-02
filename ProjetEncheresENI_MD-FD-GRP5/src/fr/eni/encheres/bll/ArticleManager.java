@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.dal.ArticleDAO;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.exceptions.BusinessException;
@@ -62,6 +63,11 @@ public class ArticleManager {
 	}
 	
 	public Article deleteArticle(int idArticle) throws BusinessException {
+		EnchereManager ench = new EnchereManager();
+		List<Enchere> encheres = ench.allEnchereByArticle(idArticle);
+		for (Enchere enchere : encheres) {
+			ench.supprimerEnchere(enchere);
+		}
 		this.articleDAO.deleteArticle(idArticle);
 		return null;
 	}
