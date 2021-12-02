@@ -40,17 +40,25 @@ public class EnchereManager {
 		try {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			Utilisateur utilisateurDebite = enchere.getUtilisateur();
+			Enchere enchereMaxPrecedente = new Enchere();
+			if (selectMaxMontantByIdArticle(enchere.getArticle().getIdArticle()) != null) {
+				enchereMaxPrecedente = selectMaxMontantByIdArticle(enchere.getArticle().getIdArticle());
+			} else {
+				enchereMaxPrecedente.setMontantEnchere(enchere.getArticle().getPrixInitial());
+			}
 			
-			Enchere enchereMaxPrecedente = selectMaxMontantByIdArticle(enchere.getArticle().getIdArticle());
 			Utilisateur utilisateurRecredite = enchereMaxPrecedente.getUtilisateur();
-			
+			if (utilisateurRecredite != null) {
+				utilisateurRecredite
+						.setCredit(utilisateurRecredite.getCredit() + enchereMaxPrecedente.getMontantEnchere());
+				utilisateurManager.modifierUtilisateur(utilisateurRecredite, "credit",
+						String.valueOf(utilisateurRecredite.getCredit()));
+				
+			}
 			utilisateurDebite.setCredit(utilisateurDebite.getCredit() - enchere.getMontantEnchere());
-			utilisateurRecredite.setCredit(utilisateurRecredite.getCredit() + enchereMaxPrecedente.getMontantEnchere());
 			
 			utilisateurManager.modifierUtilisateur(utilisateurDebite, "credit",
 					String.valueOf(utilisateurDebite.getCredit()));
-			utilisateurManager.modifierUtilisateur(utilisateurRecredite, "credit",
-					String.valueOf(utilisateurRecredite.getCredit()));
 			
 		} catch (BusinessException e) {
 			e.printStackTrace();

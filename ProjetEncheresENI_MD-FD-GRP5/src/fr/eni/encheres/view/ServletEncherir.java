@@ -86,8 +86,10 @@ public class ServletEncherir extends HttpServlet {
 				enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
 				ench.ajouter(enchere);
 				
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
-				requestDispatcher.forward(request, response);
+				doGet(request, response);
+				
+				//RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
+				//requestDispatcher.forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 				doGet(request, response);
