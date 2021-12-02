@@ -6,6 +6,7 @@ public class TodoClass {
 	// TODO Annuler une vente
 	// TODO Se souvenir de moi
 	// TODO Pages d'erreur custom : 404, 500
+	// TODO Session timeout 5mn : utiliser un listener (https://mail.codejava.net/java-ee/servlet/how-to-set-session-timeout-for-java-web-application)
 	
 	/*
 	 * 

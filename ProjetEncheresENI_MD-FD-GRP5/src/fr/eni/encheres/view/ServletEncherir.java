@@ -55,8 +55,9 @@ public class ServletEncherir extends HttpServlet {
 		request.setAttribute("categorie", categorie);
 		request.setAttribute("enchere", enchere);
 		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
-		
+		request.setAttribute("test", "erreur");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
+		requestDispatcher.forward(request, response);
 	}
 	
 	/**
@@ -77,6 +78,7 @@ public class ServletEncherir extends HttpServlet {
 			
 			try {
 				Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+				request.setAttribute("article", article);
 				Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
 				enchere.setArticle(article);
 				enchere.setUtilisateur(utilisateur);
@@ -84,14 +86,11 @@ public class ServletEncherir extends HttpServlet {
 				enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
 				ench.ajouter(enchere);
 				
-				request.setAttribute("article", article);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/encherir.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
 				requestDispatcher.forward(request, response);
-				
 			} catch (BusinessException e) {
 				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
-				System.out.println("ouais je l'ai catché");
-				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward(request, response);
+				doGet(request, response);
 			}
 			
 		}

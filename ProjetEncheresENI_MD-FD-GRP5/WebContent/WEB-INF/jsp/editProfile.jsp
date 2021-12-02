@@ -1,9 +1,10 @@
 <%@page import="fr.eni.encheres.bo.Utilisateur"%>
+
+<%@page import="fr.eni.encheres.bo.Article, java.time.LocalDate"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.encheres.messages.LecteurMessages"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -110,8 +111,8 @@
 	</div>
 
 
-	<c:if test="${!empty requestScope.listeCodesErreurs }">
-		<c:forEach var="error" items="${requestScope.listeCodesErreurs }">
+	<c:if test="${!empty listeCodesErreurs }">
+		<c:forEach var="error" items="${listeCodesErreurs }">
 			<p class="error"><c:out value="${LecteurMessages.getMessageErreur(error) }"></c:out></p>
 		</c:forEach>
 	

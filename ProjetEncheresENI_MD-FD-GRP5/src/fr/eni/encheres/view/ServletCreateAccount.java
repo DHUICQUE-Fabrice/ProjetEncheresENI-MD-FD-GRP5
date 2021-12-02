@@ -57,7 +57,6 @@ public class ServletCreateAccount extends HttpServlet {
 				doGet(request, response);
 				return;
 			}
-			System.out.println(utilisateur.toString());
 			
 			utilisateur = utilisateurManager.ajouter(utilisateur);
 			HttpSession session = request.getSession();

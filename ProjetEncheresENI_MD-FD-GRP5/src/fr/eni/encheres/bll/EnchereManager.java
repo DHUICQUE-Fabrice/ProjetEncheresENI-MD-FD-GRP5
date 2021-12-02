@@ -24,7 +24,6 @@ public class EnchereManager {
 			debiteCredite(enchere);
 			this.enchereDAO.insert(enchere);
 		} else {
-			System.out.println(exception.getListeCodesErreurs().get(0));
 			throw exception;
 		}
 		
