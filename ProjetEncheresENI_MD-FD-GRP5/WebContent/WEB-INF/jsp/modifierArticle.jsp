@@ -81,7 +81,6 @@
          	<div class="form group-row">
  				<button name="action" class="btn btn-primary" type="submit" value="ajouter">Enregistrer</button>
  				<button name="action"class="btn btn-primary" type="submit"  value="annuler">Annuler</button>
- 				<button name="action" class="btn btn-primary" type="submit"  value="delete">Annuler la vente</button>
 			</div>
 		</form>
 	
