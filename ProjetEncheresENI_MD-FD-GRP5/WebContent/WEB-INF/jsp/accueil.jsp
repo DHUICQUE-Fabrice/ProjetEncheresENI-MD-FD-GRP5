@@ -32,6 +32,7 @@
 				</select>
 				<button name="action" class="btn btn-primary" type="submit" value="rechercher">Rechercher</button>
 			</fieldset>
+		<c:if test="${!empty user }">
 			<br>
 			<div class="row">
 				<div class="col-4">
@@ -60,6 +61,7 @@
 					</div>
 				</div>
 			</div>
+			</c:if>
 		</form>
 	</div>
 	<br>

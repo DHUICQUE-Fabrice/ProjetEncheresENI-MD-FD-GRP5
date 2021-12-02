@@ -37,6 +37,18 @@ public class ServletAccueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArticleManager articleManager = new ArticleManager();
 		List<Article> articles = articleManager.allArticle();
+		List<Article> articlesTemp = new ArrayList<>();
+		for (Article article : articles) {
+			if (((article.getDateDebut().isBefore(LocalDate.now()) || (article.getDateDebut().isEqual(LocalDate.now()))
+					&& ((article.getDateFin().isAfter(LocalDate.now()))
+							|| article.getDateFin().isEqual(LocalDate.now()))))) {
+				articlesTemp.add(article);
+			}
+			
+			articles = articlesTemp;
+			
+		}
+		
 		request.setAttribute("articles", articles);
 		CategorieManager categorieManager = new CategorieManager();
 		List<Categorie> categories = categorieManager.selectAll();
@@ -96,18 +108,25 @@ public class ServletAccueil extends HttpServlet {
 		}
 		//Si l'utilisateur est connecté, on enlève de la liste soit ses propres articles si on est en mode achat, sinon, l'inverse.
 		if (utilisateur != null) {
+			List<Article> articlesTemp = articles;
 			if (achat) {
 				// Obligé de passer par une boucle for classique plutôt qu'un foreach pour éviter "java.util.ConcurrentModificationException"
 				for (int i = 0; i < articles.size(); i++) {
 					if (articles.get(i).getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()) {
-						articles.remove(i);
+						articlesTemp.set(i, null);
 					}
 				}
 			} else {
 				for (int i = 0; i < articles.size(); i++) {
 					if (articles.get(i).getUtilisateur().getIdUtilisateur() != utilisateur.getIdUtilisateur()) {
-						articles.remove(i);
+						articlesTemp.set(i, null);
 					}
+				}
+			}
+			articles = new ArrayList<Article>();
+			for (Article article : articlesTemp) {
+				if (article != null) {
+					articles.add(article);
 				}
 			}
 		}
@@ -128,72 +147,96 @@ public class ServletAccueil extends HttpServlet {
 				}
 			}
 		}
-		List<Article> articlesTemp = new ArrayList<>();
-		for (String string : paramsChecked) {
-			if (string != null) {
-				switch (string) {
-					case "encheresOuvertes":
-						for (Article article : articles) {
-							if (article.getDateDebut().isBefore(LocalDate.now())
-									&& article.getDateFin().isAfter(LocalDate.now())) {
-								articlesTemp.add(article);
-							}
-						}
-						break;
-					case "encheresEnCours":
-						for (Article article : articles) {
-							EnchereManager enchereManager = new EnchereManager();
-							List<Enchere> encheres = enchereManager.allEnchereByArticle(article.getIdArticle());
-							Boolean add = false;
-							for (Enchere enchere : encheres) {
-								if (enchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()) {
-									add = true;
+		if (session.getAttribute("user") != null) {
+			
+			List<Article> articlesTemp = new ArrayList<>();
+			for (String string : paramsChecked) {
+				if (string != null) {
+					switch (string) {
+						case "encheresOuvertes":
+							for (Article article : articles) {
+								if (((article.getDateDebut().isBefore(LocalDate.now())
+										|| (article.getDateDebut().isEqual(LocalDate.now()))
+												&& ((article.getDateFin().isAfter(LocalDate.now()))
+														|| article.getDateFin().isEqual(LocalDate.now()))))) {
+									articlesTemp.add(article);
 								}
 							}
-							if (add) {
-								articlesTemp.add(article);
+							break;
+						case "encheresEnCours":
+							for (Article article : articles) {
+								EnchereManager enchereManager = new EnchereManager();
+								List<Enchere> encheres = enchereManager.allEnchereByArticle(article.getIdArticle());
+								Boolean add = false;
+								if (encheres.size() > 0) {
+									for (Enchere enchere : encheres) {
+										if (enchere.getUtilisateur().getIdUtilisateur() == utilisateur
+												.getIdUtilisateur()) {
+											add = true;
+										}
+									}
+									if (add) {
+										articlesTemp.add(article);
+									}
+								}
+								
 							}
-						}
-						break;
-					case "encheresRemportees":
-						for (Article article : articles) {
-							EnchereManager enchereManager = new EnchereManager();
-							Enchere maxEnchere = enchereManager.selectMaxMontantByIdArticle(article.getIdArticle());
-							if (maxEnchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()
-									&& article.getDateFin().isBefore(LocalDate.now())) {
-								articlesTemp.add(article);
+							break;
+						case "encheresRemportees":
+							for (Article article : articles) {
+								EnchereManager enchereManager = new EnchereManager();
+								Enchere maxEnchere = enchereManager.selectMaxMontantByIdArticle(article.getIdArticle());
+								if (maxEnchere != null) {
+									if (maxEnchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()
+											&& article.getDateFin().isBefore(LocalDate.now())) {
+										articlesTemp.add(article);
+									}
+								}
+								
 							}
-						}
-						break;
-					case "ventesEnCours":
-						for (Article article : articles) {
-							if (article.getDateDebut().isBefore(LocalDate.now())
-									&& article.getDateFin().isAfter(LocalDate.now())) {
-								articlesTemp.add(article);
+							break;
+						case "ventesEnCours":
+							for (Article article : articles) {
+								if (article.getDateDebut().isBefore(LocalDate.now())
+										&& article.getDateFin().isAfter(LocalDate.now())) {
+									articlesTemp.add(article);
+								}
 							}
-						}
-						break;
-					case "ventesNonDebutees":
-						for (Article article : articles) {
-							if (article.getDateDebut().isAfter(LocalDate.now())) {
-								articlesTemp.add(article);
+							break;
+						case "ventesNonDebutees":
+							for (Article article : articles) {
+								if (article.getDateDebut().isAfter(LocalDate.now())) {
+									articlesTemp.add(article);
+								}
 							}
-						}
-						break;
-					case "ventesTerminees":
-						for (Article article : articles) {
-							if (article.getDateFin().isBefore(LocalDate.now())) {
-								articlesTemp.add(article);
+							break;
+						case "ventesTerminees":
+							for (Article article : articles) {
+								if (article.getDateFin().isBefore(LocalDate.now())) {
+									articlesTemp.add(article);
+								}
 							}
-						}
-						break;
-					
-					default:
-						break;
+							break;
+						
+						default:
+							break;
+					}
 				}
 			}
+			articles = articlesTemp;
+		} else {
+			List<Article> articlesTemp = new ArrayList<>();
+			for (Article article : articles) {
+				if (((article.getDateDebut().isBefore(LocalDate.now())
+						|| (article.getDateDebut().isEqual(LocalDate.now()))
+								&& ((article.getDateFin().isAfter(LocalDate.now()))
+										|| article.getDateFin().isEqual(LocalDate.now()))))) {
+					articlesTemp.add(article);
+				}
+			}
+			articles = articlesTemp;
+			
 		}
-		articles = articlesTemp;
 		
 		return articles;
 	}
