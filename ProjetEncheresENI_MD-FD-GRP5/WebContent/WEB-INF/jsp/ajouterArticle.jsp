@@ -55,8 +55,9 @@
 				</div>
 
 				<div class="form group-row">
-					<label class="col-form-label">Prix Initial :</label> <input name="prixInitial" id="prixInitial" type="number" value="1"	placeholder="Prix Initial" min="1" pattern="\d+">
+					<label class="col-form-label">Prix Initial :</label> <input name="prixInitial" id="prixInitial" type="number" value="1"	placeholder="Prix Initial" min="1" pattern="\d+" required>
 				</div>
+
 
 				<div class="form group-row">
 					<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
