@@ -37,6 +37,8 @@ public class ServletEncherir extends HttpServlet {
 		Article article;
 		int id;
 		ArticleManager art = new ArticleManager();
+		
+		
 		if (request.getParameter("articleNumber") != null) {
 			id = Integer.parseInt(request.getParameter("articleNumber"));
 			article = art.selectByIdArticle(id);
@@ -48,10 +50,11 @@ public class ServletEncherir extends HttpServlet {
 		CategorieManager cat = new CategorieManager();
 		EnchereManager enc = new EnchereManager();
 		
+		// j'utilise les méthodes des Manager pour recuperé les informations de la bdd.
 		Enchere enchere = enc.selectMaxMontantByIdArticle(id);
-		
 		Categorie categorie = cat.selectById(article.getCategorie().getIdCategorie());
 		
+		// j'envoi les informations sur la JSP
 		request.setAttribute("article", article);
 		request.setAttribute("categorie", categorie);
 		request.setAttribute("enchere", enchere);
@@ -74,6 +77,7 @@ public class ServletEncherir extends HttpServlet {
 			return;
 		}
 		
+		// je test l'action envoyé par le boutons pour renvoyer vers les méthodes associées. 
 		if (request.getParameter("action").equals("modifier")) {
 			modifierArticle(request, response);
 		}else if (request.getParameter("action").equals("supprimer")) {
@@ -84,6 +88,7 @@ public class ServletEncherir extends HttpServlet {
 		}
 	}
 	
+	// méthode de suppression d'un article et suppression des enchères associé.
 	private void deleteArticle(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		ArticleManager art = new ArticleManager();
@@ -101,15 +106,18 @@ public class ServletEncherir extends HttpServlet {
 		}
 	}
 	
+	// méthode d'encherissement sur un article par un acheteur.
 	public void encherir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Encherir sur un article d'un utilisateur par un acheteur.
 		Enchere enchere = new Enchere();
 		EnchereManager ench = new EnchereManager();
 		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
-					
+		
+		// je recupère l'article a encherir 
 		Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
 		request.setAttribute("article", article);
+		// je récupère l'utilisateur
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
 		enchere.setArticle(article);
 		enchere.setUtilisateur(utilisateur);
@@ -124,16 +132,19 @@ public class ServletEncherir extends HttpServlet {
 		}
 	}
 	
+	// Méthodes de modifications d'un article par le vendeur
 	private void modifierArticle(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// modification d'un article par le vendeur.
+		
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
 		List<Categorie> categorie = cat.selectAll();
+		
+		// j'envoi les variables 
 		request.setAttribute("article", article);
 		request.setAttribute("categorie", categorie);
-		System.out.println(article);
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/modifierArticle.jsp");
 		requestDispatcher.forward(request, response);
 	}
