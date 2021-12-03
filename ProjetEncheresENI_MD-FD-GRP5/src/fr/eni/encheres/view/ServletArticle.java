@@ -52,7 +52,23 @@ public class ServletArticle extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		System.out.println("je suis dans le doPost ServletArticle");
+		String appPath = request.getServletContext().getRealPath("");
+		String uploadFilePath = appPath + UPLOAD_DIR;
+		File fileSaveDir = new File(uploadFilePath);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
+		
+		String fileName = null;
+		for (Part part : request.getParts()) {
+			if (part.getName().equals("image")) {
+				fileName = getFileName(part);
+				if (!fileName.equals(DEFAULT_IMG)) {
+					part.write(uploadFilePath + File.separator + fileName);
+				}
+				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
+			}
+		}
 		
 		String action = request.getParameter("action");
 		if (action.equals("ajouter")) {
@@ -61,9 +77,7 @@ public class ServletArticle extends HttpServlet {
 			} else {
 				modifierArticle(Integer.parseInt(request.getParameter("idArticle")), request, response);
 			}
-			
-		}else if (action.equals("annuler")) {
-		}
+		}else if (action.equals("annuler")) {}
 		
 		response.sendRedirect("encheres");
 		
@@ -97,36 +111,18 @@ public class ServletArticle extends HttpServlet {
 	
 	private void modifierArticle(int  idArticle, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String appPath = request.getServletContext().getRealPath("");
-		String uploadFilePath = appPath + UPLOAD_DIR;
-		File fileSaveDir = new File(uploadFilePath);
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdirs();
-		}
-		
-		String fileName = null;
-		for (Part part : request.getParts()) {
-			if (part.getName().equals("image")) {
-				fileName = getFileName(part);
-				if (!fileName.equals(DEFAULT_IMG)) {
-					part.write(uploadFilePath + File.separator + fileName);
-				}
-				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
-			}
-		}
 		
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
 		
-		System.out.println("je suis dans la méthode modifier article");
 		Article article = art.selectByIdArticle(idArticle);
 		try {
 
 			article.setNomArticle(request.getParameter("nomArticle"));
 			article.setDescription(request.getParameter("description"));
 			article.setCategorie(cat.selectById(Integer.valueOf(request.getParameter("categorie"))));
-			article.setUrlImage(request.getParameter("image"));
+			article.setUrlImage(String.valueOf(request.getAttribute("urlImage")));
 			article.setPrixInitial(Integer.parseInt(request.getParameter("prixInitial")));
 			article.setDateDebut(LocalDate.parse(request.getParameter("debutEnchere")));
 			article.setDateFin(LocalDate.parse(request.getParameter("finEnchere")));
