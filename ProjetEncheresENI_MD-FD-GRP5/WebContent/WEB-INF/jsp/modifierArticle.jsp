@@ -27,7 +27,7 @@
 
 		<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
 			<form method="post" action="<%=request.getContextPath()%>/article" enctype="multipart/form-data">
-				<input name="article" type="hidden" value="${article.idArticle}">
+				<input name="idArticle" type="hidden" value="${article.idArticle}">
 				<div class="form group-row">
 					<label for="article" class="col-form-label">Article :</label>
 					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" value="${article.nomArticle}" placeholder="Nom de l'article" required>
@@ -40,10 +40,16 @@
 
 				<div class="form group-row">
 					<label for="categorie" class="col-form-label">Catégories :</label>
-					<select name="categorie" class="col-2 col-form-select"
-						id="categorie" required>
+					<select name="categorie" class="col-2 col-form-select" id="categorie" required>
 						<c:forEach var="cat" items="${requestScope.categorie}">
-							<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
+							<c:choose >
+								<c:when test="${cat.getIdCategorie() == article.getCategorie().getIdCategorie()}">
+									<option value="${cat.getIdCategorie()}" selected>${cat.getLibelle()}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>
 				</div>

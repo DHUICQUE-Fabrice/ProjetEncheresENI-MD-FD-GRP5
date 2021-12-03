@@ -38,23 +38,11 @@ public class ServletArticle extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		CategorieManager cat = new CategorieManager();
-		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
-		
-		System.out.println("je suis dans la méthode doGet servlet article");
-		String id = request.getParameter("idarticle");
-		if (id == null) {
+				
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
 			requestDispatcher.forward(request, response);
-		} else {
-			System.out.println("je suis dans le else quand id != null");
-			// art.selectByIdArticle(Integer.parseInt(id));
-			art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
-			requestDispatcher.forward(request, response);
-		}
-		
 	}
 	
 	/**
@@ -63,38 +51,18 @@ public class ServletArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String appPath = request.getServletContext().getRealPath("");
-		String uploadFilePath = appPath + UPLOAD_DIR;
 		
 		System.out.println("je suis dans le doPost ServletArticle");
-				
-		File fileSaveDir = new File(uploadFilePath);
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdirs();
-		}
-		
-		String fileName = null;
-		for (Part part : request.getParts()) {
-			if (part.getName().equals("image")) {
-				fileName = getFileName(part);
-				if (!fileName.equals(DEFAULT_IMG)) {
-					part.write(uploadFilePath + File.separator + fileName);
-				}
-				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
-			}
-		}
 		
 		String action = request.getParameter("action");
 		if (action.equals("ajouter")) {
 			if (request.getParameter("idArticle") == null) {
 				ajouterArticle(request, response);
 			} else {
-				modifierArticle(request, response);
+				modifierArticle(Integer.parseInt(request.getParameter("idArticle")), request, response);
 			}
 			
-		} else if (action.equals("delete")) {
-			deleteArticle(request, response);
-		} else if (action.equals("annuler")) {
+		}else if (action.equals("annuler")) {
 		}
 		
 		response.sendRedirect("encheres");
@@ -127,17 +95,34 @@ public class ServletArticle extends HttpServlet {
 		}
 	}
 	
-	private void modifierArticle(HttpServletRequest request, HttpServletResponse response)
+	private void modifierArticle(int  idArticle, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		Article article = new Article();
+		String appPath = request.getServletContext().getRealPath("");
+		String uploadFilePath = appPath + UPLOAD_DIR;
+		File fileSaveDir = new File(uploadFilePath);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
+		
+		String fileName = null;
+		for (Part part : request.getParts()) {
+			if (part.getName().equals("image")) {
+				fileName = getFileName(part);
+				if (!fileName.equals(DEFAULT_IMG)) {
+					part.write(uploadFilePath + File.separator + fileName);
+				}
+				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
+			}
+		}
+		
 		CategorieManager cat = new CategorieManager();
 		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
 		
 		System.out.println("je suis dans la méthode modifier article");
+		Article article = art.selectByIdArticle(idArticle);
 		try {
-			
-			article.setIdArticle(Integer.parseInt(request.getParameter("idarticle")));
+
 			article.setNomArticle(request.getParameter("nomArticle"));
 			article.setDescription(request.getParameter("description"));
 			article.setCategorie(cat.selectById(Integer.valueOf(request.getParameter("categorie"))));
@@ -156,19 +141,7 @@ public class ServletArticle extends HttpServlet {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 	}
-	
-	private void deleteArticle(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		ArticleManager art = new ArticleManager();
 		
-		int id = Integer.parseInt(request.getParameter("idArticle"));
-		try {
-			art.deleteArticle(id);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
-		}
-	}
-	
 	private String getFileName(Part part) {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] tokens = contentDisp.split(";");
