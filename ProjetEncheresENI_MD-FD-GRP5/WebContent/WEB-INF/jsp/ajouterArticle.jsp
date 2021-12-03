@@ -30,12 +30,12 @@
 				enctype="multipart/form-data">
 				<div class="form group-row">
 					<label for="article" class="col-form-label">Article :</label>
-					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" placeholder="Nom de l'article" required>
+					<input name="nomArticle" type="text" class=" col-8 col-form-control" value="${article.nomArticle }" id="article" placeholder="Nom de l'article" required>
 				</div>
 
 				<div class="form group-row">
 					<label for="description" class="col-form-label">Descrption :</label>
-					<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required></textarea>
+					<textarea name="description" class="col-8 col-form-control is-invalid" id="description"  placeholder="Description de l'article vendu." required>${article.description }</textarea>
 				</div>
 
 				<div class="form group-row">
@@ -43,14 +43,21 @@
 					<select name="categorie" class="col-2 col-form-select"
 						id="categorie" required>
 						<c:forEach var="cat" items="${requestScope.categorie}">
-							<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
+							<c:choose>
+								<c:when test="${article.categorie.idCategorie == cat.idCategorie }">
+									<option value="${cat.idCategorie}" selected>${cat.libelle}</option>								
+								</c:when>
+								<c:otherwise>
+									<option value="${cat.idCategorie}">${cat.libelle}</option>								
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>
 				</div>
 
 				<div class="form group-row">
 					<label class="col-form-label">Photo de l'article :</label> 
-					<input name="image" type="file" class="col-8 col-form-control" aria-label="Upload image">
+					<input name="image" type="file" class="col-8 col-form-control" aria-label="Upload image"  value="${article.urlImage }">
 				</div>
 
 				<div class="form group-row">
@@ -60,12 +67,12 @@
 
 				<div class="form group-row">
 					<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-					<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" min="${LocalDate.now()}" required>
+					<input name="debutEnchere" type="date" class="col-2 col-form-control"  value="${article.dateDebut }" id="dateDebut" min="${LocalDate.now()}" required>
 				</div>
 
 				<div class="form group-row">
 					<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-					<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" min="${LocalDate.now()}" required>
+					<input name="finEnchere" type="date" class="col-2 col-form-control" value="${article.dateFin }" id="dateFin" min="${LocalDate.now()}" required>
 				</div>
 
 				<fieldset class="border p-2 col-7 form group-row">

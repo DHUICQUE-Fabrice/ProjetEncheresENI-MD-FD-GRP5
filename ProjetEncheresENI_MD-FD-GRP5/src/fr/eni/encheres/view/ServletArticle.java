@@ -67,7 +67,7 @@ public class ServletArticle extends HttpServlet {
 		for (Part part : request.getParts()) {
 			if (part.getName().equals("image")) {
 				fileName = getFileName(part, article);
-				if (!fileName.equals(DEFAULT_IMG)
+				if (!fileName.equals(DEFAULT_IMG) && article.getUrlImage() != null
 						&& !fileName.equals(article.getUrlImage().substring(UPLOAD_DIR.length() + 1))) {
 					part.write(uploadFilePath + File.separator + fileName);
 				}
@@ -82,10 +82,9 @@ public class ServletArticle extends HttpServlet {
 			} else {
 				modifierArticle(Integer.parseInt(request.getParameter("idArticle")), request, response);
 			}
-		} else if (action.equals("annuler")) {
+		} else {
+			response.sendRedirect("encheres");
 		}
-		
-		response.sendRedirect("encheres");
 		
 	}
 	
@@ -110,8 +109,11 @@ public class ServletArticle extends HttpServlet {
 		article.setUtilisateur((Utilisateur) session.getAttribute("user"));
 		try {
 			art.ajouter(article);
+			response.sendRedirect("encheres");
 		} catch (BusinessException e) {
+			request.setAttribute("article", article);
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
 		}
 	}
 	
@@ -137,9 +139,12 @@ public class ServletArticle extends HttpServlet {
 			article.setUtilisateur((Utilisateur) session.getAttribute("user"));
 			
 			art.updateArticle(article);
-			
+			response.sendRedirect("encheres");
 		} catch (BusinessException e) {
+			request.setAttribute("article", article);
+			
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
 		}
 	}
 	
@@ -149,7 +154,7 @@ public class ServletArticle extends HttpServlet {
 		for (String token : tokens) {
 			if (token.trim().startsWith("filename")) {
 				String fileToReturn;
-				if (article != null) {
+				if (article.getUrlImage() != null) {
 					fileToReturn = article.getUrlImage().substring(UPLOAD_DIR.length() + 1);
 				} else {
 					fileToReturn = DEFAULT_IMG;
