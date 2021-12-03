@@ -1,5 +1,4 @@
 <%@page import="fr.eni.encheres.bo.Utilisateur"%>
-
 <%@page import="fr.eni.encheres.bo.Article, java.time.LocalDate"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -17,100 +16,109 @@
 <body class="d-flex flex-column h-100">
 	<%@ include file="../inclusions/header.jspf"%>
 	<div class="flex-shrink-0">
-	<div>
-		<br>
-		<form method="post" action="encheres" class="form">
-			<fieldset class="col-7 form group-row">
-				<legend>Filtre :</legend>
-				<input name="filtre" type="text" id="filtre" class="col-4 col-form-control"><br> 
-				<label for="catSelect">Choix de la catégorie : </label> 
-				<select name="categorie" id="catSelect">
-					<option value="all">Toutes</option>
-					<c:forEach var="cat" items="${categories }">
-						<option value="${cat.idCategorie }">${cat.libelle }</option>
-					</c:forEach>
-				</select>
-				<button name="action" class="btn btn-primary" type="submit" value="rechercher">Rechercher</button>
-			</fieldset>
-		<c:if test="${!empty user }">
+		<div>
 			<br>
-			<div class="row">
-				<div class="col-4">
-					<label>Achats</label>
-					<input type="radio" id="achat" name="achatRadio" value="true" checked/>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="encheresOuvertes" id="encheresOuvertes" value = "encheresOuvertes"> <label class="form-check-label">Enchères ouvertes</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="encheresEnCours" id="encheresEnCours" value = "encheresEnCours"> <label class="form-check-label">Mes enchères en cours</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="encheresRemportees" id="encheresRemportees" value = "encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
-					</div>
-				</div>
-				<div class="col-4">
-					<label>Mes ventes</label> <input type="radio" id="vente" name="achatRadio" value="false" />
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="ventesEnCours" id="ventesEnCours" value = "ventesEnCours" disabled> <label class="form-check-label">Mes ventes en cours</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" value = "ventesNonDebutees" disabled> <label class="form-check-label">Mes ventes non débutées</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="ventesTerminees" id="ventesTerminees" value = "ventesTerminees" disabled> <label class="form-check-label">Mes ventes terminées</label>
-					</div>
-				</div>
-			</div>
-			</c:if>
-		</form>
-	</div>
-	<br>
-	<div class="container">
-		<div class="album py-5 bg-light">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-				<c:forEach var="article" items="${articles }">
-					<div class="col">
-						<div class="card shadow-sm">
-							<img class="bd-placeholder-img card-img-top" src="${article.urlImage }" alt="Image de ${article.nomArticle } (url : ${article.urlImage })">
-							<div class="card-body">
-								<c:choose>
-									<c:when test="${!empty sessionScope.user }">
-										<form method="post" action="encherir">
-											<input type="hidden" name="articleNumber" value="${article.idArticle }">
-											<p>
-												Nom de l'article : <input type="submit" class="btn btn-link" value="${article.nomArticle }">
-											</p>
-										</form>
-									</c:when>
-									<c:otherwise>
-										<p>Nom de l'article : ${article.nomArticle }</p>
-									</c:otherwise>
-								</c:choose>
-								<p>Description de l'article : ${article.description }</p>
-								<p>Début de l'enchère : ${article.dateDebut }</p>
-								<p>Fin de l'enchère : ${article.dateFin }</p>
-								<p>Mise à prix : ${article.prixInitial }</p>
-								<c:choose>
-									<c:when test="${!empty sessionScope.user }">
-										<form method="post" action="detailUtilisateur">
-											<input type="hidden" name="userNumber" value="${article.utilisateur.idUtilisateur }">
-											<p>
-												Vendeur : <input type="submit" class="btn btn-link" value="${article.utilisateur.pseudo }">
-											</p>
-										</form>
-									</c:when>
-									<c:otherwise>
-										<p>Vendeur : ${article.utilisateur.pseudo }</p>
-									</c:otherwise>
-								</c:choose>
-								<p>Catégorie : ${article.categorie.libelle }</p>
+			<form method="post" action="encheres" class="form">
+				<fieldset class="col-7 form group-row">
+					<legend>Filtre :</legend>
+					<input name="filtre" type="text" id="filtre" class="col-4 col-form-control"><br> <label for="catSelect">Choix de la catégorie : </label> <select name="categorie" id="catSelect">
+						<option value="all">Toutes</option>
+						<c:forEach var="cat" items="${categories }">
+							<option value="${cat.idCategorie }">${cat.libelle }</option>
+						</c:forEach>
+					</select>
+					<button name="action" class="btn btn-primary" type="submit" value="rechercher">Rechercher</button>
+				</fieldset>
+				<c:if test="${!empty user }">
+					<br>
+					<div class="row">
+						<div class="col-4">
+							<label>Achats</label> <input type="radio" id="achat" name="achatRadio" value="true" checked />
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="encheresOuvertes" id="encheresOuvertes" value="encheresOuvertes"> <label class="form-check-label">Enchères ouvertes</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="encheresEnCours" id="encheresEnCours" value="encheresEnCours"> <label class="form-check-label">Mes enchères en cours</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="encheresRemportees" id="encheresRemportees" value="encheresRemportees"> <label class="form-check-label">Mes enchères Remportées</label>
+							</div>
+						</div>
+						<div class="col-4">
+							<label>Mes ventes</label> <input type="radio" id="vente" name="achatRadio" value="false" />
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="ventesEnCours" id="ventesEnCours" value="ventesEnCours" disabled> <label class="form-check-label">Mes ventes en cours</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="ventesNonDebutees" id="ventesNonDebutees" value="ventesNonDebutees" disabled> <label class="form-check-label">Mes ventes non débutées</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="ventesTerminees" id="ventesTerminees" value="ventesTerminees" disabled> <label class="form-check-label">Mes ventes terminées</label>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
+				</c:if>
+			</form>
+		</div>
+		<br>
+		<div class="container">
+			<div class="album py-5 bg-light">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+					<c:forEach var="article" items="${articles }">
+						<div class="col">
+							<div class="card shadow-sm">
+								<img class="bd-placeholder-img card-img-top" src="${article.urlImage }" alt="Image de ${article.nomArticle } (url : ${article.urlImage })">
+								<div class="card-body">
+									<c:choose>
+										<c:when test="${!empty sessionScope.user }">
+											<c:choose>
+												<c:when test="${article.dateFin.isBefore(LocalDate.now()) }">
+													<form method="post" action="venteTerminer">
+														<input type="hidden" name="articleNumber" value="${article.idArticle }">
+														<p>
+															Nom de l'article : <input type="submit" class="btn btn-link" value="${article.nomArticle }">
+														</p>
+													</form>
+												</c:when>
+												<c:otherwise>
+													<form method="post" action="encherir">
+														<input type="hidden" name="articleNumber" value="${article.idArticle }">
+														<p>
+															Nom de l'article : <input type="submit" class="btn btn-link" value="${article.nomArticle }">
+														</p>
+													</form>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<p>Nom de l'article : ${article.nomArticle }</p>
+										</c:otherwise>
+									</c:choose>
+									<p>Description de l'article : ${article.description }</p>
+									<p>Début de l'enchère : ${article.dateDebut }</p>
+									<p>Fin de l'enchère : ${article.dateFin }</p>
+									<p>Mise à prix : ${article.prixInitial }</p>
+									<c:choose>
+										<c:when test="${!empty sessionScope.user }">
+											<form method="post" action="detailUtilisateur">
+												<input type="hidden" name="userNumber" value="${article.utilisateur.idUtilisateur }">
+												<p>
+													Vendeur : <input type="submit" class="btn btn-link" value="${article.utilisateur.pseudo }">
+												</p>
+											</form>
+										</c:when>
+										<c:otherwise>
+											<p>Vendeur : ${article.utilisateur.pseudo }</p>
+										</c:otherwise>
+									</c:choose>
+									<p>Catégorie : ${article.categorie.libelle }</p>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<%@ include file="../inclusions/footer.jspf"%>
 	<script>

@@ -186,7 +186,7 @@ public class ServletAccueil extends HttpServlet {
 							for (Article article : articles) {
 								EnchereManager enchereManager = new EnchereManager();
 								Enchere maxEnchere = enchereManager.selectMaxMontantByIdArticle(article.getIdArticle());
-								if (maxEnchere != null) {
+								if (maxEnchere.getUtilisateur() != null) {
 									if (maxEnchere.getUtilisateur().getIdUtilisateur() == utilisateur.getIdUtilisateur()
 											&& article.getDateFin().isBefore(LocalDate.now())) {
 										articlesTemp.add(article);
@@ -197,8 +197,10 @@ public class ServletAccueil extends HttpServlet {
 							break;
 						case "ventesEnCours":
 							for (Article article : articles) {
-								if (article.getDateDebut().isBefore(LocalDate.now())
-										&& article.getDateFin().isAfter(LocalDate.now())) {
+								if (((article.getDateDebut().isBefore(LocalDate.now()))
+										|| (article.getDateDebut().isEqual(LocalDate.now())))
+										&& ((article.getDateFin().isAfter(LocalDate.now()))
+												|| (article.getDateFin().isEqual(LocalDate.now())))) {
 									articlesTemp.add(article);
 								}
 							}
