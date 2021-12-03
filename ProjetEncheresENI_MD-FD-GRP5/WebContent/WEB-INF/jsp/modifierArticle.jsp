@@ -22,8 +22,7 @@
 
 <div class="row">
 		<nav id="sideMenu" class="col-12 col-sm-4 col-md-4">
-			<img src="img/image_default.jpg" class="img-fluid"
-				alt="image de l'article vendu." width="200" height="200" />
+			<img class="bd-placeholder-img card-img-top" src="${article.urlImage }" alt="Image de ${article.nomArticle }">
 		</nav>
 
 		<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
@@ -31,12 +30,12 @@
 				<input name="article" type="hidden" value="${article.idArticle}">
 				<div class="form group-row">
 					<label for="article" class="col-form-label">Article :</label>
-					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" value="${article.getNomArticle}" placeholder="Nom de l'article" required>
+					<input name="nomArticle" type="text" class=" col-8 col-form-control" id="article" value="${article.nomArticle}" placeholder="Nom de l'article" required>
 				</div>
 
 				<div class="form group-row">
 					<label for="description" class="col-form-label">Descrption :</label>
-					<textarea name="description" class="col-8 col-form-control is-invalid" id="description" value="${article.getDescription}" placeholder="Description de l'article vendu." required></textarea>
+					<textarea name="description" class="col-8 col-form-control is-invalid" id="description" placeholder="Description de l'article vendu." required>${article.description}</textarea>
 				</div>
 
 				<div class="form group-row">
@@ -56,17 +55,17 @@
 
 				<div class="form group-row">
 					<label class="col-form-label">Prix Initial :</label>
-					<input name="prixInitial" id="prixInitial" type="number" value="${article.getPrixInitial}"	placeholder="Prix Initial" min="1" pattern="\d+">
+					<input name="prixInitial" id="prixInitial" type="number" value="${article.prixInitial}"	placeholder="Prix Initial" min="1" pattern="\d+">
 				</div>
 
 				<div class="form group-row">
 					<label for="dateDebut" class="col-form-label">Début de l'enchère :</label>
-					<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" value="${article.getDateDebut}" min="${LocalDate.now()}" required>
+					<input name="debutEnchere" type="date" class="col-2 col-form-control" id="dateDebut" value="${article.dateDebut}" min="${LocalDate.now()}" required>
 				</div>
 
 				<div class="form group-row">
 					<label for="dateFin" class="col-form-label">Fin de l'enchère :</label>
-					<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" value="${article.getDateFin}" min="${LocalDate.now()}" required>
+					<input name="finEnchere" type="date" class="col-2 col-form-control" id="dateFin" value="${article.dateFin}" min="${LocalDate.now()}" required>
 				</div>
 
 				<fieldset class="col-7 form group-row">

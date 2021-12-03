@@ -2,6 +2,7 @@ package fr.eni.encheres.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -73,58 +74,68 @@ public class ServletEncherir extends HttpServlet {
 			return;
 		}
 		
-		
 		if (request.getParameter("action").equals("modifier")) {
-			// modification d'un article par le vendeur. 
-			System.out.println("je suis dans le modifier");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/modifierArticle.jsp");
-			requestDispatcher.forward(request, response);
-			
+			modifierArticle(request, response);
 		}else if (request.getParameter("action").equals("supprimer")) {
-			// Suppresion d'un article par le vendeur.
-			ArticleManager art = new ArticleManager();
-			Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
-			
-			deleteArticle(article, request, response);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
-			requestDispatcher.forward(request, response);
+			deleteArticle(request, response);
 			
 		}else if (request.getParameter("action").equals("encherir")) {
-			// Encherir sur un article d'un utilisateur par un acheteur.
-			Enchere enchere = new Enchere();
-			EnchereManager ench = new EnchereManager();
-			ArticleManager art = new ArticleManager();
-			HttpSession session = request.getSession();
-			
-			try {
-				Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
-				request.setAttribute("article", article);
-				Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
-				enchere.setArticle(article);
-				enchere.setUtilisateur(utilisateur);
-				enchere.setDateEnchere(LocalDate.now());
-				enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
-				ench.ajouter(enchere);
-				
-				doGet(request, response);
-				
-				//RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp");
-				//requestDispatcher.forward(request, response);
-			} catch (BusinessException e) {
-				request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
-				doGet(request, response);
-			}
+			encherir(request, response);
 		}
 	}
 	
-	private void deleteArticle(Article article, HttpServletRequest request, HttpServletResponse response)
+	private void deleteArticle(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		ArticleManager art = new ArticleManager();
+		Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+		
+		
 		int id = article.getIdArticle();
 		try {
 			art.deleteArticle(id);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
+			requestDispatcher.forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
 		}
 	}
+	
+	public void encherir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Encherir sur un article d'un utilisateur par un acheteur.
+		Enchere enchere = new Enchere();
+		EnchereManager ench = new EnchereManager();
+		ArticleManager art = new ArticleManager();
+		HttpSession session = request.getSession();
+					
+		Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+		request.setAttribute("article", article);
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("user");
+		enchere.setArticle(article);
+		enchere.setUtilisateur(utilisateur);
+		enchere.setDateEnchere(LocalDate.now());
+		enchere.setMontantEnchere(Integer.parseInt(request.getParameter("encherir")));
+		try {
+			ench.ajouter(enchere);
+			doGet(request, response);
+		} catch (BusinessException e) {
+			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
+		}
+	}
+	
+	private void modifierArticle(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		// modification d'un article par le vendeur.
+		CategorieManager cat = new CategorieManager();
+		ArticleManager art = new ArticleManager();
+		Article article = art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
+		List<Categorie> categorie = cat.selectAll();
+		request.setAttribute("article", article);
+		request.setAttribute("categorie", categorie);
+		System.out.println(article);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/jsp/modifierArticle.jsp");
+		requestDispatcher.forward(request, response);
+	}
+	
 }

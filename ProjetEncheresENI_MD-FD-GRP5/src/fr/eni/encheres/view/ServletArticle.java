@@ -41,12 +41,15 @@ public class ServletArticle extends HttpServlet {
 		ArticleManager art = new ArticleManager();
 		request.setAttribute("categorie", cat.selectAll());
 		
+		System.out.println("je suis dans la méthode doGet servlet article");
 		String id = request.getParameter("idarticle");
 		if (id == null) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
 			requestDispatcher.forward(request, response);
 		} else {
-			art.selectByIdArticle(Integer.parseInt(id));
+			System.out.println("je suis dans le else quand id != null");
+			// art.selectByIdArticle(Integer.parseInt(id));
+			art.selectByIdArticle(Integer.parseInt(request.getParameter("article")));
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/modifierArticle.jsp");
 			requestDispatcher.forward(request, response);
@@ -63,6 +66,8 @@ public class ServletArticle extends HttpServlet {
 		String appPath = request.getServletContext().getRealPath("");
 		String uploadFilePath = appPath + UPLOAD_DIR;
 		
+		System.out.println("je suis dans le doPost ServletArticle");
+				
 		File fileSaveDir = new File(uploadFilePath);
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdirs();
@@ -129,6 +134,7 @@ public class ServletArticle extends HttpServlet {
 		ArticleManager art = new ArticleManager();
 		HttpSession session = request.getSession();
 		
+		System.out.println("je suis dans la méthode modifier article");
 		try {
 			
 			article.setIdArticle(Integer.parseInt(request.getParameter("idarticle")));

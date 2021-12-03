@@ -17,7 +17,7 @@
 	<h2>Détails de la vente.</h2>
 	<div class="row">
 		<nav id="sideMenu" class="col-12 col-sm-4 col-md-4">
-			<img src="img/image_default.jpg" width="200" height="200" />
+			<img class="bd-placeholder-img card-img-top" src="${article.urlImage }" alt="Image de ${article.nomArticle }">
 		</nav>
 		<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
 			<form method="post" action="<%=request.getContextPath()%>/encherir">

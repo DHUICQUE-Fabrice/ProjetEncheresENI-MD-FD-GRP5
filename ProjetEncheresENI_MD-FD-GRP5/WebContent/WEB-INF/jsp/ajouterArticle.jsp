@@ -22,8 +22,7 @@
 
 	<div class="row">
 		<nav id="sideMenu" class="col-12 col-sm-4 col-md-4">
-			<img src="img/image_default.jpg" class="img-fluid"
-				alt="image de l'article vendu." width="200" height="200" />
+			<img class="bd-placeholder-img card-img-top" src="img/no-image-found-360x250.png">
 		</nav>
 
 		<div id="grilleChoix" class="col-12 col-sm-8 col-md-8">
