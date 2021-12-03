@@ -159,7 +159,15 @@ public class ServletAccueil extends HttpServlet {
 										|| (article.getDateDebut().isEqual(LocalDate.now()))
 												&& ((article.getDateFin().isAfter(LocalDate.now()))
 														|| article.getDateFin().isEqual(LocalDate.now()))))) {
-									articlesTemp.add(article);
+									Boolean add = true;
+									for (Article article1 : articlesTemp) {
+										if (article1.getIdArticle() == article.getIdArticle()) {
+											add = false;
+										}
+									}
+									if (add) {
+										articlesTemp.add(article);
+									}
 								}
 							}
 							break;
@@ -174,12 +182,16 @@ public class ServletAccueil extends HttpServlet {
 												.getIdUtilisateur()) {
 											add = true;
 										}
+										for (Article article1 : articlesTemp) {
+											if (article1.getIdArticle() == article.getIdArticle()) {
+												add = false;
+											}
+										}
 									}
 									if (add) {
 										articlesTemp.add(article);
 									}
 								}
-								
 							}
 							break;
 						case "encheresRemportees":
