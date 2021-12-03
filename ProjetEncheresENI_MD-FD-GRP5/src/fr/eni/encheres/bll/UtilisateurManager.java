@@ -183,6 +183,8 @@ public class UtilisateurManager {
 				if (cp < 1000 || cp > 99999) {
 					exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_VALEUR_ERREUR);
 				}
+			} else {
+				exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_NOMBRE_ERREUR);
 			}
 		} else {
 			exception.ajouterErreur(CodesErreursBLL.REGLE_CODE_POSTAL_NON_VIDE);

@@ -74,12 +74,13 @@ public class ServletEditProfile extends HttpServlet {
 			} else {
 				request.setAttribute("wrongPass", "wrong");
 			}
+			response.sendRedirect("monProfil");
 			
 		} catch (BusinessException e) {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
+			doGet(request, response);
 		}
 		
-		response.sendRedirect("monProfil");
 	}
 	
 }
