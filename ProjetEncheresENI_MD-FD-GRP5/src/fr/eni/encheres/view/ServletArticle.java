@@ -39,10 +39,10 @@ public class ServletArticle extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		CategorieManager cat = new CategorieManager();
 		request.setAttribute("categorie", cat.selectAll());
-				
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
-			requestDispatcher.forward(request, response);
-			
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/jsp/ajouterArticle.jsp");
+		requestDispatcher.forward(request, response);
+		
 	}
 	
 	/**
@@ -51,7 +51,11 @@ public class ServletArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		ArticleManager articleManager = new ArticleManager();
+		Article article = new Article();
+		if (request.getParameter("idArticle") != null) {
+			article = articleManager.selectByIdArticle(Integer.parseInt(request.getParameter("idArticle")));
+		}
 		String appPath = request.getServletContext().getRealPath("");
 		String uploadFilePath = appPath + UPLOAD_DIR;
 		File fileSaveDir = new File(uploadFilePath);
@@ -62,8 +66,9 @@ public class ServletArticle extends HttpServlet {
 		String fileName = null;
 		for (Part part : request.getParts()) {
 			if (part.getName().equals("image")) {
-				fileName = getFileName(part);
-				if (!fileName.equals(DEFAULT_IMG)) {
+				fileName = getFileName(part, article);
+				if (!fileName.equals(DEFAULT_IMG)
+						&& !fileName.equals(article.getUrlImage().substring(UPLOAD_DIR.length() + 1))) {
 					part.write(uploadFilePath + File.separator + fileName);
 				}
 				request.setAttribute("urlImage", UPLOAD_DIR + File.separator + fileName);
@@ -77,7 +82,8 @@ public class ServletArticle extends HttpServlet {
 			} else {
 				modifierArticle(Integer.parseInt(request.getParameter("idArticle")), request, response);
 			}
-		}else if (action.equals("annuler")) {}
+		} else if (action.equals("annuler")) {
+		}
 		
 		response.sendRedirect("encheres");
 		
@@ -109,7 +115,7 @@ public class ServletArticle extends HttpServlet {
 		}
 	}
 	
-	private void modifierArticle(int  idArticle, HttpServletRequest request, HttpServletResponse response)
+	private void modifierArticle(int idArticle, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
 		CategorieManager cat = new CategorieManager();
@@ -118,7 +124,6 @@ public class ServletArticle extends HttpServlet {
 		
 		Article article = art.selectByIdArticle(idArticle);
 		try {
-
 			article.setNomArticle(request.getParameter("nomArticle"));
 			article.setDescription(request.getParameter("description"));
 			article.setCategorie(cat.selectById(Integer.valueOf(request.getParameter("categorie"))));
@@ -137,14 +142,20 @@ public class ServletArticle extends HttpServlet {
 			request.setAttribute("listeCodesErreurs", e.getListeCodesErreurs());
 		}
 	}
-		
-	private String getFileName(Part part) {
+	
+	private String getFileName(Part part, Article article) {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] tokens = contentDisp.split(";");
 		for (String token : tokens) {
 			if (token.trim().startsWith("filename")) {
+				String fileToReturn;
+				if (article != null) {
+					fileToReturn = article.getUrlImage().substring(UPLOAD_DIR.length() + 1);
+				} else {
+					fileToReturn = DEFAULT_IMG;
+				}
 				if (token.length() < 15) {
-					return DEFAULT_IMG;
+					return fileToReturn;
 				}
 				return token.substring(token.indexOf("=") + 2, token.length() - 1);
 			}
